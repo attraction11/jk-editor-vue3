@@ -1,10 +1,4 @@
-/*
- * @Description: 粘贴板
- * @Author: ZY
- * @Date: 2020-12-28 10:39:21
- * @LastEditors: ZY
- * @LastEditTime: 2020-12-28 13:58:35
- */
+
 // Inspired by https://github.com/Inndy/vue-clipboard2
 import Clipboard from 'clipboard'
 import { Directive } from 'vue'

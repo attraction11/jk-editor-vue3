@@ -1,10 +1,4 @@
-/*
- * @Description: 
- * @Autor: ZY
- * @Date: 2020-11-11 13:59:28
- * @LastEditors: ZY
- * @LastEditTime: 2020-12-29 09:04:03
- */
+
 import log from '../utils/logger'
 import { MiddleWare } from '../type'
 
@@ -33,7 +27,7 @@ export const ResultHandler: MiddleWare = () => async (ctx, next) => {
       case 102:
         r.msg = "用户不存在";
         break;
-    
+
       default:
         break;
     }

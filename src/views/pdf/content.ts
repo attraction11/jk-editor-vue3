@@ -1,10 +1,4 @@
-/*
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 10:06:38
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-25 10:06:38
- */
+
 const title = 'Plans for the Next Iteration of Vue.js'
 
 const content = `<p>Last week at<a href="https://vuejs.london/summary" rel="nofollow">Vue.js London</a>I gave a brief sneak peek of what’s coming in the next major version of Vue. This post provides an in-depth overview of the plan.</p>

@@ -1,10 +1,4 @@
-/*
- * @Description: 
- * @Author: ZY
- * @Date: 2020-12-10 10:09:06
- * @LastEditors: ZY
- * @LastEditTime: 2020-12-10 14:41:18
- */
+
 import 'reflect-metadata'
 import fs from 'fs'
 import path from 'path'
@@ -29,7 +23,7 @@ const addRouter = (router: Router) => {
     const basePath:PathMeta = basePathMap.pop();
     if (routerMap.length) {
       const ctr = new m();
-      routerMap.forEach(route => {                
+      routerMap.forEach(route => {
         // const {name, method, path, isVerify} = route;
         const {name, method, path} = route;
         const newPath:String = basePath ? (basePath.path + path) : path;

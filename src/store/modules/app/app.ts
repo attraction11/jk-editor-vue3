@@ -1,10 +1,4 @@
-/*
- * @Description:
- * @Autor: WJM
- * @Date: 2021-01-16 15:49:20
- * @LastEditors: WJM
- * @LastEditTime: 2021-01-16 16:01:31
- */
+
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
 import { getSidebarStatus, getSize, setSidebarStatus, setLanguage, setSize } from '@/utils/cookies'
 import { getLocale } from '@/locales'

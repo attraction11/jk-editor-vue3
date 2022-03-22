@@ -117,7 +117,6 @@ export default defineComponent({
         dataMap.loading = true
         const reader = new FileReader()
         reader.onload = e => {
-          debugger
           const data = (e.target as FileReader).result
           const workbook = XLSX.read(data, { type: 'array' })
           const firstSheetName = workbook.SheetNames[0]

@@ -1,10 +1,4 @@
-/*
- * @Description:table列表接口
- * @Author: ZY
- * @Date: 2020-12-28 09:46:46
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-21 17:31:24
- */
+
 
 import { post, prefix, get } from "../requestDecorator";
 import faker from 'faker'

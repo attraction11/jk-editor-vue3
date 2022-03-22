@@ -1,10 +1,4 @@
-/*
- * @Description: app moudle
- * @Author: ZY
- * @Date: 2020-12-23 10:25:37
- * @LastEditors: ZY
- * @LastEditTime: 2020-12-23 11:51:40
- */
+
 import {
   Store as VuexStore,
   CommitOptions,

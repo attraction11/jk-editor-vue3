@@ -1,10 +1,4 @@
-/*
- * @Description: 角色列表
- * @Author: ZY
- * @Date: 2021-01-12 15:25:09
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-12 16:18:19
- */
+
 
 import { RoleBean } from "controller/type";
 import { asyncRoutes, constantRoutes } from './routes'

@@ -1,10 +1,4 @@
-/*
- * @Description:表格相关
- * @Author: scy
- * @Date: 2021-01-08 19:21:46
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-26 13:37:09
- */
+
 import { RouteRecordRaw } from 'vue-router'
 import Layout from '@/layout/Index.vue'
 

@@ -1,10 +1,4 @@
-/*
- * @Description: 
- * @Author: ZY
- * @Date: 2020-12-28 15:13:48
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-12 15:22:27
- */
+
 
 
 export interface UserBean {

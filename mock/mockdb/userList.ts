@@ -1,12 +1,6 @@
 import { UserBean } from "controller/type";
 
-/*
- * @Description: 所有的用户列表
- * @Author: ZY
- * @Date: 2020-12-28 14:58:13
- * @LastEditors: ZY
- * @LastEditTime: 2020-12-28 15:16:58
- */
+
 import faker from 'faker'
 
 const userList: UserBean[] = [

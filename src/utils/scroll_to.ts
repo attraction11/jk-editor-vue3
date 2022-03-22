@@ -1,10 +1,4 @@
-/*
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-13 09:08:13
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-13 09:08:14
- */
+
 const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
   t /= d / 2
   if (t < 1) {
