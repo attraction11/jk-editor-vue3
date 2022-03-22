@@ -13,7 +13,7 @@
     "build:prod": "cross-env NODE_ENV=production  dotenv -e .env.prod.build vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "mock": "cd mock && ts-node-dev mock.ts"
   },
   "dependencies": {

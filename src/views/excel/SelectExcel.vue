@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 11:40:04
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-27 13:55:06
--->
+
 <template>
   <div class="app-container">
     <el-input

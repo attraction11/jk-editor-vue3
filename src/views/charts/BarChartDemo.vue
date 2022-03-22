@@ -1,10 +1,4 @@
-<!--
- * @Description: 柱形图
- * @Author: ZY
- * @Date: 2021-01-08 19:24:26
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-15 09:06:21
--->
+
 <template>
   <div class="chart-container">
     <BarChart

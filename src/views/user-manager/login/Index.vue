@@ -1,22 +1,6 @@
-<!--
- * @Description: 登录页面
- * @Author: ZY
- * @Date: 2020-12-28 16:27:50
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-28 16:32:33
--->
 
 <template>
   <div class="login-container">
-    <video
-      poster="../../../assets/images/login/video-cover.jpeg"
-      loop
-      autoplay
-      muted
-    >
-      <source src="../../../assets/images/login/night.mp4">
-    </video>
-
     <el-form
       ref="loginFormRef"
       :model="loginForm"
@@ -29,10 +13,6 @@
         <h3 class="title">
           {{ t("login.title") }}
         </h3>
-        <LangSelect
-          :isWhite="true"
-          class="set-language"
-        />
       </div>
 
       <el-form-item prop="username">
@@ -92,37 +72,7 @@
       >
         {{ t("login.logIn") }}
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>{{ t("login.username") }} : admin </span>
-          <span>{{ t("login.password") }} : {{ t("login.any") }} </span>
-        </div>
-        <div class="tips">
-          <span>{{ t("login.username") }} : editor </span>
-          <span>{{ t("login.password") }} : {{ t("login.any") }} </span>
-        </div>
-
-        <el-button
-          class="thirdparty-button"
-          type="primary"
-          @click="showDialog = true"
-        >
-          {{ t("login.thirdparty") }}
-        </el-button>
-      </div>
     </el-form>
-
-    <el-dialog
-      :title="t('login.thirdparty')"
-      v-model="showDialog"
-    >
-      {{ t("login.thirdpartyTips") }}
-      <br>
-      <br>
-      <br>
-      <SocialSign />
-    </el-dialog>
   </div>
 </template>
 
@@ -136,18 +86,12 @@ import {
   nextTick,
   toRefs
 } from 'vue'
-import LangSelect from '@/components/lang_select/Index.vue'
-import SocialSign from './components/SocialSignin.vue'
 import { isValidUsername } from '@/utils/validate'
 import { useRoute, LocationQuery, useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { UserActionTypes } from '@/store/modules/user/action-types'
 import { useI18n } from 'vue-i18n'
 export default defineComponent({
-  components: {
-    LangSelect,
-    SocialSign
-  },
   setup() {
     const userNameRef = ref(null)
     const passwordRef = ref(null)
@@ -167,7 +111,6 @@ export default defineComponent({
       },
       passwordType: 'password',
       loading: false,
-      showDialog: false,
       capsTooltip: false,
       redirect: '',
       otherQuery: {}
@@ -314,15 +257,8 @@ export default defineComponent({
   width: 100%;
   overflow: hidden;
   // background-color: $loginBg;
-  video {
-    position: absolute;
-    /* Vertical and Horizontal center*/
-    top: 0; left: 0; right: 0; bottom: 0;
-    width:100%;
-    height:100%;
-    object-fit: cover;
-    z-index: -1;
-  }
+  background: url('~@/assets/images/login/video-cover.jpeg') no-repeat;
+  background-size: 100% 100%;
   .login-form {
     position: relative;
     width: 520px;

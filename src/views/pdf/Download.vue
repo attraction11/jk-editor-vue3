@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 10:07:06
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-27 13:40:57
--->
+
 <template>
   <div
     v-loading.fullscreen.lock="fullscreenLoading"

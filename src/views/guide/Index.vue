@@ -1,10 +1,4 @@
-<!--
- * @Description: 引导模式
- * @Author: ZY
- * @Date: 2021-01-21 20:20:18
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-27 13:56:12
--->
+
 <template>
   <div class="app-container">
     <aside>

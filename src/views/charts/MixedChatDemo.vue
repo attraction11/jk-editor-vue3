@@ -1,10 +1,4 @@
-<!--
- * @Description: 混合图表
- * @Author: ZY
- * @Date: 2021-01-08 19:27:45
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-15 17:41:16
--->
+
 <template>
   <div class="chart-container">
     <MixedChart

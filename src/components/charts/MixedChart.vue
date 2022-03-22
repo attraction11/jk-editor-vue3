@@ -1,10 +1,3 @@
-<!--
- * @Description: 混合图表
- * @Author: ZY
- * @Date: 2021-01-14 15:11:02
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-26 10:03:08
--->
 
 <template>
   <div

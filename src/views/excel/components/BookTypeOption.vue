@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 11:40:50
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-29 09:42:34
--->
+
 <template>
   <div style="display:inline-block;">
     <label class="radio-label">Book Type: </label>

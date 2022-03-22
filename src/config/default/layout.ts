@@ -8,24 +8,24 @@
 
 interface LayoutSettings {
     // Controls settings panel display
-    showSettings: boolean 
+    showSettings: boolean
     // Controls tagsview display
-    showTagsView: boolean 
+    showTagsView: boolean
     // Controls siderbar logo display
-    showSidebarLogo: boolean 
+    showSidebarLogo: boolean
     // If true, will fix the header component
-    fixedHeader: boolean 
+    fixedHeader: boolean
     // If true, will change active text color for sidebar based on theme
-    sidebarTextTheme: boolean 
+    sidebarTextTheme: boolean
   }
-  
+
   // You can customize below settings :)
   const layoutSettings: LayoutSettings = {
     showSettings: true,
-    showTagsView: true,
-    fixedHeader: false,
+    showTagsView: false,
+    fixedHeader: true,
     showSidebarLogo: true,
     sidebarTextTheme: true,
   }
-  
+
   export default layoutSettings

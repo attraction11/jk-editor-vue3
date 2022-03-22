@@ -1,10 +1,4 @@
-<!--
- * @Description:  to do item
- * @Author: ZY
- * @Date: 2021-01-15 18:50:38
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-06-02 11:31:16
--->
+
 <template>
   <li
     :class="{completed: todo.done, editing: editing}"

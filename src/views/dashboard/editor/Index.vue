@@ -1,10 +1,3 @@
-<!--
- * @Description: 编辑权限主页
- * @Author: ZY
- * @Date: 2021-01-16 15:16:47
- * @LastEditors: SCY
- * @LastEditTime: 2021-04-02 09:42:20
--->
 
 <template>
   <div class="dashboard-editor-container">

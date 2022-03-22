@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-23 11:02:49
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-23 11:02:50
--->
+
 <template>
   <div class="app-container">
     <div v-if="user">

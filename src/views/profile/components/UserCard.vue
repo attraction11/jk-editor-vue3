@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-23 11:03:44
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-23 11:03:44
--->
+
 <template>
   <el-card style="margin-bottom:20px;">
     <template #header>

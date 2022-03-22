@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-23 11:03:14
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-23 11:03:14
--->
+
 <template>
   <div class="user-activity">
     <div class="post">

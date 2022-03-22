@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: WJM
- * @Date: 2021-01-18 17:28:28
- * @LastEditors: WJM
- * @LastEditTime: 2021-01-19 17:29:52
--->
+
 <template>
   <div>
     <VueDropzone

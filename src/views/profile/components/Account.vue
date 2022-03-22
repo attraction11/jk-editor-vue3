@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-23 11:03:02
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-23 11:04:08
--->
+
 <template>
   <el-form>
     <el-form-item label="Name">

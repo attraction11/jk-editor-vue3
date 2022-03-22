@@ -1,13 +1,6 @@
-<!--
- * @Description: admin 权限主页
- * @Author: ZY
- * @Date: 2021-01-15 18:44:25
- * @LastEditors: SCY
- * @LastEditTime: 2021-04-02 09:40:07
--->
+
 <template>
   <div class="dashboard-editor-container">
-    <GithubCorner class="github-corner" />
     <PanelGroup @handle-set-line-chart-data="handleSetLineChartData" />
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;border-radius: 8px;">
       <LineChart :chart-data="lineChartData" />
@@ -93,7 +86,6 @@
 
 <script>
 import { ref } from 'vue'
-import GithubCorner from '@/components/github-corner/Index.vue'
 import PanelGroup from './components/PanelGroup.vue'
 import LineChart from './components/LineChart.vue'
 import RadarChart from './components/RadarChart.vue'
@@ -105,7 +97,6 @@ import BoxCard from './components/BoxCard.vue'
 import UpdateTimeline from './components/UpdateTimeline.vue'
 export default {
   components: {
-    GithubCorner,
     PanelGroup,
     LineChart,
     RadarChart,

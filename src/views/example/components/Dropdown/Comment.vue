@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-14 15:02:29
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-14 16:26:39
--->
+
 <template>
   <el-dropdown
     :show-timeout="100"

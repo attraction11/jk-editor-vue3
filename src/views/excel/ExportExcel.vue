@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 11:39:10
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-29 09:41:53
--->
+
 <template>
   <div class="app-container">
     <div>

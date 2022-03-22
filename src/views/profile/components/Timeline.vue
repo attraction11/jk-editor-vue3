@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-23 11:03:25
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-23 11:03:26
--->
+
 <template>
   <div class="block">
     <el-timeline>

@@ -1,10 +1,4 @@
-<!--
- * @Description: 折线图
- * @Author: ZY
- * @Date: 2021-01-14 15:10:44
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-26 10:01:54
--->
+
 <template>
   <div
     :id="id"

@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 11:40:38
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-25 11:40:39
--->
+
 <template>
   <div style="display:inline-block;">
     <label class="radio-label">Cell Auto-Width: </label>

@@ -1,10 +1,4 @@
-<!--
- * @Description: 柱形图
- * @Author: ZY
- * @Date: 2021-01-14 15:10:30
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-26 10:02:33
--->
+
 <template>
   <div
     :id="id"

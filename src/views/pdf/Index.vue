@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-25 10:07:11
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-27 13:56:48
--->
+
 <template>
   <div class="app-container">
     <aside style="margin-top:15px;">

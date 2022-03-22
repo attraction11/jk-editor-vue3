@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: WJM
- * @Date: 2021-01-20 10:12:44
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-21 18:45:50
--->
+
 <template>
   <div class="components-container board">
     <DraggableKanban

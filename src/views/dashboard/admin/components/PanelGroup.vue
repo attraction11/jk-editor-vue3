@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Author: ZY
- * @Date: 2021-01-18 10:48:43
- * @LastEditors: SCY
- * @LastEditTime: 2021-04-02 10:00:26
--->
+
 <template>
   <el-row
     :gutter="40"

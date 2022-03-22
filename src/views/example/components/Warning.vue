@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-14 15:01:56
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-27 13:53:17
--->
+
 <template>
   <aside>
     {{ t('example.warning') }}

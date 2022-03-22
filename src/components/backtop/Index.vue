@@ -1,10 +1,3 @@
-<!--
- * @Description:
- * @Author: ZY
- * @Date: 2021-01-14 09:11:22
- * @LastEditors: WJM
- * @LastEditTime: 2021-01-21 13:47:23
--->
 
 <template>
   <transition :name="transitionName">

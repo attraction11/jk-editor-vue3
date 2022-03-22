@@ -1,10 +1,4 @@
-<!--
- * @Description:
- * @Autor: scy😊
- * @Date: 2021-01-14 08:40:34
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-27 15:23:47
--->
+
 <template>
   <div class="tab-container">
     <el-tag>mounted times ：{{ createdTimes }}</el-tag>
