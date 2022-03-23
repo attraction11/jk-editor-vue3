@@ -135,7 +135,7 @@ export default defineComponent({
   left: 0;
   z-index: 1001;
   overflow: hidden;
-  background-color: #ffffff !important;
+  background-color: #263238 !important;
 }
 
 .fixed-header {

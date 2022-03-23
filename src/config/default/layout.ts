@@ -18,7 +18,7 @@ interface LayoutSettings {
     showSettings: true,
     showTagsView: false,
     fixedHeader: true,
-    showSidebarLogo: true,
+    showSidebarLogo: false,
     sidebarTextTheme: true,
   }
 

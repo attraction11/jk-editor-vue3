@@ -22,7 +22,18 @@ export default class User {
  @get('/userInfo')
  async getUserInfo(ctx:Koa.Context){
     let token = ctx.request.header.token
-    return token === 'admin-token' ? userList[0] :  userList[1]
+    let userInfo;
+    switch (token) {
+      case 'admin-token':
+        userInfo = userList[0];
+        break;
+      case 'editor-token':
+        userInfo = userList[1];
+        break;
+      default:
+        userInfo = userList[2]
+    }
+    return userInfo
  }
 
  @get('/getUsers')

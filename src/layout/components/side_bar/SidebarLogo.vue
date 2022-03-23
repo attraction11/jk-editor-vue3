@@ -27,7 +27,7 @@
           :src="Logo"
         >
         <h4 class="sidebar-title">
-          Vue<span style="color:#57CAEB">3</span>管理后台
+          云文档
         </h4>
       </router-link>
     </transition>
@@ -91,7 +91,7 @@ export default defineComponent({
     & .sidebar-title {
       display: inline-block;
       margin: 0;
-      color: #435EBE;
+      color: #fff;
       font-weight: 600;
       line-height: 50px;
       font-size: 16px;
