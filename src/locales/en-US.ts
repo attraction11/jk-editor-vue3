@@ -5,19 +5,19 @@ export default {
     collapse: {
       title: `Type <code>${
         isMacos ? '⌘' : 'Ctrl'
-      }</code> + <code>/</code> to quickly insert a card`,
+      }</code> + <code>/</code> to quickly insert a card`
     },
     undo: {
-      title: 'Undo',
+      title: 'Undo'
     },
     redo: {
-      title: 'Redo',
+      title: 'Redo'
     },
     paintformat: {
-      title: 'Format brush',
+      title: 'Format brush'
     },
     removeformat: {
-      title: 'Clear format',
+      title: 'Clear format'
     },
     heading: {
       title: 'Text and title',
@@ -27,7 +27,7 @@ export default {
       h3: 'Heading 3',
       h4: 'Heading 4',
       h5: 'Heading 5',
-      h6: 'Heading 6',
+      h6: 'Heading 6'
     },
     fontfamily: {
       title: 'Font family',
@@ -55,71 +55,71 @@ export default {
         heitiSC: 'Heiti SC',
         fzHei: 'FZHeiTi',
         fzKai: 'FZKaiTi',
-        fzFangSong: 'FZFangSong',
-      },
+        fzFangSong: 'FZFangSong'
+      }
     },
     fontsize: {
-      title: 'Font size',
+      title: 'Font size'
     },
     fontcolor: {
       title: 'Font color',
-      more: 'More colors',
+      more: 'More colors'
     },
     backcolor: {
       title: 'Background color',
-      more: 'More colors',
+      more: 'More colors'
     },
     bold: {
-      title: 'Bold',
+      title: 'Bold'
     },
     italic: {
-      title: 'Italic',
+      title: 'Italic'
     },
     strikethrough: {
-      title: 'Strikethrough',
+      title: 'Strikethrough'
     },
     underline: {
-      title: 'Underline',
+      title: 'Underline'
     },
     moremark: {
       title: 'More text styles',
       sup: 'Sup',
       sub: 'Sub',
-      code: 'Inline code',
+      code: 'Inline code'
     },
     alignment: {
       title: 'Alignment',
       left: 'Align left',
       center: 'Align center',
       right: 'Align right',
-      justify: 'Align justify',
+      justify: 'Align justify'
     },
     unorderedlist: {
-      title: 'Unordered list',
+      title: 'Unordered list'
     },
     orderedlist: {
-      title: 'Ordered list',
+      title: 'Ordered list'
     },
     tasklist: {
-      title: 'Task list',
+      title: 'Task list'
     },
     indent: {
       title: 'Ident',
       in: 'Increase indent',
-      out: 'Reduce indent',
+      out: 'Reduce indent'
     },
     'line-height': {
       title: 'Line height',
-      default: 'Default',
+      default: 'Default'
     },
     link: {
-      title: 'Insert Link',
+      title: 'Insert Link'
     },
     quote: {
-      title: 'Insert reference',
+      title: 'Insert reference'
     },
     hr: {
-      title: 'Insert dividing line',
+      title: 'Insert dividing line'
     },
     colorPicker: {
       defaultText: 'Default Color',
@@ -193,40 +193,40 @@ export default {
       '#003A8C': 'Light Blue 5',
       '#061178': 'Blue 5',
       '#22075E': 'Purple 5',
-      '#780650': 'Magenta 5',
+      '#780650': 'Magenta 5'
     },
     component: {
-      placeholder: 'Card name',
+      placeholder: 'Card name'
     },
     image: {
-      title: 'Image',
+      title: 'Image'
     },
     codeblock: {
-      title: 'Codeblock',
+      title: 'Codeblock'
     },
     table: {
-      title: 'Table',
+      title: 'Table'
     },
     file: {
-      title: 'File',
+      title: 'File'
     },
     video: {
-      title: 'Video',
+      title: 'Video'
     },
     math: {
-      title: 'Formula',
+      title: 'Formula'
     },
     status: {
-      title: 'Status',
+      title: 'Status'
     },
     mind: {
-      title: 'Mind Map',
+      title: 'Mind Map'
     },
     commonlyUsed: {
-      title: 'Commonly used',
+      title: 'Commonly used'
     },
     searchEmtpy: {
-      title: 'No matching card',
-    },
-  },
+      title: 'No matching card'
+    }
+  }
 }

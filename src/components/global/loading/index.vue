@@ -1,6 +1,10 @@
 <template>
-  <div class="loading" :tip="text || '加载中'" :spinning="loading">
-    <slot></slot>
+  <div
+    class="loading"
+    :tip="text || '加载中'"
+    :spinning="loading"
+  >
+    <slot />
   </div>
 </template>
 

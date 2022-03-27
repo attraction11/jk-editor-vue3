@@ -4,96 +4,96 @@ import { isSupportFontFamily } from '../utils'
 export const defaultData = [
   {
     key: 'default',
-    value: '',
+    value: ''
   },
   {
     key: 'arial',
-    value: 'Arial',
+    value: 'Arial'
   },
   {
     key: 'comicSansMS',
-    value: '"Comic Sans MS"',
+    value: '"Comic Sans MS"'
   },
   {
     key: 'courierNew',
-    value: '"Courier New"',
+    value: '"Courier New"'
   },
   {
     key: 'georgia',
-    value: 'Georgia',
+    value: 'Georgia'
   },
   {
     key: 'helvetica',
-    value: 'Helvetica',
+    value: 'Helvetica'
   },
   {
     key: 'impact',
-    value: 'Impact',
+    value: 'Impact'
   },
   {
     key: 'timesNewRoman',
-    value: '"Times New Roman"',
+    value: '"Times New Roman"'
   },
   {
     key: 'trebuchetMS',
-    value: '"Trebuchet MS"',
+    value: '"Trebuchet MS"'
   },
   {
     key: 'verdana',
-    value: 'Verdana',
+    value: 'Verdana'
   },
   {
     key: 'fangSong',
-    value: 'FangSong, 仿宋, FZFangSong-Z02S, STFangsong, fangsong',
+    value: 'FangSong, 仿宋, FZFangSong-Z02S, STFangsong, fangsong'
   },
   {
     key: 'stFangsong',
-    value: 'STFangsong, 华文仿宋, FangSong, FZFangSong-Z02S, fangsong',
+    value: 'STFangsong, 华文仿宋, FangSong, FZFangSong-Z02S, fangsong'
   },
   {
     key: 'stSong',
-    value: 'STSong, 华文宋体, SimSun, "Songti SC", NSimSun, serif',
+    value: 'STSong, 华文宋体, SimSun, "Songti SC", NSimSun, serif'
   },
   {
     key: 'stKaiti',
-    value: 'STKaiti, 华文楷体, KaiTi, "Kaiti SC", cursive',
+    value: 'STKaiti, 华文楷体, KaiTi, "Kaiti SC", cursive'
   },
   {
     key: 'simSun',
-    value: 'SimSun, 宋体, "Songti SC", NSimSun, STSong, serif',
+    value: 'SimSun, 宋体, "Songti SC", NSimSun, STSong, serif'
   },
   {
     key: 'microsoftYaHei',
-    value: '"Microsoft YaHei", 微软雅黑, "PingFang SC", SimHei, STHeiti, sans-serif',
+    value: '"Microsoft YaHei", 微软雅黑, "PingFang SC", SimHei, STHeiti, sans-serif'
   },
   {
     key: 'kaiTi',
-    value: 'KaiTi, 楷体, STKaiti, "Kaiti SC", cursive',
+    value: 'KaiTi, 楷体, STKaiti, "Kaiti SC", cursive'
   },
   {
     key: 'kaitiSC',
-    value: '"Kaiti SC"',
+    value: '"Kaiti SC"'
   },
   {
     key: 'simHei',
-    value: 'SimHei, 黑体, "Microsoft YaHei", "PingFang SC", STHeiti, sans-serif',
+    value: 'SimHei, 黑体, "Microsoft YaHei", "PingFang SC", STHeiti, sans-serif'
   },
   {
     key: 'heitiSC',
-    value: '"Heiti SC"',
+    value: '"Heiti SC"'
   },
   {
     key: 'fzHei',
-    value: 'FZHei-B01S',
+    value: 'FZHei-B01S'
   },
   {
     key: 'fzKai',
-    value: 'FZKai-Z03S',
+    value: 'FZKai-Z03S'
   },
   {
     key: 'fzFangSong',
-    value: 'FZFangSong-Z02S',
-  },
+    value: 'FZFangSong-Z02S'
+  }
 ]
 /**
  * 生成字体下拉列表项
@@ -118,8 +118,8 @@ export default (
       hotkey: false,
       disabled,
       title: disabled
-        ? (language && language['notInstalled']) || 'The font may not be installed'
-        : undefined,
+        ? (language && language.notInstalled) || 'The font may not be installed'
+        : undefined
     }
   })
 }

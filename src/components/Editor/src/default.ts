@@ -29,7 +29,7 @@ export const getDefaultStyle = () => ({
   overflowY: 'auto',
   boxShadow: 'rgba(158, 161, 165, 0.4) 0px 2px 12px 0px',
   minHeight: 'calc(100vh - 36px)',
-  fontFamily: 'SimSun, 宋体, "Songti SC", NSimSun, STSong, serif',
+  fontFamily: 'SimSun, 宋体, "Songti SC", NSimSun, STSong, serif'
 })
 
 export const defaultPCToolbarItems: GroupItemProps[] = [
@@ -40,24 +40,24 @@ export const defaultPCToolbarItems: GroupItemProps[] = [
   ['fontcolor', 'backcolor'],
   ['alignment'],
   ['unorderedlist', 'orderedlist', 'tasklist', 'indent', 'line-height'],
-  ['link', 'quote', 'hr'],
+  ['link', 'quote', 'hr']
 ]
 
 export const defaultMobileToolbarItems: GroupItemProps[] = [
   ['undo', 'redo'],
   {
     icon: 'text',
-    items: ['bold', 'italic', 'strikethrough', 'underline', 'moremark'],
+    items: ['bold', 'italic', 'strikethrough', 'underline', 'moremark']
   },
   [
     {
       type: 'button',
       name: 'image-uploader',
-      icon: 'image',
+      icon: 'image'
     },
     'link',
     'tasklist',
-    'heading',
+    'heading'
   ],
   {
     icon: 'more',
@@ -65,45 +65,45 @@ export const defaultMobileToolbarItems: GroupItemProps[] = [
       {
         type: 'button',
         name: 'video-uploader',
-        icon: 'video',
+        icon: 'video'
       },
       {
         type: 'button',
         name: 'file-uploader',
-        icon: 'attachment',
+        icon: 'attachment'
       },
       {
         type: 'button',
         name: 'table',
-        icon: 'table',
+        icon: 'table'
       },
       {
         type: 'button',
         name: 'math',
-        icon: 'math',
+        icon: 'math'
       },
       {
         type: 'button',
         name: 'codeblock',
-        icon: 'codeblock',
+        icon: 'codeblock'
       },
       {
         type: 'button',
         name: 'orderedlist',
-        icon: 'orderedlist',
+        icon: 'orderedlist'
       },
       {
         type: 'button',
         name: 'unorderedlist',
-        icon: 'unorderedlist',
+        icon: 'unorderedlist'
       },
       {
         type: 'button',
         name: 'hr',
-        icon: 'hr',
-      },
-    ],
-  },
+        icon: 'hr'
+      }
+    ]
+  }
 ]
 
 export const getDefaultToolbarItems = (isMobile: boolean): GroupItemProps[] => {

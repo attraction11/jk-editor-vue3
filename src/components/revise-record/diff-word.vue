@@ -1,23 +1,27 @@
 <template>
-  <div :class="props.id" :data-id="props.id" @click="scrollTop" />
+  <div
+    :class="props.id"
+    :data-id="props.id"
+    @click="scrollTop"
+  />
 </template>
 
 <script setup lang="ts" name="diff-html">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 
 const props = defineProps({
   id: {
     type: String,
-    required: true,
+    required: true
   },
   origin: {
     type: String,
-    required: true,
+    required: true
   },
   history: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const selectNode = document.querySelector(`.am-engine p[data-id=${props.id}]`)
@@ -28,6 +32,7 @@ const scrollTop = () => {
 }
 
 onMounted(() => {
+  // eslint-disable-next-line no-undef
   const diff = Diff.diffChars(props.origin, props.history)
   const fragment = document.createDocumentFragment()
 

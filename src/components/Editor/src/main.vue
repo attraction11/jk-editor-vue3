@@ -4,18 +4,33 @@
       <a-layout class="h-full">
         <a-layout-header>
           <div class="doc-wrap">
-            <div class="title">研发环境部署</div>
-            <div class="sub-title">技术文档 | 研发部</div>
+            <a
+              href="/"
+              class="logo"
+            >
+              <img
+                :src="logo"
+                alt=""
+              >
+            </a>
+            <div class="doc-topic">
+              <div class="title">
+                研发环境部署
+              </div>
+              <div class="sub-title">
+                技术文档 | 研发部
+              </div>
+            </div>
           </div>
           <ul class="operate">
-            <li>
+            <!-- <li>
               <a-select
                 v-model:value="docModeValue"
                 style="width: 120px"
                 :options="docMode"
                 @change="handleChange"
               ></a-select>
-            </li>
+            </li> -->
             <li>
               <a-avatar
                 src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -24,7 +39,11 @@
           </ul>
         </a-layout-header>
         <a-layout>
-          <a-layout-sider :collapsed="true" collapsible :trigger="null">
+          <a-layout-sider
+            :collapsed="true"
+            collapsible
+            :trigger="null"
+          >
             <a-menu mode="inline">
               <a-menu-item key="1">
                 <template #icon>
@@ -47,11 +66,15 @@
             </a-menu>
           </a-layout-sider>
           <a-layout-content class="overflow-auto">
-            <AmToolbar v-if="engine" :engine="engine" :items="toolbarItems" />
+            <AmToolbar
+              v-if="engine"
+              :engine="engine"
+              :items="toolbarItems"
+            />
             <div :class="['editor-wrapper', { 'editor-mobile': isMobile }]">
               <div class="editor-container text-left">
                 <div class="editor-content">
-                  <div ref="container"></div>
+                  <div ref="container" />
                 </div>
               </div>
             </div>
@@ -62,7 +85,9 @@
         </a-layout>
       </a-layout>
       <a-back-top>
-        <div class="ant-back-top-inner">UP</div>
+        <div class="ant-back-top-inner">
+          UP
+        </div>
       </a-back-top>
     </div>
   </div>
@@ -70,6 +95,7 @@
 
 <script setup lang="ts" name="RedaxeEditor">
 import { onMounted, onUnmounted, ref } from 'vue'
+import logo from '~/assets/logo.svg'
 
 import ReviseRecord from '~/components/revise-record/index.vue'
 import { DesktopOutlined, FolderOutlined, DeleteOutlined } from '@ant-design/icons-vue'
@@ -80,21 +106,21 @@ import { cards, plugins, pluginConfig } from './config'
 import { defaultContent, getDefaultToolbarItems, getDefaultStyle } from './default'
 import { StyleOption, NODES, Message, ChangePayload } from './types'
 
-const docModeValue = ref<string>('2')
-const docMode = ref<SelectTypes['options']>([
-  {
-    value: '1',
-    label: '只读',
-  },
-  {
-    value: '2',
-    label: '修订',
-  },
-])
+// const docModeValue = ref<string>('2')
+// const docMode = ref<SelectTypes['options']>([
+//   {
+//     value: '1',
+//     label: '只读',
+//   },
+//   {
+//     value: '2',
+//     label: '修订',
+//   },
+// ])
 
-const handleChange = () => {
-  engine.value.options.readonly = docModeValue.value === '1'
-}
+// const handleChange = () => {
+//   engine.value.options.readonly = docModeValue.value === '1'
+// }
 
 interface IProps {
   modelValue?: string
@@ -107,7 +133,7 @@ const props = withDefaults(defineProps<IProps>(), {
   modelValue: defaultContent,
   items: () => getDefaultToolbarItems(isMobile),
   customToolbarItems: () => [],
-  styleOption: () => ({}),
+  styleOption: () => ({})
 })
 
 const styles = ref<StyleOption>({ ...getDefaultStyle(), ...props.styleOption })
@@ -133,7 +159,7 @@ const loading = ref(true)
 
 defineExpose({
   engine,
-  container,
+  container
 })
 
 // 处理文章段落的编辑权限
@@ -147,7 +173,7 @@ const initEngineRole = () => {
   selectNode.style.userSelect = ''
 
   const span = document.createElement('span')
-  span.innerHTML = `<svg style="position: absolute;right: -15px;bottom: 4px;cursor: pointer; width: 20px; height: 20px;" t="1648298084608" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2196" width="200" height="200"><path d="M785.066667 416H381.866667v-121.6c0-74.666667 61.866667-134.4 138.666666-134.4 59.733333 0 113.066667 36.266667 132.266667 91.733333 6.4 17.066667 23.466667 25.6 40.533333 19.2 17.066667-6.4 25.6-23.466667 19.2-40.533333-27.733333-81.066667-104.533333-134.4-192-134.4-110.933333 0-202.666667 89.6-202.666666 198.4v121.6h-78.933334c-55.466667 0-100.266667 44.8-100.266666 100.266667v311.466666c0 55.466667 44.8 100.266667 100.266666 100.266667h546.133334c55.466667 0 100.266667-44.8 100.266666-100.266667V516.266667c0-55.466667-44.8-100.266667-100.266666-100.266667z m36.266666 411.733333c0 19.2-17.066667 36.266667-36.266666 36.266667H238.933333c-19.2 0-36.266667-17.066667-36.266666-36.266667V516.266667c0-19.2 17.066667-36.266667 36.266666-36.266667h546.133334c19.2 0 36.266667 17.066667 36.266666 36.266667v311.466666z" p-id="2197"></path><path d="M512 544c-17.066667 0-32 14.933333-32 32v106.666667c0 17.066667 14.933333 32 32 32s32-14.933333 32-32v-106.666667c0-17.066667-14.933333-32-32-32z" p-id="2198"></path></svg>`
+  span.innerHTML = '<svg style="position: absolute;right: -15px;bottom: 4px;cursor: pointer; width: 20px; height: 20px;" t="1648298084608" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2196" width="200" height="200"><path d="M785.066667 416H381.866667v-121.6c0-74.666667 61.866667-134.4 138.666666-134.4 59.733333 0 113.066667 36.266667 132.266667 91.733333 6.4 17.066667 23.466667 25.6 40.533333 19.2 17.066667-6.4 25.6-23.466667 19.2-40.533333-27.733333-81.066667-104.533333-134.4-192-134.4-110.933333 0-202.666667 89.6-202.666666 198.4v121.6h-78.933334c-55.466667 0-100.266667 44.8-100.266666 100.266667v311.466666c0 55.466667 44.8 100.266667 100.266666 100.266667h546.133334c55.466667 0 100.266667-44.8 100.266666-100.266667V516.266667c0-55.466667-44.8-100.266667-100.266666-100.266667z m36.266666 411.733333c0 19.2-17.066667 36.266667-36.266666 36.266667H238.933333c-19.2 0-36.266667-17.066667-36.266666-36.266667V516.266667c0-19.2 17.066667-36.266667 36.266666-36.266667h546.133334c19.2 0 36.266667 17.066667 36.266666 36.266667v311.466666z" p-id="2197"></path><path d="M512 544c-17.066667 0-32 14.933333-32 32v106.666667c0 17.066667 14.933333 32 32 32s32-14.933333 32-32v-106.666667c0-17.066667-14.933333-32-32-32z" p-id="2198"></path></svg>'
 
   selectNode.style.position = 'relative'
   selectNode.appendChild(span)
@@ -163,7 +189,7 @@ onMounted(() => {
       // 启用的卡片
       cards,
       // 所有的卡片配置
-      config: pluginConfig,
+      config: pluginConfig
       // 是否只读
       // readonly: true,
     })
@@ -203,7 +229,7 @@ onMounted(() => {
     engineInstance.on('change', () => {
       emit('change', {
         html: engineInstance.getHtml(),
-        json: engineInstance.getJsonValue(),
+        json: engineInstance.getJsonValue()
       })
       emit('update:modelValue', engineInstance.getHtml())
       emit('changeHTML', engineInstance.getHtml())
@@ -256,30 +282,39 @@ onUnmounted(() => {
     }
     .ant-layout-header {
       height: 64px;
-      padding: 0px 24px;
+      padding: 0px 20px;
       background-color: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #ccc;
-      .doc-wrap {
-        width: 150px;
-        text-align: center;
-        .title {
-          font-size: 16px;
-          line-height: 30px;
-          color: #222;
+      .doc-wrap{
+        display: flex;
+        align-items: center;
+        a>img{
+          width: 40px;
+          height: 40px;
         }
-        .sub-title {
-          font-size: 12px;
-          line-height: 18px;
-          color: #666;
+        .doc-topic {
+          width: 150px;
+          text-align: center;
+          .title {
+            font-size: 16px;
+            line-height: 30px;
+            color: #222;
+          }
+          .sub-title {
+            font-size: 12px;
+            line-height: 18px;
+            color: #666;
+          }
         }
       }
+
       ul.operate {
         display: flex;
         width: 350px;
-        justify-content: space-between;
+        justify-content: flex-end;
         margin: 0;
         span.ant-avatar {
           margin-bottom: 8px;

@@ -9,7 +9,7 @@ const state = {
   isCollapse: false,
   user: null as ({ token: string } & IUserInfo) | null,
   // user: getItem<{ token: string } & IUserInfo>(USER),
-  menus: [] as IMenu[],
+  menus: [] as IMenu[]
 }
 
 export type State = typeof state
@@ -22,22 +22,22 @@ export const store = createStore<State>({
   plugins: [createPersistedState()],
   state,
   mutations: {
-    setIsCollapse(state, payload) {
+    setIsCollapse (state, payload) {
       state.isCollapse = payload
     },
 
-    setUser(state, payload) {
+    setUser (state, payload) {
       state.user = payload
       // setItem(USER, state.user)
     },
 
-    setMenus(state, payload) {
+    setMenus (state, payload) {
       state.menus = payload
-    },
-  },
+    }
+  }
 })
 
 // 定义自己的 `useStore` 组合式函数
-export function useStore() {
+export function useStore () {
   return baseUseStore(key)
 }

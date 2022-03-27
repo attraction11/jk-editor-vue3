@@ -25,7 +25,6 @@ export const autoGetHotkey = (
       return key
     }
   }
-  return
 }
 const supportFontFamilyCache: { [key: string]: boolean } = {}
 /**
@@ -48,7 +47,7 @@ export const isSupportFontFamily = (font: string) => {
     'position:absolute',
     'width:auto',
     'font-size:128px',
-    'left:-99999px',
+    'left:-99999px'
   ].join(' !important;')
 
   const getWidth = (fontFamily: string) => {

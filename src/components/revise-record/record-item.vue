@@ -1,6 +1,8 @@
 <template>
   <div class="revise-list">
-    <div class="avatar">{{ props.record.editor_name.at(0) }}</div>
+    <div class="avatar">
+      {{ props.record.editor_name.at(0) }}
+    </div>
     <div class="editor-meta">
       <div class="meta-info">
         <span>{{ props.record.editor_name }}</span>
@@ -12,7 +14,7 @@
           :origin="props.record.row_original"
           :history="props.record.row_history"
           :id="props.record.id"
-        ></DiffWord>
+        />
       </div>
     </div>
   </div>
@@ -21,7 +23,6 @@
 <script setup lang="ts" name="revise-list">
 import moment from 'moment'
 import type { PropType } from 'vue'
-import { ref } from 'vue'
 import type { Record } from '~/api/types/record'
 
 import DiffWord from './diff-word.vue'
@@ -29,8 +30,8 @@ import DiffWord from './diff-word.vue'
 const props = defineProps({
   record: {
     type: Object as PropType<Record>,
-    default: () => {},
-  },
+    default: () => {}
+  }
 })
 </script>
 

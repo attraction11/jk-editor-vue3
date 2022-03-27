@@ -10,7 +10,7 @@ export const buttonProps = {
   engine: Object as PropType<EngineInterface | undefined>,
   name: {
     type: String,
-    required: true,
+    required: true
   } as const,
   icon: String,
   content: [String, Function] as PropType<string | (() => string) | VNode>,
@@ -20,21 +20,21 @@ export const buttonProps = {
   command: Object as PropType<Command>,
   autoExecute: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   className: String,
   active: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   disabled: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   onClick: Function as PropType<(event: MouseEvent) => void | boolean>,
   onMouseDown: Function as PropType<(event: MouseEvent) => void | boolean>,
   onMouseEnter: Function as PropType<(event: MouseEvent) => void | boolean>,
-  onMouseLevel: Function as PropType<(event: MouseEvent) => void | boolean>,
+  onMouseLevel: Function as PropType<(event: MouseEvent) => void | boolean>
 }
 
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>
@@ -64,23 +64,23 @@ export const dropdownListProps = {
   engine: Object as PropType<EngineInterface | undefined>,
   name: {
     type: String,
-    required: true,
+    required: true
   } as const,
   direction: String as PropType<'vertical' | 'horizontal'>,
   items: {
     type: Array as PropType<Array<DropdownListItem>>,
-    required: true,
+    required: true
   } as const,
   values: {
     type: [String, Array, Number] as PropType<string | number | Array<string>>,
-    required: true,
+    required: true
   } as const,
   className: String,
   onSelect: Function as PropType<(event: MouseEvent, key: string) => void | boolean>,
   hasDot: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
-  },
+    default: undefined
+  }
 }
 export type DropdownListProps = ExtractPropTypes<typeof dropdownListProps>
 // 下拉
@@ -88,12 +88,12 @@ export const dropdownProps = {
   engine: Object as PropType<EngineInterface | undefined>,
   name: {
     type: String,
-    required: true,
+    required: true
   } as const,
   values: [String, Array, Number] as PropType<string | number | Array<string>>,
   items: {
     type: Array as PropType<Array<DropdownListItem>>,
-    default: [],
+    default: []
   } as const,
   icon: String,
   placement: String as PropType<Placement>,
@@ -101,23 +101,23 @@ export const dropdownProps = {
   title: String,
   disabled: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   single: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   className: String,
   direction: String as PropType<'vertical' | 'horizontal'>,
   onSelect: Function as PropType<(event: MouseEvent, key: string) => void | boolean>,
   hasArrow: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   hasDot: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
-  },
+    default: undefined
+  }
 }
 export type DropdownProps = ExtractPropTypes<typeof dropdownProps>
 
@@ -129,18 +129,18 @@ export type GroupDropdownProps = {
 export const colorPickerItemProps = {
   engine: {
     type: Object as PropType<EngineInterface>,
-    required: true,
+    required: true
   } as const,
   color: {
     type: String,
-    required: true,
+    required: true
   } as const,
   active: Boolean,
   setStroke: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
-  onSelect: Function as PropType<(color: string, event: MouseEvent) => void>,
+  onSelect: Function as PropType<(color: string, event: MouseEvent) => void>
 }
 export type ColorPickerItemProps = ExtractPropTypes<typeof colorPickerItemProps>
 // 颜色分组
@@ -148,10 +148,10 @@ export const colorPickerGroupProps = {
   engine: colorPickerItemProps.engine,
   colors: {
     type: Array as PropType<Array<{ value: string; active: boolean }>>,
-    required: true,
+    required: true
   } as const,
   setStroke: colorPickerItemProps.setStroke,
-  onSelect: colorPickerItemProps.onSelect,
+  onSelect: colorPickerItemProps.onSelect
 }
 
 export type ColorPickerGroupProps = ExtractPropTypes<typeof colorPickerGroupProps>
@@ -162,15 +162,15 @@ export const colorPickerProps = {
   colors: Array as PropType<Array<Array<string>>>,
   defaultColor: {
     type: String,
-    required: true,
+    required: true
   } as const,
   defaultActiveColor: {
     type: String,
-    required: true,
+    required: true
   } as const,
   setStroke: colorPickerGroupProps.setStroke,
   onSelect: colorPickerItemProps.onSelect,
-  placement: String as PropType<Placement>,
+  placement: String as PropType<Placement>
 }
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>
 // color
@@ -181,14 +181,14 @@ export const colorProps = {
     type: [String, Function] as PropType<
       string | ((color: string, stroke: string, disabled?: boolean) => string)
     >,
-    required: true,
+    required: true
   } as const,
   buttonTitle: String,
   dropdownTitle: String,
   command: buttonProps.command,
   autoExecute: buttonProps.autoExecute,
   disabled: buttonProps.disabled,
-  ...omit(colorPickerProps, 'engine'),
+  ...omit(colorPickerProps, 'engine')
 }
 export type ColorProps = ExtractPropTypes<typeof colorProps>
 
@@ -211,7 +211,7 @@ export const collapseItemProps = {
   className: buttonProps.className,
   placement: buttonProps.placement,
   onClick: Function as PropType<(event: MouseEvent, name: string) => boolean | void>,
-  onMouseDown: Function as PropType<(event: MouseEvent) => void>,
+  onMouseDown: Function as PropType<(event: MouseEvent) => void>
 }
 export type CollapseItemProps = ExtractPropTypes<typeof collapseItemProps> & {
   onDisabled?: () => boolean
@@ -223,9 +223,9 @@ export const collapseGroupProps = {
   title: String,
   items: {
     type: Array as PropType<Array<Omit<CollapseItemProps, 'engine'>>>,
-    required: true,
+    required: true
   } as const,
-  onSelect: collapseItemProps.onClick,
+  onSelect: collapseItemProps.onClick
 }
 export type CollapseGroupProps = ExtractPropTypes<typeof collapseGroupProps>
 // collapse
@@ -234,13 +234,13 @@ export const collapseProps = {
   header: String,
   groups: {
     type: Array as PropType<Array<CollapseGroupProps>>,
-    required: true,
+    required: true
   } as const,
   disabled: buttonProps.disabled,
   className: collapseItemProps.className,
   icon: collapseItemProps.icon,
   content: buttonProps.content,
-  onSelect: collapseGroupProps.onSelect,
+  onSelect: collapseGroupProps.onSelect
 }
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>
 
@@ -251,7 +251,7 @@ export type ToolbarCollapseGroupProps = {
 export const groupProps = {
   engine: {
     type: Object as PropType<EngineInterface>,
-    required: true,
+    required: true
   } as const,
   items: {
     type: Array as PropType<
@@ -262,14 +262,14 @@ export const groupProps = {
         | ToolbarCollapseGroupProps
       >
     >,
-    default: [],
+    default: []
   },
   popup: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
   icon: collapseItemProps.icon,
-  content: buttonProps.content,
+  content: buttonProps.content
 }
 
 export type GroupProps = ExtractPropTypes<typeof groupProps>
@@ -322,18 +322,18 @@ export type GroupDataProps = Omit<GroupItemDataProps, 'items'> & {
 export const toolbarProps = {
   engine: {
     type: Object as PropType<EngineInterface>,
-    required: true,
+    required: true
   },
   items: {
     type: Array as PropType<GroupItemProps[]>,
-    default: [],
+    default: []
   },
   className: String,
   popup: {
     type: [Boolean, undefined] as PropType<boolean | undefined>,
-    default: undefined,
+    default: undefined
   },
-  onLoad: Function,
+  onLoad: Function
 }
 
 export type ToolbarProps = ExtractPropTypes<typeof toolbarProps>

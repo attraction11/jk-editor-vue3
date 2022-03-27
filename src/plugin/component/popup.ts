@@ -17,10 +17,10 @@ export default class Popup {
   #options: PopupOptions = {}
   #vm?: App
 
-  constructor(editor: EditorInterface, options: PopupOptions = {}) {
+  constructor (editor: EditorInterface, options: PopupOptions = {}) {
     this.#options = options
     this.#editor = editor
-    this.#root = $(`<div class="data-toolbar-popup-wrapper"></div>`)
+    this.#root = $('<div class="data-toolbar-popup-wrapper"></div>')
     document.body.appendChild(this.#root[0])
     if (isEngine(editor)) {
       this.#editor.on('select', this.onSelect)
@@ -76,7 +76,7 @@ export default class Popup {
     const topRect = topRange.cloneRange().collapse(true).getBoundingClientRect()
     const bottomRect = bottomRange.cloneRange().collapse(false).getBoundingClientRect()
 
-    let rootRect: DOMRect | undefined = undefined
+    let rootRect: DOMRect | undefined
     this.showContent(() => {
       rootRect = this.#root.get<HTMLElement>()?.getBoundingClientRect()
       if (!rootRect) {
@@ -124,16 +124,16 @@ export default class Popup {
       if (left < 0) left = 16
       this.#point = {
         left,
-        top,
+        top
       }
       this.#root.css({
         left: `${this.#point.left}px`,
-        top: `${this.#point.top}px`,
+        top: `${this.#point.top}px`
       })
     })
   }
 
-  showContent(callback?: () => void) {
+  showContent (callback?: () => void) {
     const result = this.#editor.trigger('toolbar-render', this.#options)
     let content = Toolbar
     if (typeof result === 'object') {
@@ -145,7 +145,7 @@ export default class Popup {
       this.#vm = createApp(content, {
         ...this.#options,
         engine: this.#editor,
-        popup: true,
+        popup: true
       })
       this.#vm.mount(this.#root.get<HTMLDivElement>()!)
     }
@@ -160,16 +160,15 @@ export default class Popup {
       if (
         target.closest('.data-toolbar-popup-wrapper').length > 0 ||
         target.closest(UI_SELECTOR).length > 0
-      )
-        return
+      ) { return }
     }
     this.#root.css({
       left: '0px',
-      top: '-9999px',
+      top: '-9999px'
     })
   }
 
-  destroy() {
+  destroy () {
     this.#root.remove()
     if (isEngine(this.#editor)) {
       this.#editor.off('select', this.onSelect)

@@ -12,6 +12,7 @@ declare module '*.md' {
 
 declare module '*.vue' {
   import * as Vue from 'vue'
+  // eslint-disable-next-line no-undef
   const component: JSX.Element
   export default Vue
   export interface GlobalComponents {

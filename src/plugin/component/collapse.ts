@@ -30,7 +30,7 @@ class CollapseComponent implements CollapseComponentInterface {
   #position?: Position
   private readonly SCOPE_NAME = 'data-toolbar-component'
 
-  constructor(engine: EngineInterface, options: Options) {
+  constructor (engine: EngineInterface, options: Options) {
     this.otpions = options
     this.engine = engine
     this.#position = new Position(engine)
@@ -42,10 +42,9 @@ class CollapseComponent implements CollapseComponentInterface {
       event.preventDefault()
       return false
     }
-    return
   }
 
-  select(index: number) {
+  select (index: number) {
     this.root
       ?.find('.toolbar-collapse-item-active')
       .removeClass('toolbar-collapse-item-active')
@@ -55,7 +54,7 @@ class CollapseComponent implements CollapseComponentInterface {
       ?.addClass('toolbar-collapse-item-active')
   }
 
-  scroll(direction: 'up' | 'down') {
+  scroll (direction: 'up' | 'down') {
     if (!this.root) return
     const items = this.root.find('.toolbar-collapse-item').toArray()
     let activeNode = this.root.find('.toolbar-collapse-item-active')
@@ -74,13 +73,12 @@ class CollapseComponent implements CollapseComponentInterface {
       .each((node) => {
         if (activeNode.equal(node)) return false
         offset += (node as Element).clientHeight
-        return
       })
     const rootElement = this.root.get<Element>()!
     rootElement.scrollTop = offset - rootElement.clientHeight / 2
   }
 
-  unbindEvents() {
+  unbindEvents () {
     deleteScope(this.SCOPE_NAME)
     unbind('enter', this.SCOPE_NAME)
     unbind('up', this.SCOPE_NAME)
@@ -89,7 +87,7 @@ class CollapseComponent implements CollapseComponentInterface {
     this.engine.off('keydown:enter', this.handlePreventDefault)
   }
 
-  bindEvents() {
+  bindEvents () {
     this.unbindEvents()
     setScope(this.SCOPE_NAME)
     // 回车
@@ -128,7 +126,7 @@ class CollapseComponent implements CollapseComponentInterface {
     this.engine.on('keydown:enter', this.handlePreventDefault)
   }
 
-  remove() {
+  remove () {
     if (!this.root || this.root.length === 0) return
     this.#position?.destroy()
     if (this.vm) this.vm.unmount()
@@ -136,7 +134,7 @@ class CollapseComponent implements CollapseComponentInterface {
     this.root = undefined
   }
 
-  render(
+  render (
     container: NodeInterface,
     target: NodeInterface,
     data: Array<CollapseGroupProps>
@@ -153,7 +151,7 @@ class CollapseComponent implements CollapseComponentInterface {
       this.vm = createApp(Collapse, {
         engine: this.engine,
         groups: data,
-        onSelect,
+        onSelect
       })
       this.vm.mount(rootElement)
     } else {

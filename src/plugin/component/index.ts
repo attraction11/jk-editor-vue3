@@ -6,7 +6,7 @@ import {
   isHotkey,
   CardType,
   isServer,
-  CardValue,
+  CardValue
 } from '@aomao/engine'
 import { CollapseGroupProps, CollapseItemProps, CollapseProps } from '../../types'
 import { getToolbarDefaultConfig } from '../../config'
@@ -27,23 +27,23 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
   #collapseData?: Data
   #data?: any
 
-  static get cardName() {
+  static get cardName () {
     return 'toolbar'
   }
 
-  static get cardType() {
+  static get cardType () {
     return CardType.INLINE
   }
 
-  static get singleSelectable() {
+  static get singleSelectable () {
     return false
   }
 
-  static get autoSelected() {
+  static get autoSelected () {
     return false
   }
 
-  init() {
+  init () {
     if (!isEngine(this.editor) || isServer) {
       return
     }
@@ -54,15 +54,15 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
       },
       onSelect: () => {
         this.remove()
-      },
+      }
     })
   }
 
-  setData(_data: any) {
+  setData (_data: any) {
     this.#data = _data
   }
 
-  getData(): Data {
+  getData (): Data {
     if (!isEngine(this.editor)) {
       return []
     }
@@ -89,13 +89,13 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
             ...(typeof item !== 'string' ? item : {}),
             disabled: collapseItem.onDisabled
               ? collapseItem.onDisabled()
-              : !this.editor.command.queryEnabled(name),
+              : !this.editor.command.queryEnabled(name)
           })
         }
       })
       data.push({
         title,
-        items,
+        items
       })
     })
     return data
@@ -106,7 +106,7 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
    * @param keyword 关键字
    * @returns
    */
-  search(keyword: string) {
+  search (keyword: string) {
     const items: Array<Omit<CollapseItemProps, 'engine'>> = []
     // search with case insensitive
     if (typeof keyword === 'string') keyword = keyword.toLowerCase()
@@ -126,19 +126,19 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
     if (items.length > 0) {
       data.push({
         title: '',
-        items: items,
+        items: items
       })
     }
     return data
   }
 
-  remove() {
+  remove () {
     if (!isEngine(this.editor)) return
     this.component?.remove()
     this.editor.card.remove(this.id)
   }
 
-  changeToText() {
+  changeToText () {
     if (!this.root.inEditor() || !isEngine(this.editor)) {
       return
     }
@@ -148,12 +148,12 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
     this.editor.node.insertText(content)
   }
 
-  destroy() {
+  destroy () {
     this.component?.unbindEvents()
     this.component?.remove()
   }
 
-  activate(activated: boolean) {
+  activate (activated: boolean) {
     super.activate(activated)
     if (!activated) {
       this.component?.unbindEvents()
@@ -161,7 +161,7 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
     }
   }
 
-  handleInput() {
+  handleInput () {
     if (!isEngine(this.editor)) return
     const { change, card } = this.editor
     if (change.isComposing()) {
@@ -186,12 +186,12 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
     this.component?.render(this.editor.root, this.root, data)
   }
 
-  resetPlaceHolder() {
-    if ('/' === this.keyword?.get<HTMLElement>()?.innerText) this.placeholder?.show()
+  resetPlaceHolder () {
+    if (this.keyword?.get<HTMLElement>()?.innerText === '/') this.placeholder?.show()
     else this.placeholder?.hide()
   }
 
-  render(data?: any): string | void | NodeInterface {
+  render (data?: any): string | void | NodeInterface {
     this.setData(data)
     const editor = this.editor
     if (!isEngine(editor) || isServer) return
@@ -200,7 +200,7 @@ class ToolbarComponent<V extends ToolbarValue = ToolbarValue> extends Card<V> {
     this.root.attributes('contenteditable', 'false')
     // 编辑模式
     const container = $(
-      `<span class="data-toolbar-component-keyword" contenteditable="true">/</span><span class="data-toolbar-component-placeholder">${language['placeholder']}</span>`
+      `<span class="data-toolbar-component-keyword" contenteditable="true">/</span><span class="data-toolbar-component-placeholder">${language.placeholder}</span>`
     )
     const center = this.getCenter()
     center.empty().append(container)

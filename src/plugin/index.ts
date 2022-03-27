@@ -4,7 +4,7 @@ import {
   isSafari,
   NodeInterface,
   Plugin,
-  PluginOptions,
+  PluginOptions
 } from '@aomao/engine'
 import { CollapseItemProps, GroupItemProps } from '../types'
 import locales from '../locales'
@@ -33,19 +33,20 @@ const defaultConfig = (editor: EditorInterface): Config => {
         'file-uploader',
         'video-uploader',
         'math',
-        'status',
-      ],
-    },
+        'status'
+      ]
+    }
   ]
 }
 
 class ToolbarPlugin<T extends ToolbarOptions = ToolbarOptions> extends Plugin<T> {
-  static get pluginName() {
+  static get pluginName () {
     return 'toolbar'
   }
+
   private popup?: ToolbarPopup
 
-  init() {
+  init () {
     if (isEngine(this.editor)) {
       this.editor.on('keydown:slash', this.onSlash)
       this.editor.on('parse:value', this.paserValue)
@@ -53,7 +54,7 @@ class ToolbarPlugin<T extends ToolbarOptions = ToolbarOptions> extends Plugin<T>
     this.editor.language.add(locales)
     if (this.options.popup) {
       this.popup = new ToolbarPopup(this.editor, {
-        items: this.options.popup.items,
+        items: this.options.popup.items
       })
     }
   }
@@ -75,7 +76,7 @@ class ToolbarPlugin<T extends ToolbarOptions = ToolbarOptions> extends Plugin<T>
       block.empty()
     }
 
-    if ('' === text || ('/' === text && isSafari) || event.ctrlKey || event.metaKey) {
+    if (text === '' || (text === '/' && isSafari) || event.ctrlKey || event.metaKey) {
       range = change.range.get()
       if (range.collapsed) {
         event.preventDefault()
@@ -97,11 +98,11 @@ class ToolbarPlugin<T extends ToolbarOptions = ToolbarOptions> extends Plugin<T>
     }
   }
 
-  execute(...args: any): void {
+  execute (...args: any): void {
     throw new Error('Method not implemented.')
   }
 
-  destroy() {
+  destroy () {
     this.popup?.destroy()
     this.editor.off('keydown:slash', this.onSlash)
     this.editor.off('parse:value', this.paserValue)

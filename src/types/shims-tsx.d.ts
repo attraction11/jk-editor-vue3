@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { VNode, ComponentRenderProxy } from 'vue'
 
 declare global {

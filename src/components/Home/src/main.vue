@@ -4,12 +4,18 @@
       <a-layout class="h-full">
         <a-layout-sider class="bg-slate-100">
           <div class="brand-wrap">
-            <a href="/" class="logo">
-              <img :src="logo" alt="" />
+            <a
+              href="/"
+              class="logo"
+            >
+              <img
+                :src="logo"
+                alt=""
+              >
               <span class="product">哲一云文档</span>
             </a>
           </div>
-          <HomeMenu></HomeMenu>
+          <HomeMenu />
         </a-layout-sider>
         <a-layout>
           <a-layout-header>
@@ -29,7 +35,7 @@
             </ul>
           </a-layout-header>
           <a-layout-content class="overflow-auto">
-            <HomeContent></HomeContent>
+            <HomeContent />
           </a-layout-content>
         </a-layout>
       </a-layout>
@@ -38,8 +44,7 @@
 </template>
 
 <script setup lang="ts" name="HomeIndex">
-import { onMounted, ref } from 'vue'
-import { SelectTypes } from 'ant-design-vue/es/select'
+import { ref } from 'vue'
 import logo from '~/assets/logo.svg'
 import HomeMenu from './homeMenu.vue'
 import HomeContent from './homeContent.vue'

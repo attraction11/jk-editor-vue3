@@ -2,7 +2,6 @@ export type DataSourceItem = {
   id: string
   title: string
   status?: boolean
-  children: Array<CommentContent>
 }
 
 export type CommentContent = {

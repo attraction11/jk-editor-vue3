@@ -5,19 +5,19 @@ export default {
     collapse: {
       title: `输入  <code>${
         isMacos ? '⌘' : 'Ctrl'
-      }</code> + <code>/</code>  快速插入卡片`,
+      }</code> + <code>/</code>  快速插入卡片`
     },
     undo: {
-      title: '撤销',
+      title: '撤销'
     },
     redo: {
-      title: '重做',
+      title: '重做'
     },
     paintformat: {
-      title: '格式刷',
+      title: '格式刷'
     },
     removeformat: {
-      title: '清除格式',
+      title: '清除格式'
     },
     heading: {
       title: '正文与标题',
@@ -27,7 +27,7 @@ export default {
       h3: '标题 3',
       h4: '标题 4',
       h5: '标题 5',
-      h6: '标题 6',
+      h6: '标题 6'
     },
     fontfamily: {
       title: '字体',
@@ -55,71 +55,71 @@ export default {
         heitiSC: '黑体-简',
         fzHei: '方正黑体',
         fzKai: '方正楷体',
-        fzFangSong: '方正仿宋',
-      },
+        fzFangSong: '方正仿宋'
+      }
     },
     fontsize: {
-      title: '字号',
+      title: '字号'
     },
     fontcolor: {
       title: '字体颜色',
-      more: '更多颜色',
+      more: '更多颜色'
     },
     backcolor: {
       title: '背景颜色',
-      more: '更多颜色',
+      more: '更多颜色'
     },
     bold: {
-      title: '粗体',
+      title: '粗体'
     },
     italic: {
-      title: '斜体',
+      title: '斜体'
     },
     strikethrough: {
-      title: '删除线',
+      title: '删除线'
     },
     underline: {
-      title: '下划线',
+      title: '下划线'
     },
     moremark: {
       title: '更多文本样式',
       sup: '上标',
       sub: '下标',
-      code: '行内代码',
+      code: '行内代码'
     },
     alignment: {
       title: '对齐方式',
       left: '左对齐',
       center: '居中对齐',
       right: '右对齐',
-      justify: '两端对齐',
+      justify: '两端对齐'
     },
     unorderedlist: {
-      title: '无序列表',
+      title: '无序列表'
     },
     orderedlist: {
-      title: '有序列表',
+      title: '有序列表'
     },
     tasklist: {
-      title: '任务列表',
+      title: '任务列表'
     },
     indent: {
       title: '缩进',
       in: '增加缩进',
-      out: '减少缩进',
+      out: '减少缩进'
     },
     'line-height': {
       title: '行高',
-      default: '默认',
+      default: '默认'
     },
     link: {
-      title: '链接',
+      title: '链接'
     },
     quote: {
-      title: '插入引用',
+      title: '插入引用'
     },
     hr: {
-      title: '插入分割线',
+      title: '插入分割线'
     },
     colorPicker: {
       defaultText: '默认',
@@ -193,40 +193,40 @@ export default {
       '#003A8C': '浅蓝 5',
       '#061178': '蓝色 5',
       '#22075E': '紫色 5',
-      '#780650': '玫红 5',
+      '#780650': '玫红 5'
     },
     component: {
-      placeholder: '卡片名称',
+      placeholder: '卡片名称'
     },
     image: {
-      title: '图片',
+      title: '图片'
     },
     codeblock: {
-      title: '代码块',
+      title: '代码块'
     },
     table: {
-      title: '表格',
+      title: '表格'
     },
     file: {
-      title: '附件',
+      title: '附件'
     },
     video: {
-      title: '视频',
+      title: '视频'
     },
     math: {
-      title: '公式',
+      title: '公式'
     },
     status: {
-      title: '状态',
+      title: '状态'
     },
     mind: {
-      title: '脑图',
+      title: '脑图'
     },
     commonlyUsed: {
-      title: '常用',
+      title: '常用'
     },
     searchEmtpy: {
-      title: '无匹配卡片',
-    },
-  },
+      title: '无匹配卡片'
+    }
+  }
 }

@@ -11,7 +11,7 @@ import Tasklist, { CheckboxComponent } from '@aomao/plugin-tasklist'
 import {
   ToolbarComponent,
   ToolbarPlugin,
-  fontFamilyDefaultData,
+  fontFamilyDefaultData
 } from '@aomao/toolbar-vue'
 import Video, { VideoComponent, VideoUploader } from '@aomao/plugin-video'
 
@@ -87,7 +87,7 @@ export const plugins: Array<PluginEntry> = [
   Fontfamily,
   Status,
   LineHeight,
-  Mention,
+  Mention
 ]
 
 export const cards: Array<CardEntry> = [
@@ -101,7 +101,7 @@ export const cards: Array<CardEntry> = [
   MathComponent,
   ToolbarComponent,
   StatusComponent,
-  MentionComponent,
+  MentionComponent
 ]
 
 export const pluginConfig: { [key: string]: PluginOptions } = {
@@ -111,17 +111,17 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
         ['bold', 'strikethrough', 'fontcolor'],
         {
           icon: 'text',
-          items: ['italic', 'underline', 'backcolor', 'moremark'],
+          items: ['italic', 'underline', 'backcolor', 'moremark']
         },
         [
           {
             type: 'button',
             name: 'image-uploader',
-            icon: 'image',
+            icon: 'image'
           },
           'link',
           'tasklist',
-          'heading',
+          'heading'
         ],
         {
           icon: 'more',
@@ -129,91 +129,91 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
             {
               type: 'button',
               name: 'video-uploader',
-              icon: 'video',
+              icon: 'video'
             },
             {
               type: 'button',
               name: 'file-uploader',
-              icon: 'attachment',
+              icon: 'attachment'
             },
             {
               type: 'button',
               name: 'table',
-              icon: 'table',
+              icon: 'table'
             },
             {
               type: 'button',
               name: 'math',
-              icon: 'math',
+              icon: 'math'
             },
             {
               type: 'button',
               name: 'codeblock',
-              icon: 'codeblock',
+              icon: 'codeblock'
             },
             {
               type: 'button',
               name: 'orderedlist',
-              icon: 'ordered-list',
+              icon: 'ordered-list'
             },
             {
               type: 'button',
               name: 'unordered-list',
-              icon: 'unordered-list',
+              icon: 'unordered-list'
             },
             {
               type: 'button',
               name: 'hr',
-              icon: 'hr',
+              icon: 'hr'
             },
             {
               type: 'button',
               name: 'quote',
-              icon: 'quote',
-            },
-          ],
-        },
-      ],
-    },
+              icon: 'quote'
+            }
+          ]
+        }
+      ]
+    }
   },
   [Italic.pluginName]: {
     // 默认为 _ 下划线，这里修改为单个 * 号
-    markdown: '*',
+    markdown: '*'
   },
   [Image.pluginName]: {
     onBeforeRender: (status: string, url: string) => {
       if (url.startsWith('data:image/')) return url
-      return url + `?token=12323`
-    },
+      return url + '?token=12323'
+    }
   },
   [ImageUploader.pluginName]: {
     file: {
       action: `${DOMAIN}/upload/image`,
-      headers: { Authorization: 213434 },
+      headers: { Authorization: 213434 }
     },
     remote: {
-      action: `${DOMAIN}/upload/image`,
+      action: `${DOMAIN}/upload/image`
     },
-    isRemote: (src: string) => src.indexOf(DOMAIN) < 0,
+    isRemote: (src: string) => src.indexOf(DOMAIN) < 0
   },
   [FileUploader.pluginName]: {
-    action: `${DOMAIN}/upload/file`,
+    action: `${DOMAIN}/upload/file`
   },
   [VideoUploader.pluginName]: {
     action: `${DOMAIN}/upload/video`,
-    limitSize: 1024 * 1024 * 50,
+    limitSize: 1024 * 1024 * 50
   },
   [Video.pluginName]: {
     onBeforeRender: (status: string, url: string) => {
-      return url + `?token=12323`
-    },
+      return url + '?token=12323'
+    }
   },
   [Math.pluginName]: {
-    action: `https://g.aomao.com/latex`,
+    action: 'https://g.aomao.com/latex',
     parse: (res: any) => {
       if (res.success) return { result: true, data: res.svg }
       return { result: false }
-    },
+    }
   },
   [Mention.pluginName]: {
     action: `${DOMAIN}/user/search`,
@@ -230,10 +230,10 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
     },
     onMouseEnter: (layout: NodeInterface, { name }: { key: string; name: string }) => {
       const vm = createApp(MentionPopover, {
-        name,
+        name
       })
       vm.mount(layout.get<HTMLElement>()!)
-    },
+    }
   },
   [Fontsize.pluginName]: {
     // 配置粘贴后需要过滤的字体大小
@@ -251,10 +251,10 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
           '29px',
           '32px',
           '40px',
-          '48px',
+          '48px'
         ].indexOf(fontSize) > -1
       )
-    },
+    }
   },
   [Fontfamily.pluginName]: {
     // 配置粘贴后需要过滤的字体
@@ -268,7 +268,7 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
           )
       )
       return item ? item.value : false
-    },
+    }
   },
   [LineHeight.pluginName]: {
     // 配置粘贴后需要过滤的行高
@@ -281,6 +281,6 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
       if (lineHeight === '42px') return '3'
       // 不满足条件就移除掉
       return ['1', '1.15', '1.5', '2', '2.5', '3'].indexOf(lineHeight) > -1
-    },
-  },
+    }
+  }
 }

@@ -2,7 +2,7 @@ import {
   ChangeInterface,
   EngineInterface,
   NodeInterface,
-  RangeInterface,
+  RangeInterface
 } from '@aomao/engine'
 
 import { GroupItemProps } from '@aomao/toolbar-vue'
