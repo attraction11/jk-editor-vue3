@@ -7,15 +7,6 @@
     <template #name="{ text }">
       <a>{{ text }}</a>
     </template>
-    <template #operation="text, record">
-      <a-popconfirm
-        v-if="dataSource.length"
-        title="确认删除吗?"
-        @confirm="() => onDelete(record.key)"
-      >
-        <a href="javascript:;">删除</a>
-      </a-popconfirm>
-    </template>
   </a-table>
 </template>
 <script setup lang="ts" name="MenuContent">
