@@ -5,7 +5,7 @@
   "scripts": {
     "new": "plop",
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "lint": "eslint --fix --color --ext .js,.vue,.ts src",
     "preview": "vite preview"
   },
