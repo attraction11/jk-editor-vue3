@@ -10,7 +10,9 @@
   </a-table>
 </template>
 <script setup lang="ts" name="MenuContent">
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { getHomeDocs } from '~/api/common'
 
 const router = useRouter()
 
@@ -34,7 +36,7 @@ const columns = [
   }
 ]
 
-const dataSource = [
+let dataSource = [
   {
     key: '1',
     type: '项目里程碑流程图',
@@ -71,6 +73,14 @@ function rowClick (record, index) {
     }
   }
 }
+
+const loadCaptcha = async () => {
+  dataSource = await getHomeDocs()
+}
+
+onMounted(() => {
+  loadCaptcha()
+})
 </script>
 <style scoped lang="less">
 .ant-table-wrapper {
