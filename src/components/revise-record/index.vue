@@ -11,7 +11,7 @@
 
 <script setup lang="ts" name="revise-record">
 import { onMounted, ref } from 'vue'
-import type { Record } from '~/api/types/record'
+import type { Record } from '~/api/types/editor'
 
 import RecordItem from './record-item.vue'
 

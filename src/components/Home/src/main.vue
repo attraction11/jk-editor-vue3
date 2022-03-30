@@ -20,13 +20,22 @@
         <a-layout>
           <a-layout-header>
             <a-input-search
-              v-model:value="searchValue"
+              v-model:value="docSearchValue"
               placeholder="搜索一下"
               style="width: 400px"
               class="h-1/2"
-              @search="onSearch"
+              @search="onDocSearch"
             />
             <ul class="operate">
+              <li>
+                <a-button
+                  size="small"
+                  type="primary"
+                  @click="showModal"
+                >
+                  新建
+                </a-button>
+              </li>
               <li>
                 <a-avatar
                   src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -40,6 +49,24 @@
         </a-layout>
       </a-layout>
     </div>
+    <a-modal
+      v-model:visible="visible"
+      width="600px"
+      :footer="null"
+      title="模板库"
+      @ok="handleOk"
+    >
+      <div
+        class="modal-card-wrap"
+      >
+        <ModalCard
+          v-for="item in modalCardList"
+          :key="item.id"
+          :title="item.title"
+          :description="item.description"
+        />
+      </div>
+    </a-modal>
   </div>
 </template>
 
@@ -48,13 +75,42 @@ import { ref } from 'vue'
 import logo from '~/assets/logo.svg'
 import HomeMenu from './homeMenu.vue'
 import HomeContent from './homeContent.vue'
+import ModalCard from './modalCard.vue'
 
-const searchValue = ref<string>('')
+const docSearchValue = ref<string>('')
+const modalSearchValue = ref<string>('')
+const visible = ref<boolean>(false)
+let modalCardList = ref([])
 
-const onSearch = (value: string) => {
-  console.log('use value', value)
-  console.log('or use this.value', searchValue.value)
+modalCardList = [{
+  id: 1,
+  title: '会议记录 (简洁版) ',
+  description: `会议主题：简要描述会议主题和目标。
+参会人：输入“@+人名”插入参会人员。
+会前必读：输入@ 插入相关背景资料。`
+}, {
+  id: 2,
+  title: '项目里程碑流程图',
+  description: '通过流程图，可视化展示项目里程碑关键信息'
+}]
+
+const onDocSearch = (value: string) => {
+  console.log('or use this.value', docSearchValue.value)
 }
+
+const onModalSearch = (value: string) => {
+  console.log('or use this.value', modalSearchValue.value)
+}
+
+const showModal = () => {
+  visible.value = true
+}
+
+const handleOk = (e: MouseEvent) => {
+  console.log(e)
+  visible.value = false
+}
+
 </script>
 <style scoped lang="less">
 .home-wrap {
@@ -113,6 +169,7 @@ const onSearch = (value: string) => {
         justify-content: flex-end;
         margin: 0;
         span.ant-avatar {
+          margin-left: 20px;
           margin-bottom: 8px;
         }
       }
@@ -123,4 +180,8 @@ const onSearch = (value: string) => {
     }
   }
 }
+  .modal-card-wrap{
+    display: flex;
+    justify-content: space-around;
+  }
 </style>

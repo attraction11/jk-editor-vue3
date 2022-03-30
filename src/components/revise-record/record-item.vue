@@ -23,7 +23,7 @@
 <script setup lang="ts" name="revise-list">
 import moment from 'moment'
 import type { PropType } from 'vue'
-import type { Record } from '~/api/types/record'
+import type { Record } from '~/api/types/editor'
 
 import DiffWord from './diff-word.vue'
 

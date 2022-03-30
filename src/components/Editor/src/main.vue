@@ -44,27 +44,31 @@
             collapsible
             :trigger="null"
           >
-            <a-menu mode="inline">
-              <a-menu-item key="1">
+            <a-menu
+              mode="inline"
+              @click="handleMenuClick"
+            >
+              <a-menu-item key="list">
                 <template #icon>
-                  <DesktopOutlined />
+                  <List />
                 </template>
-                主页
+                目录
               </a-menu-item>
-              <a-menu-item key="2">
+              <a-menu-item key="mail">
                 <template #icon>
-                  <FolderOutlined />
+                  <Mail />
                 </template>
-                布局
+                邮件
               </a-menu-item>
-              <a-menu-item key="3">
+              <a-menu-item key="history">
                 <template #icon>
-                  <DeleteOutlined />
+                  <History />
                 </template>
-                回收站
+                历史
               </a-menu-item>
             </a-menu>
           </a-layout-sider>
+          <Directory v-show="showList" />
           <a-layout-content class="overflow-auto">
             <AmToolbar
               v-if="engine"
@@ -96,17 +100,21 @@
 <script setup lang="ts" name="RedaxeEditor">
 import { onMounted, onUnmounted, ref } from 'vue'
 import logo from '~/assets/logo.svg'
-
 import ReviseRecord from '~/components/revise-record/index.vue'
 import { DesktopOutlined, FolderOutlined, DeleteOutlined } from '@ant-design/icons-vue'
-
 import Engine, { $, EngineInterface, ChangeInterface, isMobile } from '@aomao/engine'
 import AmToolbar, { GroupItemProps } from '@aomao/toolbar-vue'
 import { cards, plugins, pluginConfig } from './config'
 import { defaultContent, getDefaultToolbarItems, getDefaultStyle } from './default'
 import { StyleOption, NODES, Message, ChangePayload } from './types'
+import { List, Mail, History } from '@icon-park/vue-next'
+import Directory from './directory.vue'
 
-// const docModeValue = ref<string>('2')
+import { getDocSave } from '~/api/home'
+
+const showList = ref<boolean>(false)
+const saveLoading = ref<boolean>(false)
+const saveResult = ref<string>('')
 // const docMode = ref<SelectTypes['options']>([
 //   {
 //     value: '1',
@@ -121,6 +129,26 @@ import { StyleOption, NODES, Message, ChangePayload } from './types'
 // const handleChange = () => {
 //   engine.value.options.readonly = docModeValue.value === '1'
 // }
+
+const handleDocSave = () => {
+  saveLoading.value = true
+  getDocSave().then(resp => {
+    saveLoading.value = false
+    if (resp.data.code !== '0') {
+      saveResult.value = '保存成功'
+    }
+    saveResult.value = '保存失败'
+  }).catch(error => {
+    console.log('error: ', error)
+  })
+}
+
+const handleMenuClick = ({ item, key, keyPath }) => {
+  console.log('item: ', item)
+  console.log('key: ', key)
+  console.log('keyPath: ', keyPath)
+  showList.value = showList.value ? false : key === 'list'
+}
 
 interface IProps {
   modelValue?: string

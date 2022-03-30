@@ -12,49 +12,76 @@
 <script setup lang="ts" name="MenuContent">
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getHomeDocs } from '~/api/common'
+import { getHomeDocs } from '~/api/home'
 
 const router = useRouter()
 
 const columns = [
   {
+    title: '文件名',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
     title: '类型',
     dataIndex: 'type',
-    key: 'type',
-    slots: { customRender: 'type' }
+    key: 'type'
   },
   {
-    title: '所有者',
-    dataIndex: 'owner',
-    key: 'owner'
-  },
-  {
-    title: '描述',
-    dataIndex: 'describe',
-    key: 'describe 1',
+    title: '内容',
+    dataIndex: 'content',
+    key: 'content',
     ellipsis: true
+  },
+  {
+    title: '创建者',
+    dataIndex: 'creator',
+    key: 'creator'
+  },
+  {
+    title: '修改者',
+    dataIndex: 'modifier',
+    key: 'modifier'
   }
 ]
 
+// 模拟数据
 let dataSource = [
   {
-    key: '1',
-    type: '项目里程碑流程图',
-    owner: 'xiaogong',
-    describe: '通过流程图，可视化展示项目里程碑关键信息'
+    id: 'xxxxx',
+    key: 'xxxxx',
+    name: 'test',
+    creator: 'xxxx',
+    modifier: 'xxxx',
+    createTime: 1231312323,
+    modifyTime: 12312312323,
+    content: '文本内容...',
+    folderId: '11111111111',
+    type: 'document'
   },
   {
-    key: '2',
-    type: '个人工作学习周计划',
-    owner: 'xiaogong',
-    describe: '计划的制定比计划本身更为重要。 —— 戴尔·麦康基'
+    id: 'yyyyy',
+    key: 'yyyyy',
+    name: 'test',
+    creator: 'xxxx',
+    modifier: 'xxxx',
+    createTime: 1231312323,
+    modifyTime: 12312312323,
+    content: '文本内容...',
+    folderId: '11111111111',
+    type: 'document'
   },
   {
-    key: '3',
-    type: '会议记录 (简洁版) ',
-    owner: 'heyan',
-    describe:
-      '会议主题：简要描述会议主题和目标。参会人：输入“@+人名”插入参会人员会前必读：输入@ 插入相关背景资料'
+    id: 'zzzzz',
+    key: 'zzzzz',
+    name: 'test',
+    creator: 'xxxx',
+    modifier: 'xxxx',
+    createTime: 1231312323,
+    modifyTime: 12312312323,
+    content: '文本内容...',
+    folderId: '11111111111',
+    type: 'document'
   }
 ]
 
@@ -74,14 +101,15 @@ function rowClick (record, index) {
   }
 }
 
-const loadCaptcha = async () => {
+const handleDocsList = async () => {
   dataSource = await getHomeDocs()
 }
 
 onMounted(() => {
-  loadCaptcha()
+  // handleDocsList()
 })
 </script>
+
 <style scoped lang="less">
 .ant-table-wrapper {
   & ::v-deep(.ant-table-tbody) {
