@@ -199,11 +199,11 @@ watchEffect(() => {
           /**/
         }
         &::-webkit-scrollbar-track{
-          background: rgb(239, 239, 239);
+          background: white;
           border-radius:2px;
         }
         &::-webkit-scrollbar-thumb{
-          background: #bfbfbf;
+          background: #c1c1c1;
           border-radius:6px;
         }
         &::-webkit-scrollbar-corner{

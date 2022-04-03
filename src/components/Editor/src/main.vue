@@ -110,7 +110,7 @@ import Engine, { $, EngineInterface, ChangeInterface, isMobile } from '@aomao/en
 import AmToolbar, { GroupItemProps } from '@aomao/toolbar-vue'
 import { cards, plugins, pluginConfig } from './config'
 import { getDefaultToolbarItems, getDefaultStyle } from './default'
-import defaultContent from './document'
+import defaultContent from '~/document/intelliDoc'
 import { StyleOption, NODES, Message, ChangePayload } from './types'
 import { List, Mail, History } from '@icon-park/vue-next'
 import Directory from './directory.vue'
@@ -439,6 +439,20 @@ onUnmounted(() => {
   background: v-bind(styles.background);
   overflow-y: v-bind(styles.overflowY);
   /* min-height: v-bind(styles.minHeight); */
+}
+
+.editor-content::-webkit-scrollbar{
+  width:6px;
+  height:6px;
+  /**/
+}
+.editor-content::-webkit-scrollbar-track{
+  background: white;
+  border-radius:2px;
+}
+.editor-content::-webkit-scrollbar-thumb{
+  background: #c1c1c1;
+  border-radius:6px;
 }
 
 .editor-mobile .editor-content {
