@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "new": "plop",
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "lint": "eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix",
     "preview": "vite preview"

@@ -25,7 +25,9 @@ const props = defineProps({
 })
 
 const selectNode = document.querySelector(`.am-engine p[data-id=${props.id}]`)
-selectNode.style.textDecoration = 'wavy underline orange'
+if (selectNode) {
+  selectNode.style.textDecoration = 'wavy underline orange'
+}
 
 const scrollTop = () => {
   selectNode.scrollIntoView()
@@ -39,6 +41,7 @@ onMounted(() => {
   diff.forEach((part) => {
     const pattern = /<("[^"]*"|'[^']*'|[^'">])*>/g
     part.value = part.value.replace(pattern, '')
+    part.value = part.value.replace(/&nbsp;/g, '')
 
     const span = document.createElement('span')
     if (part.added) {

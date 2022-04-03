@@ -32,6 +32,7 @@ declare module 'vue' {
     ModalCard: typeof import('./src/components/Home/src/modalCard.vue')['default']
     RecordItem: typeof import('./src/components/revise-record/record-item.vue')['default']
     ReviseRecord: typeof import('./src/components/revise-record/index.vue')['default']
+    Toc: typeof import('./src/components/Editor/src/toc.vue')['default']
   }
 }
 

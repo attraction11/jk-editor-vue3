@@ -68,7 +68,11 @@
               </a-menu-item>
             </a-menu>
           </a-layout-sider>
-          <Directory v-show="showList" />
+          <Directory
+            v-if="engine"
+            v-show="showList"
+            :editor="engine"
+          />
           <a-layout-content class="overflow-auto">
             <AmToolbar
               v-if="engine"
@@ -105,7 +109,8 @@ import { DesktopOutlined, FolderOutlined, DeleteOutlined } from '@ant-design/ico
 import Engine, { $, EngineInterface, ChangeInterface, isMobile } from '@aomao/engine'
 import AmToolbar, { GroupItemProps } from '@aomao/toolbar-vue'
 import { cards, plugins, pluginConfig } from './config'
-import { defaultContent, getDefaultToolbarItems, getDefaultStyle } from './default'
+import { getDefaultToolbarItems, getDefaultStyle } from './default'
+import defaultContent from './document'
 import { StyleOption, NODES, Message, ChangePayload } from './types'
 import { List, Mail, History } from '@icon-park/vue-next'
 import Directory from './directory.vue'
@@ -144,9 +149,6 @@ const handleDocSave = () => {
 }
 
 const handleMenuClick = ({ item, key, keyPath }) => {
-  console.log('item: ', item)
-  console.log('key: ', key)
-  console.log('keyPath: ', keyPath)
   showList.value = showList.value ? false : key === 'list'
 }
 
@@ -268,7 +270,7 @@ onMounted(() => {
       emit('onSelect', engineInstance.change)
     })
 
-    initEngineRole()
+    // initEngineRole()
     engine.value = engineInstance
   }
 })
@@ -422,6 +424,7 @@ onUnmounted(() => {
 .editor-container {
   background: transparent;
   width: 100%;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -431,7 +434,7 @@ onUnmounted(() => {
 }
 
 .editor-content {
-  /* height: v-bind(styles.height); */
+  height: v-bind(styles.height);
   padding: v-bind(styles.padding);
   background: v-bind(styles.background);
   overflow-y: v-bind(styles.overflowY);
@@ -446,6 +449,7 @@ onUnmounted(() => {
 
 .editor-content .am-engine {
   padding: 20px 40px;
+  height: v-bind(styles.height);
   font-family: v-bind(styles.fontFamily);
 }
 
