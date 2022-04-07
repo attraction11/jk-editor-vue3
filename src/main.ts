@@ -17,9 +17,9 @@ app.use(router)
 app.use(useTable)
 
 // 自动注册全局组件
-const modules = import.meta.globEager('./components/global/**/index.ts')
-for (const path in modules) {
-  app.use(modules[path].default)
-}
+// const modules = import.meta.globEager('./components/global/**/index.ts')
+// for (const path in modules) {
+//   app.use(modules[path].default)
+// }
 
 app.mount('#app')
