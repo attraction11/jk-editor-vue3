@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <Dialog>
+    <!-- <Dialog>
       <div class="modal-card-wrap">
         <ModalCard
           v-for="item in modalCardList"
@@ -56,14 +56,14 @@
           :description="item.description"
         />
       </div>
-    </Dialog>
+    </Dialog> -->
   </div>
 </template>
 
 <script setup lang="ts" name="HomeIndex">
 import { ref, onMounted } from 'vue'
 import logo from '~/assets/logo.svg'
-import Dialog from '~/components/Dialog'
+// import Dialog from '~/components/Dialog'
 import HomeContent from './homeContent.vue'
 import ModalCard from './modalCard.vue'
 import { fetchHomeDocs } from '~/api/home'

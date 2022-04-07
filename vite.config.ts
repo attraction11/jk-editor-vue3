@@ -1,10 +1,7 @@
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
-import WindiCSS from 'vite-plugin-windicss'
 import path from 'path'
-
-const markdownWrapperClasses = 'prose prose-sm m-auto text-left'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,7 +14,7 @@ export default defineConfig({
     Vue(),
     // cjs2esmVitePlugin(),
     // https://github.com/vbenjs/vite-plugin-vue-setup-extend
-    VueSetupExtend(),
+    VueSetupExtend()
     // https://github.com/hannoeru/vite-plugin-pages
     // Pages({
     //   pagesDir: [{ dir: 'src/pages', baseRoute: '' }],
@@ -28,10 +25,6 @@ export default defineConfig({
     // Layouts({
     //   layoutsDirs: 'src/layouts'
     // }),
-    // https://github.com/antfu/vite-plugin-windicss
-    WindiCSS({
-      safelist: markdownWrapperClasses
-    })
 
   ],
   server: {

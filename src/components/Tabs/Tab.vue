@@ -10,37 +10,49 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    id: { default: null },
-    name: { required: true },
-    prefix: { default: '' },
-    suffix: { default: '' },
-    isDisabled: { default: false }
+<script setup lang="ts" name="Tab">
+import { ref, computed } from 'vue'
+
+const isActive = ref(false)
+const isVisible = ref(true)
+
+const props = defineProps({
+  id: {
+    type: [Number, null],
+    default: null
   },
-
-  data: () => ({
-    isActive: false,
-    isVisible: true
-  }),
-
-  computed: {
-    header () {
-      return this.prefix + this.name + this.suffix
-    },
-
-    computedId () {
-      return this.id ? this.id : this.name.toLowerCase().replace(/ /g, '-')
-    },
-
-    hash () {
-      if (this.isDisabled) {
-        return '#'
-      }
-
-      return '#' + this.computedId
-    }
+  name: {
+    type: String,
+    required: true
+  },
+  prefix: {
+    type: String,
+    default: ''
+  },
+  suffix: {
+    type: String,
+    default: ''
+  },
+  isDisabled: {
+    type: Boolean,
+    default: false
   }
-}
+})
+
+const header = computed(() => {
+  return props.prefix + props.name + props.suffix
+})
+
+const computedId = computed(() => {
+  return props.id ? props.id : props.name.toLowerCase().replace(/ /g, '-')
+})
+
+const hash = computed(() => {
+  if (props.isDisabled) {
+    return '#'
+  }
+
+  return '#' + computedId.value
+})
+
 </script>

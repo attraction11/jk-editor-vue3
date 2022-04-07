@@ -29,155 +29,153 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts" name="Tab">
+import { ref, computed, useSlots, onMounted } from 'vue'
 import expiringStorage from '../expiringStorage'
 
-export default {
-  props: {
-    cacheLifetime: {
-      default: 5
-    },
-    options: {
-      type: Object,
-      required: false,
-      default: () => ({
-        useUrlFragment: true,
-        defaultTabHash: null
-      })
-    }
+const tabs = ref([])
+const activeTabHash = ref('')
+const activeTabIndex = ref(0)
+const lastActiveTabHash = ref('')
+
+const props = defineProps({
+  cacheLifetime: {
+    type: Number,
+    default: 5
   },
-
-  data: () => ({
-    tabs: [],
-    activeTabHash: '',
-    activeTabIndex: 0,
-    lastActiveTabHash: ''
-  }),
-
-  computed: {
-    storageKey () {
-      return `vue-tabs-component.cache.${window.location.host}${window.location.pathname}`
-    }
-  },
-
-  created () {
-    this.tabs = this.$children
-  },
-
-  mounted () {
-    window.addEventListener('hashchange', () => this.selectTab(window.location.hash))
-
-    if (this.findTab(window.location.hash)) {
-      this.selectTab(window.location.hash)
-      return
-    }
-
-    const previousSelectedTabHash = expiringStorage.get(this.storageKey)
-
-    if (this.findTab(previousSelectedTabHash)) {
-      this.selectTab(previousSelectedTabHash)
-      return
-    }
-
-    if (this.options.defaultTabHash !== null && this.findTab('#' + this.options.defaultTabHash)) {
-      this.selectTab('#' + this.options.defaultTabHash)
-      return
-    }
-
-    if (this.tabs.length) {
-      this.selectTab(this.tabs[0].hash)
-    }
-  },
-
-  methods: {
-    findTab (hash) {
-      return this.tabs.find(tab => tab.hash === hash)
-    },
-
-    selectTab (selectedTabHash, event) {
-      // See if we should store the hash in the url fragment.
-      if (event && !this.options.useUrlFragment) {
-        event.preventDefault()
-      }
-
-      const selectedTab = this.findTab(selectedTabHash)
-
-      if (!selectedTab) {
-        return
-      }
-
-      if (selectedTab.isDisabled) {
-        event.preventDefault()
-        return
-      }
-
-      if (this.lastActiveTabHash === selectedTab.hash) {
-        this.$emit('clicked', { tab: selectedTab })
-        return
-      }
-
-      this.tabs.forEach(tab => {
-        tab.isActive = (tab.hash === selectedTab.hash)
-      })
-
-      this.$emit('changed', { tab: selectedTab })
-
-      this.activeTabHash = selectedTab.hash
-      this.activeTabIndex = this.getTabIndex(selectedTabHash)
-
-      this.lastActiveTabHash = this.activeTabHash = selectedTab.hash
-
-      expiringStorage.set(this.storageKey, selectedTab.hash, this.cacheLifetime)
-    },
-
-    setTabVisible (hash, visible) {
-      const tab = this.findTab(hash)
-
-      if (!tab) {
-        return
-      }
-
-      tab.isVisible = visible
-
-      if (tab.isActive) {
-        // If tab is active, set a different one as active.
-        tab.isActive = visible
-
-        this.tabs.every((tab, index, array) => {
-          if (tab.isVisible) {
-            tab.isActive = true
-
-            return false
-          }
-
-          return true
-        })
-      }
-    },
-
-    getTabIndex (hash) {
-            	const tab = this.findTab(hash)
-
-            	return this.tabs.indexOf(tab)
-    },
-
-    getTabHash (index) {
-            	const tab = this.tabs.find(tab => this.tabs.indexOf(tab) === index)
-
-            	if (!tab) {
-        return
-      }
-
-      return tab.hash
-    },
-
-    getActiveTab () {
-            	return this.findTab(this.activeTabHash)
-    },
-
-    getActiveTabIndex () {
-            	return this.getTabIndex(this.activeTabHash)
-    }
+  options: {
+    type: Object,
+    required: false,
+    default: () => ({
+      useUrlFragment: true,
+      defaultTabHash: null
+    })
   }
+})
+
+const emit = defineEmits<{
+  (type: 'clicked', change: object): void
+  (type: 'changed', change: object): void
+}>()
+
+const storageKey = computed(() => {
+  return `vue-tabs-component.cache.${window.location.host}${window.location.pathname}`
+})
+
+tabs.value = useSlots()
+
+onMounted(() => {
+  window.addEventListener('hashchange', () =>
+    selectTab(window.location.hash)
+  )
+
+  if (findTab(window.location.hash)) {
+    selectTab(window.location.hash)
+    return
+  }
+
+  const previousSelectedTabHash = expiringStorage.get(storageKey.value)
+
+  if (findTab(previousSelectedTabHash)) {
+    selectTab(previousSelectedTabHash)
+    return
+  }
+
+  if (
+    props.options.defaultTabHash !== null &&
+      findTab('#' + props.options.defaultTabHash)
+  ) {
+    selectTab('#' + props.options.defaultTabHash)
+    return
+  }
+
+  if (tabs.value.length) {
+    selectTab(tabs.value[0].hash)
+  }
+})
+
+const findTab = (hash) => {
+  return tabs.value.find((tab) => tab.hash === hash)
+}
+
+const selectTab = (selectedTabHash, event) => {
+  // See if we should store the hash in the url fragment.
+  if (event && !props.options.useUrlFragment) {
+    event.preventDefault()
+  }
+
+  const selectedTab = findTab(selectedTabHash)
+
+  if (!selectedTab) {
+    return
+  }
+
+  if (selectedTab.isDisabled) {
+    event.preventDefault()
+    return
+  }
+
+  if (lastActiveTabHash.value === selectedTab.hash) {
+    emit('clicked', { tab: selectedTab })
+    return
+  }
+
+  tabs.value.forEach((tab) => {
+    tab.isActive = tab.hash === selectedTab.hash
+  })
+
+  emit('changed', { tab: selectedTab })
+
+  activeTabHash.value = selectedTab.hash
+  activeTabIndex.value = getTabIndex(selectedTabHash)
+
+  lastActiveTabHash.value = activeTabHash.value = selectedTab.hash
+
+  expiringStorage.set(storageKey.value, selectedTab.hash, props.cacheLifetime)
+}
+
+const setTabVisible = (hash, visible) => {
+  const tab = findTab(hash)
+
+  if (!tab) {
+    return
+  }
+
+  tab.isVisible = visible
+
+  if (tab.isActive) {
+    // If tab is active, set a different one as active.
+    tab.isActive = visible
+
+    tabs.value.every((tab, index, array) => {
+      if (tab.isVisible) {
+        tab.isActive = true
+        return false
+      }
+      return true
+    })
+  }
+}
+
+const getTabIndex = (hash) => {
+  const tab = findTab(hash)
+  return tabs.value.indexOf(tab)
+}
+
+const getTabHash = (index) => {
+  const tab = tabs.value.find((tab) => tabs.value.indexOf(tab) === index)
+
+  if (!tab) {
+    return
+  }
+  return tab.hash
+}
+
+const getActiveTab = () => {
+  return findTab(activeTabHash.value)
+}
+
+const getActiveTabIndex = () => {
+  return getTabIndex(activeTabHash.value)
 }
 </script>

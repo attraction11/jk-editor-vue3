@@ -12,8 +12,8 @@
     :transition="transition"
     @before-open="beforeOpened"
     @before-close="beforeClosed"
-    @opened="$emit('opened', $event)"
-    @closed="$emit('closed', $event)"
+    @opened="handleOpened"
+    @closed="handleClosed"
   >
     <div class="vue-dialog-content">
       <div
@@ -73,28 +73,41 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits<{
+  (type: 'before-opened', change: object): void
+  (type: 'before-closed', change: object): void
+  (type: 'opened', change: object): void
+  (type: 'closed', change: object): void
+}>()
+
 const params = ref({})
-const plusOne = computed(() => params.value.buttons || [])
+const buttons = computed(() => params.value.buttons || [])
 const buttonStyle = computed(() => {
   return {
-    flex: `1 1 ${100 / this.buttons.length}%`
+    flex: `1 1 ${100 / buttons.value.length}%`
   }
 })
 
+const handleOpened = (event) => {
+  emit('opened', event)
+}
+
+const handleClosed = (event) => {
+  emit('closed', event)
+}
+
 const beforeOpened = (event) => {
-  // window.addEventListener('keyup', this.onKeyUp)
-  this.params = event.params || {}
-  this.$emit('before-opened', event)
+  params.value = event.params || {}
+  emit('before-opened', event)
 }
 
 const beforeClosed = (event) => {
-  // window.removeEventListener('keyup', this.onKeyUp)
-  this.params = {}
-  this.$emit('before-closed', event)
+  params.value = {}
+  emit('before-closed', event)
 }
 
 const click = (buttonIndex, event, source = 'click') => {
-  const button = this.buttons[buttonIndex]
+  const button = buttons.value[buttonIndex]
   const handler = button?.handler
 
   if (typeof handler === 'function') {
