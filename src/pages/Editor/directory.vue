@@ -3,8 +3,8 @@
     <div class="title">
       目录
     </div>
-    <a-tabs v-model:activeKey="activeKey">
-      <a-tab-pane
+    <Tabs v-model:activeKey="activeKey">
+      <Tab
         key="1"
         tab="标题"
         class="data-toc-wrapper"
@@ -19,33 +19,33 @@
             :class="tocClass(item.depth, index)"
           >{{ item.text }}</a>
         </div>
-      </a-tab-pane>
-      <a-tab-pane
+      </Tab>
+      <Tab
         key="2"
         tab="图片"
         force-render
       >
         图片
-      </a-tab-pane>
-      <a-tab-pane
+      </Tab>
+      <Tab
         key="3"
         tab="表格"
       >
         表格
-      </a-tab-pane>
-      <a-tab-pane
+      </Tab>
+      <Tab
         key="4"
         tab="脚注"
       >
         脚注
-      </a-tab-pane>
-      <a-tab-pane
+      </Tab>
+      <Tab
         key="5"
         tab="链接"
       >
         链接
-      </a-tab-pane>
-    </a-tabs>
+      </Tab>
+    </Tabs>
   </div>
 </template>
 
@@ -53,6 +53,8 @@
 import { ref, reactive, onMounted, watchEffect } from 'vue'
 import { $ } from '@aomao/engine'
 import { Outline } from '@aomao/plugin-heading'
+import Tabs from '~/components/Tabs/Tabs.vue'
+import Tab from '~/components/Tabs/Tab.vue'
 
 const outline = new Outline()
 

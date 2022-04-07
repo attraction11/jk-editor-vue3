@@ -1,22 +1,30 @@
 import request from '~/utils/request'
-import { ILoginInfo } from './types/common'
 
-export const getHomeDocs = () => {
-  return request<ILoginInfo>({
+export const fetchHomeDocs = (data: {
+  id?: string,
+  status?: string,
+}) => {
+  return request({
     method: 'POST',
-    url: '/folder/getDocumentList'
+    url: '/folder/getDocumentList',
+    data
   })
 }
 
-export const getDocCreate = () => {
-  return request<ILoginInfo>({
+export const fetchDocCreate = (data: {
+  name: string
+  folderId?: string
+  creator: string
+}) => {
+  return request({
     method: 'POST',
-    url: '/document/create'
+    url: '/document/create',
+    data
   })
 }
 
 export const getDocSave = () => {
-  return request<ILoginInfo>({
+  return request({
     method: 'POST',
     url: '/document/save'
   })

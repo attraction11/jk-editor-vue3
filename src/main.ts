@@ -9,21 +9,12 @@ import 'virtual:windi-devtools'
 import App from './App.vue'
 import { createApp } from 'vue'
 import router from './router'
-// import { store, key } from './store'
 
-// import Antd from 'ant-design-vue'
-// import 'ant-design-vue/dist/antd.css'
-
-import { message, notification } from 'ant-design-vue'
+import { useTable } from './plugin/vxe-table'
 
 const app = createApp(App)
 app.use(router)
-// app.use(store, key)
-// app.use(Antd)
-
-// 全局注册
-app.provide('$message', message)
-app.provide('$notification', notification)
+app.use(useTable)
 
 // 自动注册全局组件
 const modules = import.meta.globEager('./components/global/**/index.ts')

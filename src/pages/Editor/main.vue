@@ -1,102 +1,67 @@
 <template>
   <div class="editor-wrap">
+    <div class="editor-header">
+      <div class="doc-wrap">
+        <a
+          href="/"
+          class="logo"
+        >
+          <img
+            :src="logo"
+            alt=""
+          >
+        </a>
+        <div class="doc-topic">
+          <div class="title">
+            研发环境部署
+          </div>
+          <div class="sub-title">
+            技术文档 | 研发部
+          </div>
+        </div>
+      </div>
+      <ul class="operate">
+        <li>
+          <img
+            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+          >
+        </li>
+      </ul>
+    </div>
     <div class="editor-body">
-      <a-layout class="h-full">
-        <a-layout-header>
-          <div class="doc-wrap">
-            <a
-              href="/"
-              class="logo"
-            >
-              <img
-                :src="logo"
-                alt=""
-              >
-            </a>
-            <div class="doc-topic">
-              <div class="title">
-                研发环境部署
-              </div>
-              <div class="sub-title">
-                技术文档 | 研发部
-              </div>
+      <ul class="editor-sider">
+        <li>
+          <List />目录
+        </li>
+        <li>
+          <List />邮件
+        </li>
+        <li>
+          <List />历史
+        </li>
+      </ul>
+      <Directory
+        v-if="engine"
+        v-show="showList"
+        :editor="engine"
+      />
+      <div class="editor-content">
+        <AmToolbar
+          v-if="engine"
+          :engine="engine"
+          :items="toolbarItems"
+        />
+        <div :class="['editor-wrapper', { 'editor-mobile': isMobile }]">
+          <div class="editor-container text-left">
+            <div class="editor-content">
+              <div ref="container" />
             </div>
           </div>
-          <ul class="operate">
-            <!-- <li>
-              <a-select
-                v-model:value="docModeValue"
-                style="width: 120px"
-                :options="docMode"
-                @change="handleChange"
-              ></a-select>
-            </li> -->
-            <li>
-              <a-avatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              />
-            </li>
-          </ul>
-        </a-layout-header>
-        <a-layout>
-          <a-layout-sider
-            :collapsed="true"
-            collapsible
-            :trigger="null"
-          >
-            <a-menu
-              mode="inline"
-              @click="handleMenuClick"
-            >
-              <a-menu-item key="list">
-                <template #icon>
-                  <List />
-                </template>
-                目录
-              </a-menu-item>
-              <a-menu-item key="mail">
-                <template #icon>
-                  <Mail />
-                </template>
-                邮件
-              </a-menu-item>
-              <a-menu-item key="history">
-                <template #icon>
-                  <History />
-                </template>
-                历史
-              </a-menu-item>
-            </a-menu>
-          </a-layout-sider>
-          <Directory
-            v-if="engine"
-            v-show="showList"
-            :editor="engine"
-          />
-          <a-layout-content class="overflow-auto">
-            <AmToolbar
-              v-if="engine"
-              :engine="engine"
-              :items="toolbarItems"
-            />
-            <div :class="['editor-wrapper', { 'editor-mobile': isMobile }]">
-              <div class="editor-container text-left">
-                <div class="editor-content">
-                  <div ref="container" />
-                </div>
-              </div>
-            </div>
-          </a-layout-content>
-          <a-layout-sider class="revise-sider">
-            <ReviseRecord />
-          </a-layout-sider>
-        </a-layout>
-      </a-layout>
-      <a-back-top>
-        <div class="ant-back-top-inner">
-          UP
         </div>
-      </a-back-top>
+      </div>
+      <div class="revise-sider">
+        <ReviseRecord />
+      </div>
     </div>
   </div>
 </template>
@@ -104,7 +69,7 @@
 <script setup lang="ts" name="RedaxeEditor">
 import { onMounted, onUnmounted, ref } from 'vue'
 import logo from '~/assets/logo.svg'
-import ReviseRecord from '~/components/revise-record/index.vue'
+import ReviseRecord from '~/pages/revise-record/index.vue'
 import { DesktopOutlined, FolderOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import Engine, { $, EngineInterface, ChangeInterface, isMobile } from '@aomao/engine'
 import AmToolbar, { GroupItemProps } from '@aomao/toolbar-vue'
@@ -120,20 +85,6 @@ import { getDocSave } from '~/api/home'
 const showList = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
 const saveResult = ref<string>('')
-// const docMode = ref<SelectTypes['options']>([
-//   {
-//     value: '1',
-//     label: '只读',
-//   },
-//   {
-//     value: '2',
-//     label: '修订',
-//   },
-// ])
-
-// const handleChange = () => {
-//   engine.value.options.readonly = docModeValue.value === '1'
-// }
 
 const handleDocSave = () => {
   saveLoading.value = true

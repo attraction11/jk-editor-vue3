@@ -1,9 +1,10 @@
 module.exports = {
   globals: {
+    dayjs: 'readonly',
     defineProps: 'readonly',
     defineEmits: 'readonly',
     defineExpose: 'readonly',
-    withDefaults: 'readonly',
+    withDefaults: 'readonly'
   },
   env: {
     browser: true,

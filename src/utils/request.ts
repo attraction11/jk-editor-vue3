@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { message } from 'ant-design-vue'
 import { store } from '~/store/'
 import router from '~/router/'
 
@@ -29,6 +28,7 @@ let isRefreshing = false
 // 响应拦截器
 request.interceptors.response.use(function (response) {
   const status = response.data.status
+  console.log('response: ', response)
 
   // 正确的情况 (响应的不是预期的结构数据 或 status === 200)
   if (!status || status === 200) {
@@ -41,7 +41,7 @@ request.interceptors.response.use(function (response) {
   if (status === 410000) {
     if (isRefreshing) return Promise.reject(response)
     isRefreshing = true
-    message.error(response.data.msg || '您的登录已过期，即将重新登录')
+    console.error(response.data.msg || '您的登录已过期，即将重新登录')
 
     // 清除本地过期的登录状态
     store.commit('setUser', null)
@@ -58,16 +58,21 @@ request.interceptors.response.use(function (response) {
   }
 
   // 其它错误情况
-  message.error(response.data.msg || '请求失败，请稍后重试')
+  console.error(response.data.msg || '请求失败，请稍后重试')
   // 手动返回一个 Promise 异常
   return Promise.reject(response)
 }, function (error) {
-  message.error(error.message || '请求失败，请稍后重试')
+  console.error(error.console || '请求失败，请稍后重试')
   return Promise.reject(error)
 })
 
 export default <T = any>(config: AxiosRequestConfig) => {
   return request(config).then(res => {
-    return (res.data.data || res.data) as T
+    if (res.data.code === '0') {
+      return (res.data.data || res.data) as T
+    } else {
+      console.error(res.data.msg || '请求失败，请稍后重试')
+      return Promise.reject(res.data.msg)
+    }
   })
 }

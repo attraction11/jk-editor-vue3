@@ -6,7 +6,7 @@
     <div class="editor-meta">
       <div class="meta-info">
         <span>{{ props.record.editor_name }}</span>
-        <span>{{ moment(props.record.editor_time).format('DD.MM.YYYY') }}</span>
+        <span>{{ dayjs(props.record.editor_time).format('YYYY-MM-DD') }}</span>
         <span>{{ props.record.doc_version }}</span>
       </div>
       <div class="record-info">
@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts" name="revise-list">
-import moment from 'moment'
 import type { PropType } from 'vue'
 import type { Record } from '~/api/types/editor'
 
