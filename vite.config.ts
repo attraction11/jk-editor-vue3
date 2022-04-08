@@ -21,11 +21,6 @@ export default defineConfig({
     //   extensions: ['vue', 'md']
     // }),
 
-    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
-    // Layouts({
-    //   layoutsDirs: 'src/layouts'
-    // }),
-
   ],
   server: {
     open: true,

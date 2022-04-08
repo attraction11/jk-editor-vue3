@@ -3,8 +3,8 @@ import AppLayout from '~/layouts/index.vue'
 import nprogress from 'nprogress' // @types/nprogress
 import 'nprogress/nprogress.css'
 
-const HomeMain = () => import('~/pages/Home/main.vue')
-const EditorMain = () => import('~/pages/Editor/main.vue')
+const HomeMain = () => import('../pages/Home/main.vue')
+const EditorMain = () => import('../pages/Editor/main.vue')
 
 const routes: RouteRecordRaw[] = [
   // 路由规则

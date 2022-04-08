@@ -1,62 +1,16 @@
 <template>
-  <div class="home-wrap">
-    <div class="home-body">
-      <div class="home-layout">
-        <div class="home-layout-sider">
-          <div class="brand-wrap">
-            <a
-              href="/"
-              class="logo"
-            >
-              <img
-                :src="logo"
-                alt=""
-              >
-              <span class="product">哲一云文档</span>
-            </a>
-          </div>
-          <ul class="home-layout-menu">
-            <li><Home />主页</li>
-            <li><DocDetil />我的空间</li>
-            <li><Delete />回收站</li>
-          </ul>
-        </div>
-        <div class="home-layout-content">
-          <div class="content-header">
-            <ul class="operate">
-              <li>
-                <button
-                  size="small"
-                  type="primary"
-                  @click="visible = true"
-                >
-                  新建
-                </button>
-              </li>
-              <li>
-                <img
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="content-body">
-            <HomeContent :source="dataSource" />
+  <div class="absolute overflow-hidden -inset-0">
+    <div class="absolute inset-y-0 w-64 bg-gray-100">
+      <div class="h-6 ml-8 mt-8 cusor-pointer bg-no-repeat bg-[url('https://docs.gtimg.com/docs-design-resources/pc/svg/list_logo-27e58348b7.svg')]" />
+      <div class="mt-5 overflow-y-hidden h-[calc(100%_-_105px)]">
+        <div class="max-h-full min-h-40">
+          <div class="mb-2.5 h-10 px-4">
+            <div class="w-3"></div>
+            <div class="flex flex-1"></div>
           </div>
         </div>
       </div>
     </div>
-    <!-- <Dialog>
-      <div class="modal-card-wrap">
-        <ModalCard
-          v-for="item in modalCardList"
-          :id="item.id"
-          :key="item.id"
-          :title="item.title"
-          :description="item.description"
-        />
-      </div>
-    </Dialog> -->
   </div>
 </template>
 
@@ -67,7 +21,7 @@ import logo from '~/assets/logo.svg'
 import HomeContent from './homeContent.vue'
 import ModalCard from './modalCard.vue'
 import { fetchHomeDocs } from '~/api/home'
-import { Home, DocDetil, Delete } from '@icon-park/vue-next'
+import { Home, Delete } from '@icon-park/vue-next'
 
 const selectedKeys = ref<string[]>(['1'])
 const openKeys = ref<string[]>([])
@@ -112,54 +66,3 @@ onMounted(async () => {
   dataSource.value = result.list
 })
 </script>
-<style lang="less">
-.home-wrap {
-  height: calc(var(--vh, 1vh) * 100);
-  width: 100vw;
-  background: #fff;
-  position: relative;
-  .home-body {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    background-color: #fff;
-      .brand-wrap {
-        padding-top: 16px;
-        padding-bottom: 40px;
-        height: 88px;
-        a.logo {
-          display: flex;
-          align-items: center;
-          line-height: 30px;
-          img {
-            width: 30px;
-            height: 30px;
-            margin: 0 12px 0 20px;
-          }
-          span.product {
-            font-size: 14px;
-            color: #1f2329;
-            font-weight: 700;
-          }
-        }
-      }
-      ul.operate {
-        display: flex;
-        width: 350px;
-        justify-content: flex-end;
-        margin: 0;
-        span.ant-avatar {
-          margin-left: 20px;
-          margin-bottom: 8px;
-        }
-      }
-  }
-}
-.modal-card-wrap {
-
-}
-</style>
