@@ -70,7 +70,6 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import logo from '~/assets/logo.svg'
 import ReviseRecord from '~/pages/revise-record/index.vue'
-import { DesktopOutlined, FolderOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import Engine, { $, EngineInterface, ChangeInterface, isMobile } from '@aomao/engine'
 import AmToolbar, { GroupItemProps } from '@aomao/toolbar-vue'
 import { cards, plugins, pluginConfig } from './config'
@@ -246,84 +245,6 @@ onUnmounted(() => {
     bottom: 0;
     overflow: hidden;
     color: #fff;
-    .ant-layout-sider {
-      background-color: #263238;
-      ul.ant-menu {
-        height: 100%;
-        color: #fff;
-        background-color: #263238;
-        li.ant-menu-item {
-          color: #fff;
-        }
-      }
-      .ant-menu-sub.ant-menu-inline {
-        background-color: #263238;
-        color: #fff;
-      }
-    }
-    .ant-layout-header {
-      height: 64px;
-      padding: 0px 20px;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #ccc;
-      .doc-wrap{
-        display: flex;
-        align-items: center;
-        a>img{
-          width: 40px;
-          height: 40px;
-        }
-        .doc-topic {
-          width: 150px;
-          text-align: center;
-          .title {
-            font-size: 16px;
-            line-height: 30px;
-            color: #222;
-          }
-          .sub-title {
-            font-size: 12px;
-            line-height: 18px;
-            color: #666;
-          }
-        }
-      }
-
-      ul.operate {
-        display: flex;
-        width: 350px;
-        justify-content: flex-end;
-        margin: 0;
-        span.ant-avatar {
-          margin-bottom: 8px;
-        }
-      }
-    }
-    .ant-layout-content {
-      overflow: hidden;
-      margin: 15px 0 15px 15px;
-    }
-    .revise-sider.ant-layout-sider {
-      background: transparent;
-      margin: 15px 15px 15px 0;
-      min-width: 300px !important;
-    }
-  }
-  .ant-back-top {
-    bottom: 100px;
-  }
-  .ant-back-top-inner {
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-    border-radius: 4px;
-    background-color: #1088e9;
-    color: #fff;
-    text-align: center;
-    font-size: 20px;
   }
 }
 </style>
@@ -340,10 +261,6 @@ onUnmounted(() => {
 .editor-ot-users-content {
   display: flex;
   flex-wrap: wrap;
-}
-
-.editor-ot-users .ant-avatar {
-  margin: 0 2px;
 }
 
 .editor-toolbar {

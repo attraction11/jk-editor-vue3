@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>_图标/Icon/新建</title>
+    <defs>
+        <path d="M9.1,-2.31599945e-14 L9.1,6.899 L16,6.9 L16,9.1 L9.1,9.099 L9.1,16 L6.9,16 L6.9,9.099 L0,9.1 L0,6.9 L6.899,6.899 L6.9,-2.30252833e-14 L9.1,-2.31599945e-14 Z" id="path-1"></path>
+    </defs>
+    <g id="列表页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="New-列表页-normal" transform="translate(-106.000000, -100.000000)">
+            <g id="Button/large/01_normal" transform="translate(32.000000, 88.000000)">
+                <g id="新建-2" transform="translate(74.000000, 9.000000)">
+                    <g id="编组" transform="translate(0.000000, 3.000000)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="新建icon" fill="#FFFFFF" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -20,3 +20,8 @@ declare module '*.vue' {
     RouterView: typeof import('vue-router')['RouterView']
   }
 }
+
+declare module '*.svg' {
+  const content: any
+  export default content
+}

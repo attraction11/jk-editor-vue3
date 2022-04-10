@@ -110,10 +110,6 @@
 	padding: 0px 12px 12px;
 }
 
-.doc-comment-item-body .ant-space-vertical {
-	display: flex;
-}
-
 .doc-comment-edit-wrapper {
 }
 
@@ -125,11 +121,6 @@
 	align-items: center;
 	justify-content: flex-end;
 	margin-top: 12px;
-}
-
-.doc-comment-edit-button .ant-btn {
-	margin-left: 12px;
-	font-size: 12px;
 }
 
 .doc-comment-item-row {

@@ -20,11 +20,4 @@ defineProps<IProps>()
   padding: 20px;
   display: block;
 }
-
-.ant-spin-nested-loading {
-  position: inherit;
-}
-.ant-spin-nested-loading .ant-spin-container {
-  position: inherit;
-}
 </style>
