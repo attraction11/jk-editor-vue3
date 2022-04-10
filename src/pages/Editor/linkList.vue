@@ -2,18 +2,17 @@
   <div
     class="data-toc"
   >
-    <div
-      v-for="(item, index) in imgData"
+      <a
+      v-for="(item, index) in linkData"
       :key="item.id"
+      href="void()"
       :class="tocClass(index)"
-      @click="onListClick(item.currentSrc)"
-    >
-      <img class="cursor-pointer" :src="item.currentSrc" alt="">
-    </div>
+      @click="onListClick($event, item.href)"
+    >{{ (index + 1) + '、' + item.innerText }}</a>
   </div>
 </template>
 
-<script setup lang="ts" name="imgList">
+<script setup lang="ts" name="linkList">
 import { ref, reactive, watchEffect } from 'vue'
 import { $ } from '@aomao/engine'
 import { Outline } from '@aomao/plugin-heading'
@@ -28,26 +27,26 @@ const props = defineProps({
 })
 
 let readingSection = ref(-1)
-let imgData = reactive([])
+let linkData = reactive([])
 
-const getImgData = () => {
+const getlinkData = () => {
   // 从编辑区域提取符合结构要求的标题 Dom 节点
   const nodes: Array<Element> = []
   console.log('props.editor.container: ', props.editor.container);
 
-  props.editor.container.find('img.data-drag-image').each((child) => {
+  props.editor.container.find('.am-engine a[target="_blank"]').each((child) => {
     const node = $(child)
     nodes.push(node.get<Element>()!)
   })
-  imgData = nodes
-  console.log('imgData: ', imgData);
+  linkData = nodes
+  console.log('linkData: ', linkData);
 }
 
-const onListClick = (src) => {
+const onListClick = (e, href) => {
   // console.log('e, id: ', e, id)
-  // e = e || window.event
-  // e.preventDefault()
-  const top = document.querySelector(`.am-engine img[src="${src}"]`).closest('p').offsetTop
+  e = e || window.event
+  e.preventDefault()
+  const top = document.querySelector(`.am-engine a[target="_blank"][href="${href}"]`).closest('p').offsetTop
   document.querySelector('.editor-content').scrollTop = top
 }
 
@@ -80,7 +79,7 @@ const findReadingSection = (elements: Array<Element>, top: number) => {
 }
 
 const listenerViewChange = () => {
-  const data: Array<HTMLElement> = imgData
+  const data: Array<HTMLElement> = linkData
     .map(({ id }) => document.getElementById(id))
     .filter((element) => element !== null) as Array<HTMLElement>
   readingSection = findReadingSection(data, 220)
@@ -95,7 +94,7 @@ const tocClass = (index) => {
 }
 
 watchEffect(() => {
-  getImgData()
+  getlinkData()
 })
 </script>
 
@@ -112,14 +111,13 @@ watchEffect(() => {
     font-size: 12px;
     line-height: 20px;
     color: inherit;
-    margin-bottom: 20px;
     border: 2px solid #f3f2f1;
   }
   .data-toc-item-active,
   .data-toc-item:hover,
   .data-toc-item:focus{
     text-decoration: none;
-    border: 2px solid #1890FF;
+    color: #1890ff;
   }
   &::-webkit-scrollbar{
     width:6px;

@@ -23,7 +23,7 @@
         v-show="showList"
         class="w-56 bg-neutralLighter"
       >
-        <ul class="h-full mx-1 h-9 p-1 text-black text-opacity-70 text-sm flex">
+        <ul class="h-full mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
           <template
             v-for="item in tabList"
             :key="item.key"
@@ -57,6 +57,15 @@
           class="p-2"
         >
           <ImgList
+            v-if="engine"
+            :editor="engine"
+          />
+        </div>
+        <div
+          v-show="selectTab === 'link'"
+          class="p-2"
+        >
+          <linkList
             v-if="engine"
             :editor="engine"
           />
@@ -124,6 +133,7 @@ import iconComment from '~/icons/svg/icon_comment.svg'
 import iconLock from '~/icons/svg/icon_lock.svg'
 import Directory from './directory.vue'
 import ImgList from './imgList.vue'
+import linkList from './linkList.vue'
 
 import { getDocSave } from '~/api/home'
 
@@ -158,6 +168,10 @@ const tabList = [
   {
     key: 'image',
     label: '图片'
+  },
+  {
+    key: 'link',
+    label: '链接'
   }
 ]
 
