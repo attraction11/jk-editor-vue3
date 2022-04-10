@@ -31,7 +31,7 @@ const loadRecords = async () => {
       row_history: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-gGSHIYJE"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
       row_original: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-gGSHIYJE"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
       editor_name: 'user1',
-      editor_time: 1647652096877
+      editor_time: '2022.02.15'
     }
   ]
 }
@@ -39,7 +39,6 @@ const loadRecords = async () => {
 
 <style scoped lang="less">
 .revise-record-wrap {
-  width: 180px;
   padding: 10px;
   height: auto;
   margin: 0 0 0 10px;

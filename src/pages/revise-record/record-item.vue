@@ -1,12 +1,9 @@
 <template>
   <div class="revise-list">
-    <div class="avatar">
-      {{ props.record.editor_name.at(0) }}
-    </div>
     <div class="editor-meta">
       <div class="meta-info">
         <span>{{ props.record.editor_name }}</span>
-        <span>{{ dayjs(props.record.editor_time).format('YYYY-MM-DD') }}</span>
+        <span>{{ props.record.editor_time }}</span>
         <span>{{ props.record.doc_version }}</span>
       </div>
       <div class="record-info">
