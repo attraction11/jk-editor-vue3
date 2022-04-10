@@ -1,6 +1,6 @@
 <template>
   <div class="editor-wrap">
-    <header class="h-11 w-full shadow-sm bg-themePrimary"></header>
+    <header class="h-11 w-full shadow-sm bg-themePrimary" />
     <div class="flex">
       <ul class="menu-wrap p-1 mb-0 bg-neutralLight border-r border-neutralQuaternaryAlt">
         <template
@@ -80,8 +80,14 @@
         class="w-56 bg-neutralLighter relative"
         v-show="showReviseRecord || showCommentRecord"
       >
-        <ReviseRecord v-show="showReviseRecord" />
-        <CommentRecord v-show="showCommentRecord" />
+        <ReviseRecord
+          v-show="showReviseRecord"
+          :records="records"
+        />
+        <CommentRecord
+          v-show="showCommentRecord"
+          :comments="comments"
+        />
         <img
           :src="iconClose"
           class="absolute right-1 top-1 cursor-pointer w-5 h-5  "
@@ -104,7 +110,7 @@ import Engine, {
 import AmToolbar, { GroupItemProps } from '@aomao/toolbar-vue'
 import { cards, plugins, pluginConfig } from './config'
 import { getDefaultToolbarItems, getDefaultStyle } from './default'
-import defaultContent from '~/document/intelliDoc'
+import defaultContent from '~/document/contract'
 import { StyleOption, NODES, Message, ChangePayload } from './types'
 import ReviseRecord from '~/pages/revise-record/index.vue'
 import CommentRecord from '~/pages/comment-record/index.vue'
@@ -112,6 +118,7 @@ import fileDoc from '~/icons/svg/icon_file_doc.svg'
 import iconClose from '~/icons/svg/icon_close.svg'
 import iconRevise from '~/icons/svg/icon_revise.svg'
 import iconComment from '~/icons/svg/icon_comment.svg'
+import iconLock from '~/icons/svg/icon_lock.svg'
 import Directory from './directory.vue'
 import ImgList from './imgList.vue'
 
@@ -236,23 +243,101 @@ const onCloseClick = (value1: boolean, value2: boolean) => {
 // 处理文章段落的编辑权限
 const initEngineRole = () => {
   const selectRoot = document.querySelector('div.am-engine')
-  selectRoot.setAttribute('contenteditable', false)
-  selectRoot.style.userSelect = 'none'
+  // selectRoot.setAttribute('contenteditable', false)
+  // selectRoot.style.userSelect = 'none'
 
-  const selectNode = document.querySelector(
-    'div.am-engine p[data-id="pd157317-H6Mh85v2"]'
-  )
-  selectNode.setAttribute('contenteditable', true)
-  selectNode.style.userSelect = ''
+  // selectNode.setAttribute('contenteditable', true)
+  // selectNode.style.userSelect = ''
 
-  const span = document.createElement('span')
-  const iconList = `<img title="修订" class="revise" data-id="pd157317-H6Mh85v2" src='${iconRevise}' style="position: absolute;right: -10px;bottom: 4px;cursor: pointer; width: 16px; height: 16px;">
-                    <img title="评论" class="comment" data-id="pd157317-H6Mh85v2" src='${iconComment}' style="position: absolute;right: 28px;bottom: 2px;cursor: pointer; width: 18px; height: 18px;">`
-  span.innerHTML = iconList
+  for (const [key, value] of Object.entries(allLists.value)) {
+    const selectNode = document.querySelector(`div.am-engine p[data-id="${key}"]`)
 
-  selectNode.style.position = 'relative'
-  selectNode.appendChild(span)
+    const span = document.createElement('span')
+    let iconList = ''
+
+    if(value.row_comment) {
+      iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 28px;bottom: 2px;cursor: pointer; width: 18px; height: 18px;">`
+    }
+    if(value.row_history) {
+      iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -10px;bottom: 4px;cursor: pointer; width: 16px; height: 16px;">`
+    }
+    if(value.row_purview) {
+      selectNode.setAttribute('contenteditable', false)
+      selectNode.style.userSelect = 'none'
+      iconList += `<img title="${value.row_purview.join()}有权修订" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -40px;bottom: 4px;cursor: pointer; width: 16px; height: 16px;">`
+    }
+    span.innerHTML = iconList
+
+    selectNode.style.position = 'relative'
+    selectNode.appendChild(span)
+  }
 }
+
+const records = ref([])
+const comments = ref([])
+const allLists = ref({})
+
+const loadRecords = async () => {
+  records.value = await [
+    {
+      id: 'p002deaf-gGSHIYJE',
+      doc_id: 'doc-110',
+      doc_version: 'v1',
+      row_purview: ['user1', 'user2', 'user3', 'user4'],
+      row_history: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-gGSHIYJE"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
+      row_original: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-gGSHIYJE"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
+      editor_name: 'user1',
+      editor_time: '2022.02.15'
+    },
+    {
+      id: 'p4ca7b43-FBkK4dCc',
+      doc_id: 'doc-110',
+      doc_version: 'v1',
+      row_purview: ['user1', 'user2', 'user3', 'user4'],
+      row_history: '<p data-id="p4ca7b43-FBkK4dCc" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方按照本合同约定的标准对乙方完成的阶段性工作成果和终极工作成果进行考核、检验的活动。</span></span></p>',
+      row_original: '<p data-id="p4ca7b43-FBkK4dCc" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方暗中本合同约定的标准对乙方完成的城市古工作成果和终极工作成果进行、检验的活动。</span></span></p>',
+      editor_name: 'user1',
+      editor_time: '2022.02.15'
+    }
+  ]
+}
+
+const loadComments = async () => {
+  comments.value = await [
+    {
+      id: 'p4ca7b43-bCqrErwy',
+      doc_id: 'doc-110',
+      doc_version: 'v1',
+      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-bCqrErwy">这句话有问题~</p>',
+      comment_name: 'user1',
+      comment_time: '2022.02.15'
+    }
+  ]
+
+  for (let i = 0; i < comments.value.length; i++) {
+    const id = comments.value[i].id
+    const selectNode = document.querySelector(`.am-engine p[data-id=${id}]`)
+    if (selectNode) {
+      selectNode.style.textDecoration = 'dashed underline orange'
+    }
+  }
+}
+
+onMounted(async () => {
+  await loadComments()
+  await loadRecords()
+  const arrlist = [...records.value, ...comments.value]
+  arrlist.map(item => {
+    if(allLists.value[item.id]) {
+      allLists.value[item.id] = Object.assign(allLists.value[item.id], item)
+    } else {
+      allLists.value[item.id] = item
+    }
+    console.log('allLists: ', allLists);
+  })
+
+  initEngineRole()
+})
 
 onMounted(() => {
   // 容器加载后实例化编辑器引擎
@@ -314,8 +399,7 @@ onMounted(() => {
     engineInstance.on('select', () => {
       emit('onSelect', engineInstance.change)
     })
-
-    initEngineRole()
+    
     engine.value = engineInstance
   }
 })
