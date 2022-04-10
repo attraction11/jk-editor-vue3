@@ -52,7 +52,10 @@
             :editor="engine"
           />
         </div>
-        <div class="p-2">
+        <div
+          v-show="selectTab === 'image'"
+          class="p-2"
+        >
           <ImgList
             v-if="engine"
             :editor="engine"
@@ -100,7 +103,7 @@
 </template>
 
 <script setup lang="ts" name="RedaxeEditor">
-import { onMounted, onUnmounted, ref, computed } from 'vue'
+import { onMounted, onUnmounted, ref, reactive, computed } from 'vue'
 import Engine, {
   $,
   EngineInterface,
@@ -249,33 +252,43 @@ const initEngineRole = () => {
   // selectNode.setAttribute('contenteditable', true)
   // selectNode.style.userSelect = ''
 
-  for (const [key, value] of Object.entries(allLists.value)) {
+  for (const [key, value] of Object.entries(allLists)) {
     const selectNode = document.querySelector(`div.am-engine p[data-id="${key}"]`)
 
     const span = document.createElement('span')
     let iconList = ''
 
     if(value.row_comment) {
-      iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 28px;bottom: 2px;cursor: pointer; width: 18px; height: 18px;">`
+      iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
     }
     if(value.row_history) {
-      iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -10px;bottom: 4px;cursor: pointer; width: 16px; height: 16px;">`
+      iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;">`
     }
     if(value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
       selectNode.style.userSelect = 'none'
-      iconList += `<img title="${value.row_purview.join()}有权修订" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -40px;bottom: 4px;cursor: pointer; width: 16px; height: 16px;">`
+      iconList += `<img title="${value.row_purview.join()}有权修订" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -20px;bottom: 6px;cursor: pointer; width: 20px; height: 20px;">`
     }
     span.innerHTML = iconList
 
     selectNode.style.position = 'relative'
     selectNode.appendChild(span)
+
+    $(`img[data-id="${key}"].revise`).on('click', () => {
+      showCommentRecord.value = false
+      showReviseRecord.value = true
+    })
+
+    $(`img[data-id="${key}"].comment`).on('click', () => {
+      showReviseRecord.value = false
+      showCommentRecord.value = true
+    })
   }
 }
 
 const records = ref([])
 const comments = ref([])
-const allLists = ref({})
+const allLists = reactive([])
 
 const loadRecords = async () => {
   records.value = await [
@@ -311,6 +324,14 @@ const loadComments = async () => {
       row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-bCqrErwy">这句话有问题~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
+    },
+    {
+      id: 'p4ca7b43-FBkK4dCc',
+      doc_id: 'doc-110',
+      doc_version: 'v1',
+      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-bCqrErwy">这句话有问题~</p>',
+      comment_name: 'user1',
+      comment_time: '2022.02.15'
     }
   ]
 
@@ -328,13 +349,13 @@ onMounted(async () => {
   await loadRecords()
   const arrlist = [...records.value, ...comments.value]
   arrlist.map(item => {
-    if(allLists.value[item.id]) {
-      allLists.value[item.id] = Object.assign(allLists.value[item.id], item)
+    if(allLists[item.id]) {
+      allLists[item.id] = Object.assign(allLists[item.id], item)
     } else {
-      allLists.value[item.id] = item
+      allLists[item.id] = item
     }
-    console.log('allLists: ', allLists);
   })
+  console.log('allLists: ', allLists['p4ca7b43-bCqrErwy']);
 
   initEngineRole()
 })
@@ -399,21 +420,9 @@ onMounted(() => {
     engineInstance.on('select', () => {
       emit('onSelect', engineInstance.change)
     })
-    
+
     engine.value = engineInstance
   }
-})
-
-onMounted(() => {
-  $('img[data-id="pd157317-H6Mh85v2"].revise').on('click', () => {
-    showCommentRecord.value = false
-    showReviseRecord.value = true
-  })
-
-  $('img[data-id="pd157317-H6Mh85v2"].comment').on('click', () => {
-    showReviseRecord.value = false
-    showCommentRecord.value = true
-  })
 })
 
 onUnmounted(() => {

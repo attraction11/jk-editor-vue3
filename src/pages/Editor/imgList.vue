@@ -2,14 +2,14 @@
   <div
     class="data-toc"
   >
-    <a
+    <div
       v-for="(item, index) in imgData"
       :key="item.id"
-      :href="`#${item.id}`"
       :class="tocClass(index)"
+      @click="onListClick(item.currentSrc)"
     >
-    <img :src="item.source" alt="">
-    </a>
+      <img class="cursor-pointer" :src="item.currentSrc" alt="">
+    </div>
   </div>
 </template>
 
@@ -33,13 +33,22 @@ let imgData = reactive([])
 const getImgData = () => {
   // 从编辑区域提取符合结构要求的标题 Dom 节点
   const nodes: Array<Element> = []
+  console.log('props.editor.container: ', props.editor.container);
 
-  props.editor.container.find('img').each((child) => {
+  props.editor.container.find('img.data-drag-image').each((child) => {
     const node = $(child)
     nodes.push(node.get<Element>()!)
   })
   imgData = nodes
   console.log('imgData: ', imgData);
+}
+
+const onListClick = (src) => {
+  // console.log('e, id: ', e, id)
+  // e = e || window.event
+  // e.preventDefault()
+  const top = document.querySelector(`.am-engine img[src="${src}"]`).closest('p').offsetTop
+  document.querySelector('.editor-content').scrollTop = top
 }
 
 const findReadingSection = (elements: Array<Element>, top: number) => {
@@ -103,12 +112,14 @@ watchEffect(() => {
     font-size: 12px;
     line-height: 20px;
     color: inherit;
+    margin: 10px 0;
+    border: 2px solid #f3f2f1;
   }
   .data-toc-item-active,
   .data-toc-item:hover,
   .data-toc-item:focus{
     text-decoration: none;
-    border: 1px solid #1890FF;
+    border: 2px solid #1890FF;
   }
   &::-webkit-scrollbar{
     width:6px;

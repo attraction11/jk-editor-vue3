@@ -1,5 +1,5 @@
 <template>
-  <div class="revise-record-wrap">
+  <div class="comment-record-wrap">
     <h4>评论记录</h4>
     <div
       class="comment-list cursor-pointer"
@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="revise-record">
+<script setup lang="ts" name="comment-record">
 import { defineProps } from 'vue'
 
 const scrollTop = (id) => {
@@ -37,16 +37,15 @@ const scrollTop = (id) => {
 }
 
 const props = defineProps({
-  records: {
+  comments: {
     type: Array,
     default: []
   }
 })
-
 </script>
 
 <style scoped lang="less">
-.revise-record-wrap {
+.comment-record-wrap {
   padding: 10px;
   height: auto;
   margin: 0 0 0 10px;
@@ -55,6 +54,19 @@ const props = defineProps({
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;
+  }
+  .editor-meta {
+    .meta-info {
+      display: flex;
+      line-height: 30px;
+      margin-bottom: 5px;
+      color: #000;
+      border-bottom: 1px solid rgb(212, 210, 210);
+      span:nth-child(2) {
+        color: #666;
+        padding: 0 15px;
+      }
+    }
   }
 }
 </style>
