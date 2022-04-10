@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import AppLayout from '~/layouts/index.vue'
 import nprogress from 'nprogress' // @types/nprogress
 import 'nprogress/nprogress.css'
@@ -32,7 +32,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(), // 路由模式
+  history: createWebHistory(), // 路由模式
   routes // 路由规则
 })
 

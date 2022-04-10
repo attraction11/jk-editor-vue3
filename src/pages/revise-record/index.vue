@@ -39,6 +39,7 @@ const loadRecords = async () => {
 
 <style scoped lang="less">
 .revise-record-wrap {
+  width: 180px;
   padding: 10px;
   height: auto;
   margin: 0 0 0 10px;
