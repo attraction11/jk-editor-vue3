@@ -31,13 +31,13 @@
     <div class="editor-body">
       <ul class="editor-sider">
         <li>
-          <List />目录
+          目录
         </li>
         <li>
-          <List />邮件
+          邮件
         </li>
         <li>
-          <List />历史
+          历史
         </li>
       </ul>
       <Directory
@@ -76,7 +76,6 @@ import { cards, plugins, pluginConfig } from './config'
 import { getDefaultToolbarItems, getDefaultStyle } from './default'
 import defaultContent from '~/document/intelliDoc'
 import { StyleOption, NODES, Message, ChangePayload } from './types'
-import { List, Mail, History } from '@icon-park/vue-next'
 import Directory from './directory.vue'
 
 import { getDocSave } from '~/api/home'

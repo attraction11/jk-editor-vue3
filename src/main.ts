@@ -3,18 +3,18 @@ import { createApp } from 'vue'
 import router from './router/index'
 
 // import { useTable } from './plugin/vxe-table'
-import SvgIcon from './components/SvgIcon.vue'
+// import SvgIcon from './components/SvgIcon.vue'
 // import DropdownMenu from './components/DropdownMenu.vue'
-import VueCustomTooltip from './components/Tooltip/index'
+// import VueCustomTooltip from './components/Tooltip/index'
 import './index.css'
 
 const app = createApp(App)
 app.use(router)
 // app.use(useTable)
-app.component('SvgIcon', SvgIcon)
+// app.component('SvgIcon', SvgIcon)
 // app.component('DropdownMenu', DropdownMenu)
 
-app.use(VueCustomTooltip)
+// app.use(VueCustomTooltip)
 
 // app.directive(
 //   'click-outside', {

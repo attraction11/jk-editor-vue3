@@ -24,16 +24,13 @@ export default defineConfig({
     // 这里已经将src/icons/下的svg全部导入，无需再单独导入
     createSvg('./src/icons/svg/')
   ],
+  // vite2.x
   css: {
     preprocessorOptions: {
-      scss: {
-        // `scss` 语法会要求语句结尾必须有分号，`sass` 则要求必须没有分号
-        // additionalData: '@import "@/styles/variables.scss";'
-      },
-      css: {
-        charset: false
+      less: {
+        javascriptEnabled: true,
       }
-    }
+    },
   },
   server: {
     open: true,

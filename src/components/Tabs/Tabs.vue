@@ -31,7 +31,7 @@
 
 <script setup lang="ts" name="Tab">
 import { ref, computed, useSlots, onMounted } from 'vue'
-import expiringStorage from '../expiringStorage'
+import expiringStorage from './expiringStorage'
 
 const tabs = ref([])
 const activeTabHash = ref('')

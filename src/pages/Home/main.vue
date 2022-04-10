@@ -109,7 +109,6 @@ import userImg from '~/icons/svg/icon_portrait.svg'
 
 import fileDoc from '~/icons/svg/icon_file_doc.svg'
 import fileImport from '~/icons/svg/icon_import.svg'
-import { Home, DocDetail, Delete, Add } from '@icon-park/vue-next'
 
 const selectedKeys = ref<string[]>(['1'])
 const openKeys = ref<string[]>([])
