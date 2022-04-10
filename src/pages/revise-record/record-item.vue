@@ -36,7 +36,6 @@ const props = defineProps({
   width: 100%;
   padding: 15px 0;
   min-height: 100px;
-  border-bottom: 1px solid #ccc;
   display: flex;
   .avatar {
     border-radius: 50%;
@@ -55,6 +54,7 @@ const props = defineProps({
       line-height: 30px;
       margin-bottom: 5px;
       color: #000;
+      border-bottom: 1px solid rgb(212, 210, 210);
       span:nth-child(2) {
         color: #666;
         padding: 0 15px;

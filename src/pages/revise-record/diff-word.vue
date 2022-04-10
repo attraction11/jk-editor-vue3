@@ -2,7 +2,7 @@
   <div
     :class="props.id"
     :data-id="props.id"
-    @click="scrollTop"
+    @click="scrollTop(props.id)"
   />
 </template>
 
@@ -29,8 +29,12 @@ if (selectNode) {
   selectNode.style.textDecoration = 'wavy underline orange'
 }
 
-const scrollTop = () => {
-  selectNode.scrollIntoView()
+const scrollTop = (id) => {
+  // selectNode.scrollIntoView()
+  console.log('id: ', id);
+  const top = document.querySelector(`p[data-id="${id}"]`).offsetTop
+  console.log('top: ', top);
+  document.querySelector('.editor-content').scrollTop = top
 }
 
 onMounted(() => {

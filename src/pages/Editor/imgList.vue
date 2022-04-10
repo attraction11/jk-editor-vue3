@@ -93,7 +93,6 @@ watchEffect(() => {
 <style scoped lang="less">
 .data-toc {
   overflow: auto;
-  width: 184px;
   height: calc(100vh - 108px);
   padding: 0 10px 12px;
   .data-toc-item {

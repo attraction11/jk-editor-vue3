@@ -6,113 +6,110 @@
       href="void()"
       :class="tocClass(item.depth, index)"
       @click="onListClick($event, item.id)"
-      >{{ item.text }}</a
-    >
+    >{{ item.text }}</a>
   </div>
 </template>
 
 <script setup lang="ts" name="Directory">
-import { ref, reactive, onMounted, watchEffect } from "vue";
-import { $ } from "@aomao/engine";
-import { Outline } from "@aomao/plugin-heading";
-import Tabs from "~/components/Tabs/Tabs.vue";
-import Tab from "~/components/Tabs/Tab.vue";
+import { ref, reactive, onMounted, watchEffect } from 'vue'
+import { $ } from '@aomao/engine'
+import { Outline } from '@aomao/plugin-heading'
+import Tabs from '~/components/Tabs/Tabs.vue'
+import Tab from '~/components/Tabs/Tab.vue'
 
-const outline = new Outline();
+const outline = new Outline()
 
 const props = defineProps({
   editor: {
     type: Object,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const activeKey = ref<string>("1");
+const activeKey = ref<string>('1')
 // const tocRef = ref(null)
-let readingSection = ref(-1);
-let tocData = reactive([]);
+let readingSection = ref(-1)
+let tocData = reactive([])
 
 const getTocData = () => {
   // 从编辑区域提取符合结构要求的标题 Dom 节点
-  const nodes: Array<Element> = [];
-  const { card } = props.editor;
+  const nodes: Array<Element> = []
+  const { card } = props.editor
 
-  props.editor.container.find("h1,h2,h3,h4,h5,h6").each((child) => {
-    const node = $(child);
+  props.editor.container.find('h1,h2,h3,h4,h5,h6').each((child) => {
+    const node = $(child)
     // Card 里的标题，不纳入大纲
     if (card.closest(node)) {
-      return;
+      return
     }
     // 非一级深度标题，不纳入大纲
     if (!node.parent()?.isRoot()) {
-      return;
+      return
     }
-    nodes.push(node.get<Element>()!);
-  });
-  tocData = outline.normalize(nodes);
-  console.log("tocData: ", tocData);
-};
+    nodes.push(node.get<Element>()!)
+  })
+  tocData = outline.normalize(nodes)
+  console.log('tocData: ', tocData)
+}
 
 const onListClick = (e, id) => {
-  console.log('e, id: ', e, id);
-  e = e || window.event;
-  e.preventDefault();
-  const target = document.querySelector(`#${id}`);
-    target.scrollIntoView();
-  // $("html,body").scrollTop($(id).offset().top);
-};
+  console.log('e, id: ', e, id)
+  e = e || window.event
+  e.preventDefault()
+  const top = document.querySelector(`#${id}`).offsetTop
+  document.querySelector('.editor-content').scrollTop = top
+}
 
 const findReadingSection = (elements: Array<Element>, top: number) => {
-  top = top || 0;
-  if (!elements || elements.length === 0) return -1;
-  let i = 0;
-  let index = -1;
-  const len = elements.length;
+  top = top || 0
+  if (!elements || elements.length === 0) return -1
+  let i = 0
+  let index = -1
+  const len = elements.length
   for (; i < len; i++) {
-    const element = elements[i];
-    if (!element || !element.getBoundingClientRect) continue;
-    const rect = element.getBoundingClientRect();
-    if (rect.height === 0) continue;
+    const element = elements[i]
+    if (!element || !element.getBoundingClientRect) continue
+    const rect = element.getBoundingClientRect()
+    if (rect.height === 0) continue
     if (rect.top <= top + 1) {
       if (i === len - 1) {
-        index = i;
+        index = i
       } else {
-        const nexElement = elements[i + 1];
-        if (!nexElement || !nexElement.getBoundingClientRect) continue;
-        const nextRect = nexElement.getBoundingClientRect();
+        const nexElement = elements[i + 1]
+        if (!nexElement || !nexElement.getBoundingClientRect) continue
+        const nextRect = nexElement.getBoundingClientRect()
         if (nextRect.top > top + 1) {
-          index = i;
-          break;
+          index = i
+          break
         }
       }
     }
   }
-  return index;
-};
+  return index
+}
 
 const listenerViewChange = () => {
   const data: Array<HTMLElement> = tocData
     .map(({ id }) => document.getElementById(id))
-    .filter((element) => element !== null) as Array<HTMLElement>;
-  readingSection = findReadingSection(data, 220);
-};
+    .filter((element) => element !== null) as Array<HTMLElement>
+  readingSection = findReadingSection(data, 220)
+}
 
 const tocClass = (depth, index) => {
-  let className = `data-toc-item data-toc-item-${depth}`;
+  let className = `data-toc-item data-toc-item-${depth}`
   if (index === readingSection.value) {
-    className += " data-toc-item-active";
+    className += ' data-toc-item-active'
   }
-  return className;
-};
+  return className
+}
 
 watchEffect(() => {
-  getTocData();
-});
+  getTocData()
+})
 </script>
 
 <style scoped lang="less">
 .data-toc {
-  width: 184px;
   overflow: auto;
   height: calc(100vh - 108px);
   padding: 0 10px 12px;
