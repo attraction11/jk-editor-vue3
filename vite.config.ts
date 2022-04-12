@@ -28,9 +28,9 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       less: {
-        javascriptEnabled: true,
+        javascriptEnabled: true
       }
-    },
+    }
   },
   server: {
     open: true,
@@ -40,8 +40,8 @@ export default defineConfig({
     proxy: {
       // 选项写法
       '/api': {
-        target: 'http://192.168.0.111:5000/api', // 开发环境-代理的目标地址
-        // target: 'https://shop.fed.lagou.com/api/admin', // 线上环境-代理的目标地址
+        // target: 'http://192.168.0.111:5000/api', // 开发环境-代理的目标地址
+        target: 'http://47.111.128.79:90/', // 测试环境-代理的目标地址
         // 兼容基于名字的虚拟主机
         // a.com ==>(通过域名映射主机本地端口) locahost:2xxx
         // b.com ==>(通过域名映射主机本地端口) locahost:3xxx

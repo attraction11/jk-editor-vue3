@@ -1,6 +1,22 @@
 <template>
   <div class="editor-wrap">
-    <header class="h-11 w-full shadow-sm bg-themePrimary" />
+    <header class="h-11 w-full shadow-sm bg-themePrimary flex justify-between  items-center ">
+      <div class="ml-4 text-gray-200   ">
+        {{ saveLoading ? '保存中...' : '已经保存' }}
+      </div>
+
+      <div class="flex items-center ">
+        <span
+          @click="onSaveDoc"
+          class="text-white  pr-6 cursor-pointer  "
+        >保存</span>
+        <img
+          src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+          class="rounded-full w-8 h-8 mr-4 cursor-pointer"
+          alt="Avatar"
+        >
+      </div>
+    </header>
     <div class="flex">
       <ul class="menu-wrap p-1 mb-0 bg-neutralLight border-r border-neutralQuaternaryAlt">
         <template
@@ -102,7 +118,7 @@
         />
         <img
           :src="iconClose"
-          class="absolute right-1 top-1 cursor-pointer w-5 h-5  "
+          class="absolute right-1 top-1 cursor-pointer w-5 h-5"
           alt=""
           @click="onCloseClick(false, false)"
         >
@@ -135,13 +151,12 @@ import Directory from './directory.vue'
 import ImgList from './imgList.vue'
 import linkList from './linkList.vue'
 
-import { getDocSave } from '~/api/home'
+import { getDocSave, getDocBody } from '~/api/home'
 
 const showList = ref<boolean>(false)
 const showReviseRecord = ref<boolean>(false)
 const showCommentRecord = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
-const saveResult = ref<string>('')
 const selectMenu = ref<string>('doc1')
 const selectTab = ref<string>('title')
 
@@ -182,19 +197,30 @@ const editorWidth = computed(() => {
   }
 })
 
-const handleDocSave = () => {
+const onSaveDoc = () => {
+  // console.log('engine.value: ', engine.value?.getValue());
   saveLoading.value = true
-  getDocSave()
-    .then((resp) => {
-      saveLoading.value = false
-      if (resp.data.code !== '0') {
-        saveResult.value = '保存成功'
-      }
-      saveResult.value = '保存失败'
-    })
-    .catch((error) => {
-      console.log('error: ', error)
-    })
+  getDocSave({
+    id: 'cf2e3104dd904d96bb8ac27c9892ab67',
+    content: engine.value?.getValue(),
+    modifier: 'hong'
+  }).then((resp) => {
+    saveLoading.value = false
+  }).catch((error) => {
+    console.log('error: ', error)
+  })
+}
+
+const onDocBody = () => {
+  // console.log('container.value: ', String(container.value))
+  saveLoading.value = true
+  getDocBody({
+    id: '文档ID'
+  }).then((resp) => {
+    saveLoading.value = false
+  }).catch((error) => {
+    console.log('error: ', error)
+  })
 }
 
 interface IProps {
@@ -272,13 +298,13 @@ const initEngineRole = () => {
     const span = document.createElement('span')
     let iconList = ''
 
-    if(value.row_comment) {
+    if (value.row_comment) {
       iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
     }
-    if(value.row_history) {
+    if (value.row_history) {
       iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;">`
     }
-    if(value.row_purview) {
+    if (value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
       selectNode.style.userSelect = 'none'
       iconList += `<img title="${value.row_purview.join()}有权修订" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -20px;bottom: 6px;cursor: pointer; width: 20px; height: 20px;">`
@@ -363,13 +389,13 @@ onMounted(async () => {
   await loadRecords()
   const arrlist = [...records.value, ...comments.value]
   arrlist.map(item => {
-    if(allLists[item.id]) {
+    if (allLists[item.id]) {
       allLists[item.id] = Object.assign(allLists[item.id], item)
     } else {
       allLists[item.id] = item
     }
   })
-  console.log('allLists: ', allLists['p4ca7b43-bCqrErwy']);
+  console.log('allLists: ', allLists['p4ca7b43-bCqrErwy'])
 
   initEngineRole()
 })

@@ -1,25 +1,18 @@
 import request from '~/utils/request'
 
-export const getUploadImage = () => {
-  return request({
-    method: 'POST',
-    url: '/image/uploadImage'
-  })
-}
+// export const getUploadImage = () => {
+//   return request({
+//     method: 'POST',
+//     url: '/image/uploadImage'
+//   })
+// }
 
-export const getDocImage = () => {
-  return request({
-    method: 'POST',
-    url: '/image/get'
-  })
-}
-
-export const getDocBody = () => {
-  return request({
-    method: 'POST',
-    url: '/document/get'
-  })
-}
+// export const getDocImage = () => {
+//   return request({
+//     method: 'POST',
+//     url: '/image/get'
+//   })
+// }
 
 export const getUploadDocx = () => {
   return request({

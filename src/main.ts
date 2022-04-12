@@ -1,6 +1,7 @@
 import App from './App.vue'
 import { createApp } from 'vue'
 import router from './router/index'
+import 'tw-elements'
 
 // import { useTable } from './plugin/vxe-table'
 // import SvgIcon from './components/SvgIcon.vue'

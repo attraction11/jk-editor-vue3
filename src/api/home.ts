@@ -1,19 +1,20 @@
 import request from '~/utils/request'
 
-export const fetchHomeDocs = (data: {
+export const fetchHomeDocs = (params: {
   id?: string,
-  status?: string,
 }) => {
   return request({
-    method: 'POST',
+    method: 'GET',
     url: '/folder/getDocumentList',
-    data
+    params: {
+      id: params.id
+    }
   })
 }
 
 export const fetchDocCreate = (data: {
-  name: string
   folderId?: string
+  name: string
   creator: string
 }) => {
   return request({
@@ -23,9 +24,24 @@ export const fetchDocCreate = (data: {
   })
 }
 
-export const getDocSave = () => {
+export const getDocSave = (data: {
+  id: string
+  content: string
+  modifier: string
+}) => {
   return request({
     method: 'POST',
-    url: '/document/save'
+    url: '/document/save',
+    data
+  })
+}
+
+export const getDocBody = (data: {
+  id: string
+}) => {
+  return request({
+    method: 'POST',
+    url: '/document/get',
+    data
   })
 }

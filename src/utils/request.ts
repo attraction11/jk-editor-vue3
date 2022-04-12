@@ -27,8 +27,8 @@ let isRefreshing = false
 
 // 响应拦截器
 request.interceptors.response.use(function (response) {
-  const status = response.data.status
-  console.log('response: ', response)
+  const status = response.status
+  // console.log('response: ', response)
 
   // 正确的情况 (响应的不是预期的结构数据 或 status === 200)
   if (!status || status === 200) {

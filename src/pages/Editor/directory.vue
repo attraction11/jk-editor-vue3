@@ -49,7 +49,6 @@ const getTocData = () => {
     nodes.push(node.get<Element>()!)
   })
   tocData = outline.normalize(nodes)
-  console.log('tocData: ', tocData)
 }
 
 const onListClick = (e, id) => {

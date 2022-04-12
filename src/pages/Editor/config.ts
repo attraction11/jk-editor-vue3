@@ -46,7 +46,8 @@ import Undo from '@aomao/plugin-undo'
 import Unorderedlist from '@aomao/plugin-unorderedlist'
 import { createApp } from 'vue'
 
-const DOMAIN = 'https://editor.aomao.com/api'
+// const DOMAIN = 'https://editor.aomao.com/api'
+const DOMAIN = 'http://47.111.128.79:90'
 
 export const plugins: Array<PluginEntry> = [
   Redo,
@@ -121,7 +122,8 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
           },
           'link',
           'tasklist',
-          'heading'
+          'heading',
+          'comment'
         ],
         {
           icon: 'more',
@@ -188,11 +190,11 @@ export const pluginConfig: { [key: string]: PluginOptions } = {
   },
   [ImageUploader.pluginName]: {
     file: {
-      action: `${DOMAIN}/upload/image`,
+      action: `${DOMAIN}/image/uploadImage`,
       headers: { Authorization: 213434 }
     },
     remote: {
-      action: `${DOMAIN}/upload/image`
+      action: `${DOMAIN}/image/uploadImage`
     },
     isRemote: (src: string) => src.indexOf(DOMAIN) < 0
   },
