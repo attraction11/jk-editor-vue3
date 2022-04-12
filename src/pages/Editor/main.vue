@@ -298,6 +298,7 @@ const onCloseClick = (value1: boolean, value2: boolean) => {
   showReviseRecord.value = value1
   showCommentRecord.value = value2
 }
+
 // 处理文章段落的编辑权限
 const initEngineRole = () => {
   const selectRoot = document.querySelector('div.am-engine')
@@ -307,15 +308,50 @@ const initEngineRole = () => {
   // selectNode.setAttribute('contenteditable', true)
   // selectNode.style.userSelect = ''
 
+  const list = document.querySelectorAll('div.am-engine p')
+  const selectAllNode = Array.from(new Set(list))
+  
+  for (let i = 0; i < selectAllNode.length; i++) {
+    const selectNode = selectAllNode[i]
+    const key = selectAllNode[i].dataset.id
+    const span = document.createElement('span')
+
+    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px; display: none">`
+
+    selectNode.style.position = 'relative'
+    console.log('span----------------->: ', span)
+    selectNode.appendChild(span)
+
+    const imgNode = $(`img[data-id="${key}"].comment`)
+
+    imgNode.on('click', () => {
+      showReviseRecord.value = false
+      showCommentRecord.value = true
+    })
+
+    selectNode.addEventListener('focus', () => {
+      console.log('段落获取焦点-----focus: ')
+      imgNode.style.display = 'block'
+      selectNode.style.backgroundColor = '#faf1d1'
+    })
+
+    selectNode.addEventListener('blur', () => {
+      console.log('段落失去焦点-----blur: ')
+      imgNode.style.display = 'none'
+      selectNode.style.backgroundColor = 'transparent'
+    })
+  }
+
   for (const [key, value] of Object.entries(allLists)) {
     const selectNode = document.querySelector(`div.am-engine p[data-id="${key}"]`)
 
     const span = document.createElement('span')
     let iconList = ''
 
-    if (value.row_comment) {
-      iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
-    }
+    // iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
+    // if (value.row_comment) {
+    // }
+
     if (value.row_history) {
       iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;" />`
       // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
@@ -339,10 +375,10 @@ const initEngineRole = () => {
       showReviseRecord.value = true
     })
 
-    $(`img[data-id="${key}"].comment`).on('click', () => {
-      showReviseRecord.value = false
-      showCommentRecord.value = true
-    })
+    // $(`img[data-id="${key}"].comment`).on('click', () => {
+    //   showReviseRecord.value = false
+    //   showCommentRecord.value = true
+    // })
   }
 }
 
@@ -415,8 +451,8 @@ onMounted(async () => {
       allLists[item.id] = item
     }
   })
-  console.log('allLists: ', allLists['p4ca7b43-bCqrErwy'])
 
+  console.log('allLists: ', allLists['p4ca7b43-bCqrErwy'])
   initEngineRole()
 })
 
@@ -475,6 +511,8 @@ onMounted(() => {
       emit('update:modelValue', engineInstance.getHtml())
       emit('changeHTML', engineInstance.getHtml())
       emit('changeJSON', engineInstance.getJsonValue())
+
+      autoSave()
     })
 
     engineInstance.on('select', () => {
@@ -484,6 +522,16 @@ onMounted(() => {
     engine.value = engineInstance
   }
 })
+
+const saveTimeout = ref(null)
+
+// 60秒内无更改自动保存
+const autoSave = () => {
+  if (saveTimeout.value) clearTimeout(saveTimeout.value)
+  saveTimeout.value = setTimeout(() => {
+    onSaveDoc()
+  }, 60000)
+}
 
 onUnmounted(() => {
   if (engine.value) engine.value.destroy()
