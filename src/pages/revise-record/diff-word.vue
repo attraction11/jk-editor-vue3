@@ -24,10 +24,10 @@ const props = defineProps({
   }
 })
 
-const selectNode = document.querySelector(`.am-engine p[data-id=${props.id}]`)
-if (selectNode) {
-  selectNode.style.textDecoration = 'wavy underline orange'
-}
+// const selectNode = document.querySelector(`.am-engine p[data-id=${props.id}]`)
+// if (selectNode) {
+//   selectNode.style.textDecoration = 'wavy underline orange'
+// }
 
 const scrollTop = (id) => {
   // selectNode.scrollIntoView()

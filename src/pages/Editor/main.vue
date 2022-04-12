@@ -6,10 +6,24 @@
       </div>
 
       <div class="flex items-center ">
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
+            type="checkbox"
+            role="switch"
+            :disabled="isRevise"
+            v-model="isRevise"
+            id="flexSwitchCheckDefault"
+          >
+          <label
+            class="form-check-label inline-block text-white"
+            for="flexSwitchCheckDefault"
+          >开启修订</label>
+        </div>
         <span
           @click="onSaveDoc"
-          class="text-white  pr-6 cursor-pointer  "
-        >保存</span>
+          class="text-white px-8 cursor-pointer  "
+        >保存文档</span>
         <img
           src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
           class="rounded-full w-8 h-8 mr-4 cursor-pointer"
@@ -154,6 +168,7 @@ import linkList from './linkList.vue'
 import { getDocSave, getDocBody } from '~/api/home'
 
 const showList = ref<boolean>(false)
+const isRevise = ref<boolean>(false)
 const showReviseRecord = ref<boolean>(false)
 const showCommentRecord = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
@@ -302,12 +317,17 @@ const initEngineRole = () => {
       iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
     }
     if (value.row_history) {
-      iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;">`
+      iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;" />`
+      // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
+            // iconList += `<span title="修订" class="revise" data-id="${key}" style="background: url(${iconRevise}); background-size: contain; position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;"><span style="position: absolute;">3</span></span>`
+      // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
+    
+      // iconList += `<a title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 18px; height: 18px; border: 1px solid #333;	border-radius: 50%">3</a>`
     }
     if (value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
       selectNode.style.userSelect = 'none'
-      iconList += `<img title="${value.row_purview.join()}有权修订" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -20px;bottom: 6px;cursor: pointer; width: 20px; height: 20px;">`
+      iconList += `<img title="已被${value.row_purview.join()}锁定" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -20px;bottom: 6px;cursor: pointer; width: 20px; height: 20px;">`
     }
     span.innerHTML = iconList
 
@@ -375,13 +395,13 @@ const loadComments = async () => {
     }
   ]
 
-  for (let i = 0; i < comments.value.length; i++) {
-    const id = comments.value[i].id
-    const selectNode = document.querySelector(`.am-engine p[data-id=${id}]`)
-    if (selectNode) {
-      selectNode.style.textDecoration = 'dashed underline orange'
-    }
-  }
+  // for (let i = 0; i < comments.value.length; i++) {
+  //   const id = comments.value[i].id
+  //   const selectNode = document.querySelector(`.am-engine p[data-id=${id}]`)
+  //   if (selectNode) {
+  //     selectNode.style.textDecoration = 'dashed underline orange'
+  //   }
+  // }
 }
 
 onMounted(async () => {
@@ -470,7 +490,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style css scoped>
+<style scoped>
 .editor-wrap ul.menu-wrap li{
   width:36px
 }
@@ -549,5 +569,16 @@ onUnmounted(() => {
 .editor-mobile .editor-content .am-engine {
   padding: 18px 0 0 0;
   font-family: 'SimSun, 宋体, "Songti SC", NSimSun, STSong, serif';
+}
+
+.editor-wrap .form-check-input:checked{
+  background-color: #000;
+    border-color: #000;
+}
+</style>
+<style>
+.editor-content .am-engine p,
+.editor-content .am-engine-view p{
+  padding-right: 60px !important;
 }
 </style>
