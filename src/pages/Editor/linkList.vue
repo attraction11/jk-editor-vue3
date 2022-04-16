@@ -2,18 +2,18 @@
   <div
     class="data-toc"
   >
-      <a
+    <a
       v-for="(item, index) in linkData"
       :key="item.id"
       href="void()"
       :class="tocClass(index)"
       @click="onListClick($event, item.href)"
-    >{{ (index + 1) + '、' + item.innerText }}</a>
+    >{{ item.innerText }}</a>
   </div>
 </template>
 
 <script setup lang="ts" name="linkList">
-import { ref, reactive, watchEffect } from 'vue'
+import { ref, onMounted } from 'vue'
 import { $ } from '@aomao/engine'
 import { Outline } from '@aomao/plugin-heading'
 
@@ -27,19 +27,19 @@ const props = defineProps({
 })
 
 let readingSection = ref(-1)
-let linkData = reactive([])
+const linkData = ref([])
 
 const getlinkData = () => {
   // 从编辑区域提取符合结构要求的标题 Dom 节点
   const nodes: Array<Element> = []
-  console.log('props.editor.container: ', props.editor.container);
+  console.log('props.editor.container: ', props.editor.container)
 
   props.editor.container.find('.am-engine a[target="_blank"]').each((child) => {
     const node = $(child)
     nodes.push(node.get<Element>()!)
   })
-  linkData = nodes
-  console.log('linkData: ', linkData);
+  linkData.value = nodes
+  console.log('linkData: ', linkData.value)
 }
 
 const onListClick = (e, href) => {
@@ -79,22 +79,23 @@ const findReadingSection = (elements: Array<Element>, top: number) => {
 }
 
 const listenerViewChange = () => {
-  const data: Array<HTMLElement> = linkData
+  const data: Array<HTMLElement> = linkData.value
     .map(({ id }) => document.getElementById(id))
     .filter((element) => element !== null) as Array<HTMLElement>
   readingSection = findReadingSection(data, 220)
 }
 
 const tocClass = (index) => {
-  let className = `data-toc-item`
+  let className = 'data-toc-item'
   if (index === readingSection.value) {
     className += ' data-toc-item-active'
   }
   return className
 }
 
-watchEffect(() => {
-  getlinkData()
+onMounted(() => {
+  props.editor.on('change', getlinkData)
+  props.editor.on('afterSetValue', getlinkData)
 })
 </script>
 

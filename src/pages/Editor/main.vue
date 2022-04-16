@@ -310,7 +310,7 @@ const initEngineRole = () => {
 
   const list = document.querySelectorAll('div.am-engine p')
   const selectAllNode = Array.from(new Set(list))
-  
+
   for (let i = 0; i < selectAllNode.length; i++) {
     const selectNode = selectAllNode[i]
     const key = selectAllNode[i].dataset.id
@@ -319,7 +319,7 @@ const initEngineRole = () => {
     span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px; display: none">`
 
     selectNode.style.position = 'relative'
-    console.log('span----------------->: ', span)
+    // console.log('span----------------->: ', span)
     selectNode.appendChild(span)
 
     const imgNode = $(`img[data-id="${key}"].comment`)
@@ -355,9 +355,9 @@ const initEngineRole = () => {
     if (value.row_history) {
       iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;" />`
       // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
-            // iconList += `<span title="修订" class="revise" data-id="${key}" style="background: url(${iconRevise}); background-size: contain; position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;"><span style="position: absolute;">3</span></span>`
+      // iconList += `<span title="修订" class="revise" data-id="${key}" style="background: url(${iconRevise}); background-size: contain; position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;"><span style="position: absolute;">3</span></span>`
       // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
-    
+
       // iconList += `<a title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 18px; height: 18px; border: 1px solid #333;	border-radius: 50%">3</a>`
     }
     if (value.row_purview) {
@@ -506,7 +506,7 @@ onMounted(() => {
     engineInstance.on('change', () => {
       emit('change', {
         html: engineInstance.getHtml(),
-        json: engineInstance.getJsonValue()
+        json: engineInstance.getJsonValue(),
       })
       emit('update:modelValue', engineInstance.getHtml())
       emit('changeHTML', engineInstance.getHtml())

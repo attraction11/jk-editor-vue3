@@ -11,11 +11,9 @@
 </template>
 
 <script setup lang="ts" name="Directory">
-import { ref, reactive, onMounted, watchEffect } from 'vue'
+import { ref, onMounted } from 'vue'
 import { $ } from '@aomao/engine'
 import { Outline } from '@aomao/plugin-heading'
-import Tabs from '~/components/Tabs/Tabs.vue'
-import Tab from '~/components/Tabs/Tab.vue'
 
 const outline = new Outline()
 
@@ -26,10 +24,8 @@ const props = defineProps({
   }
 })
 
-const activeKey = ref<string>('1')
-// const tocRef = ref(null)
 let readingSection = ref(-1)
-let tocData = reactive([])
+let tocData = ref([])
 
 const getTocData = () => {
   // 从编辑区域提取符合结构要求的标题 Dom 节点
@@ -48,7 +44,8 @@ const getTocData = () => {
     }
     nodes.push(node.get<Element>()!)
   })
-  tocData = outline.normalize(nodes)
+
+  tocData.value = outline.normalize(nodes)
 }
 
 const onListClick = (e, id) => {
@@ -102,9 +99,11 @@ const tocClass = (depth, index) => {
   return className
 }
 
-watchEffect(() => {
-  getTocData()
+onMounted(() => {
+  props.editor.on('change', getTocData)
+  props.editor.on('afterSetValue', getTocData)
 })
+
 </script>
 
 <style scoped lang="less">

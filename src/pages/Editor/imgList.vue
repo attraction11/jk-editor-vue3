@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts" name="imgList">
-import { ref, reactive, watchEffect } from 'vue'
+import { ref, onMounted } from 'vue'
 import { $ } from '@aomao/engine'
 import { Outline } from '@aomao/plugin-heading'
 
@@ -28,7 +28,7 @@ const props = defineProps({
 })
 
 let readingSection = ref(-1)
-let imgData = reactive([])
+let imgData = ref([])
 
 const getImgData = () => {
   // 从编辑区域提取符合结构要求的标题 Dom 节点
@@ -39,8 +39,8 @@ const getImgData = () => {
     const node = $(child)
     nodes.push(node.get<Element>()!)
   })
-  imgData = nodes
-  console.log('imgData: ', imgData);
+  imgData.value = nodes
+  console.log('imgData: ', imgData.value);
 }
 
 const onListClick = (src) => {
@@ -80,7 +80,7 @@ const findReadingSection = (elements: Array<Element>, top: number) => {
 }
 
 const listenerViewChange = () => {
-  const data: Array<HTMLElement> = imgData
+  const data: Array<HTMLElement> = imgData.value
     .map(({ id }) => document.getElementById(id))
     .filter((element) => element !== null) as Array<HTMLElement>
   readingSection = findReadingSection(data, 220)
@@ -94,8 +94,9 @@ const tocClass = (index) => {
   return className
 }
 
-watchEffect(() => {
-  getImgData()
+onMounted(() => {
+  props.editor.on('change', getImgData)
+  props.editor.on('afterSetValue', getImgData)
 })
 </script>
 
