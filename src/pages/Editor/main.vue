@@ -348,9 +348,9 @@ const initEngineRole = () => {
     const span = document.createElement('span')
     let iconList = ''
 
-    // iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
-    // if (value.row_comment) {
-    // }
+    if (value.row_comment) {
+      iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
+    }
 
     if (value.row_history) {
       iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;" />`
@@ -375,10 +375,10 @@ const initEngineRole = () => {
       showReviseRecord.value = true
     })
 
-    // $(`img[data-id="${key}"].comment`).on('click', () => {
-    //   showReviseRecord.value = false
-    //   showCommentRecord.value = true
-    // })
+    $(`img[data-id="${key}"].comment`).on('click', () => {
+      showReviseRecord.value = false
+      showCommentRecord.value = true
+    })
   }
 }
 
@@ -389,22 +389,22 @@ const allLists = reactive([])
 const loadRecords = async () => {
   records.value = await [
     {
-      id: 'p002deaf-gGSHIYJE',
+      id: 'p002deaf-4F18GW8L',
       doc_id: 'doc-110',
       doc_version: 'v1',
       row_purview: ['user1', 'user2', 'user3', 'user4'],
-      row_history: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-gGSHIYJE"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
-      row_original: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-gGSHIYJE"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
+      row_history: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
+      row_original: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
       editor_name: 'user1',
       editor_time: '2022.02.15'
     },
     {
-      id: 'p4ca7b43-FBkK4dCc',
+      id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
       row_purview: ['user1', 'user2', 'user3', 'user4'],
-      row_history: '<p data-id="p4ca7b43-FBkK4dCc" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方按照本合同约定的标准对乙方完成的阶段性工作成果和终极工作成果进行考核、检验的活动。</span></span></p>',
-      row_original: '<p data-id="p4ca7b43-FBkK4dCc" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方暗中本合同约定的标准对乙方完成的城市古工作成果和终极工作成果进行、检验的活动。</span></span></p>',
+      row_history: '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方按照本合同约定的标准对乙方完成的阶段性工作成果和终极工作成果进行考核、检验的活动。</span></span></p>',
+      row_original: '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方暗中本合同约定的标准对乙方完成的城市古工作成果和终极工作成果进行、检验的活动。</span></span></p>',
       editor_name: 'user1',
       editor_time: '2022.02.15'
     }
@@ -414,18 +414,18 @@ const loadRecords = async () => {
 const loadComments = async () => {
   comments.value = await [
     {
-      id: 'p4ca7b43-bCqrErwy',
+      id: 'p4ca7b43-EVIOoLyS',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-bCqrErwy">这句话有问题~</p>',
+      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     },
     {
-      id: 'p4ca7b43-FBkK4dCc',
+      id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-bCqrErwy">这句话有问题~</p>',
+      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     }
@@ -627,6 +627,10 @@ onUnmounted(() => {
 <style>
 .editor-content .am-engine p,
 .editor-content .am-engine-view p{
-  padding-right: 60px !important;
+  padding-right: 70px !important;
+}
+.am-engine tr .table-main-content p,
+.am-engine-view tr .table-main-content p{
+  padding-right: 0px !important;
 }
 </style>
