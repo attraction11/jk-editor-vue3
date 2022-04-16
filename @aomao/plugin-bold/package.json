@@ -1,0 +1,59 @@
+{
+  "_args": [
+    [
+      "@aomao/plugin-bold@2.8.15",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/plugin-bold@2.8.15",
+  "_id": "@aomao/plugin-bold@2.8.15",
+  "_inBundle": false,
+  "_integrity": "sha512-D+t1Wu+etqA5AaM5X9CHziArHuEwpqIsPw3IuCt9IGN+R61jPoDYbavz7K8gstH+PwlFSK3flFU46fplx2FGwg==",
+  "_location": "/@aomao/plugin-bold",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/plugin-bold@2.8.15",
+    "name": "@aomao/plugin-bold",
+    "escapedName": "@aomao%2fplugin-bold",
+    "scope": "@aomao",
+    "rawSpec": "2.8.15",
+    "saveSpec": null,
+    "fetchSpec": "2.8.15"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/plugin-bold/-/plugin-bold-2.8.15.tgz",
+  "_spec": "2.8.15",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.8.15",
+    "@babel/runtime": "^7.13.10"
+  },
+  "description": "加粗样式插件",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/plugin-bold",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.15"
+}

@@ -1,0 +1,59 @@
+{
+  "_args": [
+    [
+      "@aomao/plugin-hr@2.8.15",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/plugin-hr@2.8.15",
+  "_id": "@aomao/plugin-hr@2.8.15",
+  "_inBundle": false,
+  "_integrity": "sha512-qFONuR+axNzApfR2+135qk22+xVKiiKv6zO9Hx0WVrcQECoP80hYjtU3LkwLEf6W/uShaNTuwxWZWXkDhXt5OA==",
+  "_location": "/@aomao/plugin-hr",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/plugin-hr@2.8.15",
+    "name": "@aomao/plugin-hr",
+    "escapedName": "@aomao%2fplugin-hr",
+    "scope": "@aomao",
+    "rawSpec": "2.8.15",
+    "saveSpec": null,
+    "fetchSpec": "2.8.15"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/plugin-hr/-/plugin-hr-2.8.15.tgz",
+  "_spec": "2.8.15",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.8.15",
+    "@babel/runtime": "^7.13.10"
+  },
+  "description": "分割线插件",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/plugin-hr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.15"
+}

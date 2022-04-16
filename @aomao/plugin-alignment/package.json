@@ -1,0 +1,59 @@
+{
+  "_args": [
+    [
+      "@aomao/plugin-alignment@2.8.15",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/plugin-alignment@2.8.15",
+  "_id": "@aomao/plugin-alignment@2.8.15",
+  "_inBundle": false,
+  "_integrity": "sha512-SUaBLq16OZH2NacWiUPKH/dkv7Nrmh2eWUFFvwEGhhMP4AmY19I2x8WXADjIvLmBT2LcIFoO1QvuFgzQWCaa7Q==",
+  "_location": "/@aomao/plugin-alignment",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/plugin-alignment@2.8.15",
+    "name": "@aomao/plugin-alignment",
+    "escapedName": "@aomao%2fplugin-alignment",
+    "scope": "@aomao",
+    "rawSpec": "2.8.15",
+    "saveSpec": null,
+    "fetchSpec": "2.8.15"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/plugin-alignment/-/plugin-alignment-2.8.15.tgz",
+  "_spec": "2.8.15",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.8.15",
+    "@babel/runtime": "^7.13.10"
+  },
+  "description": "对齐方式：左对齐、居中对齐、右对齐、两端对齐",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/plugin-alignment",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.15"
+}

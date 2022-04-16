@@ -1,0 +1,66 @@
+{
+  "_args": [
+    [
+      "@aomao/plugin-table@2.8.15",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/plugin-table@2.8.15",
+  "_id": "@aomao/plugin-table@2.8.15",
+  "_inBundle": false,
+  "_integrity": "sha512-U4s4zF9xhCjzKb3h8TCmkluOp9YX9TQ/tYA1gQiix70CQL6Dai/gDatF1VVHh4ljyZgZtUUKjpVu6IPd4+Wp5A==",
+  "_location": "/@aomao/plugin-table",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/plugin-table@2.8.15",
+    "name": "@aomao/plugin-table",
+    "escapedName": "@aomao%2fplugin-table",
+    "scope": "@aomao",
+    "rawSpec": "2.8.15",
+    "saveSpec": null,
+    "fetchSpec": "2.8.15"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/plugin-table/-/plugin-table-2.8.15.tgz",
+  "_spec": "2.8.15",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "AoMao",
+    "email": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.8.15",
+    "@babel/runtime": "^7.13.10",
+    "eventemitter2": "^6.4.4",
+    "lodash": "^4.17.21",
+    "tinycolor2": "^1.4.2"
+  },
+  "description": "table plugin",
+  "devDependencies": {
+    "@types/lodash": "^4.14.178"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor/tree/master/plugins/plugin-table#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/plugin-table",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.15"
+}

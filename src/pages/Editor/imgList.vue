@@ -6,9 +6,9 @@
       v-for="(item, index) in imgData"
       :key="item.id"
       :class="tocClass(index)"
-      @click="onListClick(item.currentSrc)"
+      @click="onListClick(item.src)"
     >
-      <img class="cursor-pointer" :src="item.currentSrc" alt="">
+      <img class="cursor-pointer" :src="item.src" alt="">
     </div>
   </div>
 </template>

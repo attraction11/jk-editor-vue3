@@ -1,0 +1,59 @@
+{
+  "_args": [
+    [
+      "@aomao/plugin-underline@2.8.15",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/plugin-underline@2.8.15",
+  "_id": "@aomao/plugin-underline@2.8.15",
+  "_inBundle": false,
+  "_integrity": "sha512-eywVn4tr5jtOczxZ4vbpJCOMYvXx9j9Nds4ewwR2UivJaro7D6XthpAgdcztzDZ9UFja6MbJ9etyb9Lk9JnaCA==",
+  "_location": "/@aomao/plugin-underline",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/plugin-underline@2.8.15",
+    "name": "@aomao/plugin-underline",
+    "escapedName": "@aomao%2fplugin-underline",
+    "scope": "@aomao",
+    "rawSpec": "2.8.15",
+    "saveSpec": null,
+    "fetchSpec": "2.8.15"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/plugin-underline/-/plugin-underline-2.8.15.tgz",
+  "_spec": "2.8.15",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.8.15",
+    "@babel/runtime": "^7.13.10"
+  },
+  "description": "下划线样式插件",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/plugin-underline",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.15"
+}

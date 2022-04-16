@@ -1,0 +1,112 @@
+{
+  "_args": [
+    [
+      "@aomao/engine@2.8.15",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/engine@2.8.15",
+  "_id": "@aomao/engine@2.8.15",
+  "_inBundle": false,
+  "_integrity": "sha512-Migfdj7HNm7lB0a4k0YmQk3A6ImihF+XgJwvp+e7A3hfQFPmf3TYVSP+BmeUsqILIi9VpK8xcS2ZiYwqZv4sMg==",
+  "_location": "/@aomao/engine",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/engine@2.8.15",
+    "name": "@aomao/engine",
+    "escapedName": "@aomao%2fengine",
+    "scope": "@aomao",
+    "rawSpec": "2.8.15",
+    "saveSpec": null,
+    "fetchSpec": "2.8.15"
+  },
+  "_requiredBy": [
+    "/",
+    "/@aomao/plugin-alignment",
+    "/@aomao/plugin-backcolor",
+    "/@aomao/plugin-bold",
+    "/@aomao/plugin-code",
+    "/@aomao/plugin-codeblock-vue",
+    "/@aomao/plugin-file",
+    "/@aomao/plugin-fontcolor",
+    "/@aomao/plugin-fontfamily",
+    "/@aomao/plugin-fontsize",
+    "/@aomao/plugin-heading",
+    "/@aomao/plugin-hr",
+    "/@aomao/plugin-image",
+    "/@aomao/plugin-indent",
+    "/@aomao/plugin-italic",
+    "/@aomao/plugin-line-height",
+    "/@aomao/plugin-link-vue",
+    "/@aomao/plugin-mark",
+    "/@aomao/plugin-math",
+    "/@aomao/plugin-mention",
+    "/@aomao/plugin-orderedlist",
+    "/@aomao/plugin-paintformat",
+    "/@aomao/plugin-quote",
+    "/@aomao/plugin-redo",
+    "/@aomao/plugin-removeformat",
+    "/@aomao/plugin-selectall",
+    "/@aomao/plugin-status",
+    "/@aomao/plugin-strikethrough",
+    "/@aomao/plugin-sub",
+    "/@aomao/plugin-sup",
+    "/@aomao/plugin-table",
+    "/@aomao/plugin-tasklist",
+    "/@aomao/plugin-underline",
+    "/@aomao/plugin-undo",
+    "/@aomao/plugin-unorderedlist",
+    "/@aomao/plugin-video",
+    "/@aomao/toolbar-vue"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/engine/-/engine-2.8.15.tgz",
+  "_spec": "2.8.15",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.10",
+    "blueimp-md5": "^2.18.0",
+    "copy-to-clipboard": "^3.3.1",
+    "diff-match-patch": "^1.0.5",
+    "dom-align": "^1.12.2",
+    "eventemitter2": "^6.4.4",
+    "filesize": "^6.3.0",
+    "is-hotkey": "^0.2.0",
+    "lodash": "^4.17.21",
+    "ot-json0": "^1.1.0",
+    "tinycolor2": "^1.4.2"
+  },
+  "description": "<p align=\"center\"> \t一个富文本<em>协同</em>编辑器框架，可以使用<em>React</em>和<em>Vue</em>自定义插件 </p>",
+  "devDependencies": {
+    "@types/blueimp-md5": "^2.7.0",
+    "@types/diff-match-patch": "^1.0.32",
+    "@types/is-hotkey": "^0.1.2",
+    "@types/lodash": "^4.14.178",
+    "@types/sharedb": "^1.0.14",
+    "@types/tinycolor2": "^1.4.2"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/engine",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.15"
+}

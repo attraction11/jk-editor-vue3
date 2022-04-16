@@ -1,0 +1,68 @@
+{
+  "_args": [
+    [
+      "@aomao/toolbar-vue@2.7.38",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/toolbar-vue@2.7.38",
+  "_id": "@aomao/toolbar-vue@2.7.38",
+  "_inBundle": false,
+  "_integrity": "sha512-XvGbHMIst+L38yUIs7bEI8nISa36FvPmFOHLxbCE3Y07Ob1tE72HgdT5HXHZv5VkscTWxZLGP9BQDp6XYH2foA==",
+  "_location": "/@aomao/toolbar-vue",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/toolbar-vue@2.7.38",
+    "name": "@aomao/toolbar-vue",
+    "escapedName": "@aomao%2ftoolbar-vue",
+    "scope": "@aomao",
+    "rawSpec": "2.7.38",
+    "saveSpec": null,
+    "fetchSpec": "2.7.38"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/toolbar-vue/-/toolbar-vue-2.7.38.tgz",
+  "_spec": "2.7.38",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.7.37",
+    "@babel/runtime": "^7.13.10",
+    "ant-design-vue": "^2.2.6",
+    "keymaster": "^1.6.2",
+    "lodash": "^4.17.21",
+    "tinycolor2": "^1.4.2",
+    "vue": "^3.2.9"
+  },
+  "devDependencies": {
+    "@types/keymaster": "^1.6.28",
+    "@types/lodash": "^4.14.178",
+    "@vue/compiler-sfc": "^3.2.9"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "4a5d19cef581b57248c96e9b21cf2b094586f78f",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/toolbar-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.7.38"
+}

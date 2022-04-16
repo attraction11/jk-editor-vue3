@@ -1,0 +1,75 @@
+{
+  "_args": [
+    [
+      "@aomao/plugin-codeblock-vue@2.8.17",
+      "D:\\workspace\\jk-editor-vue3"
+    ]
+  ],
+  "_from": "@aomao/plugin-codeblock-vue@2.8.17",
+  "_id": "@aomao/plugin-codeblock-vue@2.8.17",
+  "_inBundle": false,
+  "_integrity": "sha512-rbGBRIWi4EuwfigxzNBxVFeR36ViuYBM/AZbPdoyPTElVSDqtizfP1Lv7uRecdopNaHLEvr4mDAba+Sg4eBCsw==",
+  "_location": "/@aomao/plugin-codeblock-vue",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@aomao/plugin-codeblock-vue@2.8.17",
+    "name": "@aomao/plugin-codeblock-vue",
+    "escapedName": "@aomao%2fplugin-codeblock-vue",
+    "scope": "@aomao",
+    "rawSpec": "2.8.17",
+    "saveSpec": null,
+    "fetchSpec": "2.8.17"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/@aomao/plugin-codeblock-vue/-/plugin-codeblock-vue-2.8.17.tgz",
+  "_spec": "2.8.17",
+  "_where": "D:\\workspace\\jk-editor-vue3",
+  "author": {
+    "name": "me@aomao.com"
+  },
+  "bugs": {
+    "url": "https://github.com/yanmao-cc/am-editor/issues"
+  },
+  "dependencies": {
+    "@aomao/engine": "^2.8.15",
+    "@babel/runtime": "^7.13.10",
+    "ant-design-vue": "^2.2.6",
+    "codemirror": "^5.60.0",
+    "lodash": "^4.17.21",
+    "vue": "^3.2.9"
+  },
+  "description": "代码块 Vue",
+  "devDependencies": {
+    "@types/codemirror": "^5.60.0",
+    "@types/lodash": "^4.14.178",
+    "@vue/compiler-sfc": "^3.2.9"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "gitHead": "377d6313bc24ca42262b63ab1be88d5d32908654",
+  "homepage": "https://github.com/yanmao-cc/am-editor#readme",
+  "keywords": [
+    "codeblock",
+    "editor"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "name": "@aomao/plugin-codeblock-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanmao-cc/am-editor.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "typings": "dist/index.d.ts",
+  "version": "2.8.17"
+}
