@@ -844,7 +844,7 @@ class NodeModel implements NodeModelInterface {
 				this.isEmptyWithTrim(blockNode) &&
 				children.every((child) => child.isText())
 			) {
-				blockNode.html('<br />');
+				blockNode.html('');
 			}
 		};
 		while (childNode) {

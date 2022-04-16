@@ -401,20 +401,55 @@ export const getToolbarDefaultConfig = (
 			name: 'fontsize',
 			className: 'toolbar-dropdown-fontsize',
 			title: language['fontsize']['title'],
-			items: [
-				{ key: '12px', content: '12px', hotkey: false },
-				{ key: '13px', content: '13px', hotkey: false },
-				{ key: '14px', content: '14px', hotkey: false },
-				{ key: '15px', content: '15px', hotkey: false },
-				{ key: '16px', content: '16px', hotkey: false },
-				{ key: '19px', content: '19px', hotkey: false },
-				{ key: '22px', content: '22px', hotkey: false },
-				{ key: '24px', content: '24px', hotkey: false },
-				{ key: '29px', content: '29px', hotkey: false },
-				{ key: '32px', content: '32px', hotkey: false },
-				{ key: '40px', content: '40px', hotkey: false },
-				{ key: '48px', content: '48px', hotkey: false },
-			].map((item) =>
+			items: [{
+				key: '56px',
+				content: '初号',
+				hotkey: false
+			  }, {
+				key: '48px',
+				content: '小初',
+				hotkey: false
+			  }, {
+				key: '34px',
+				content: '一号',
+				hotkey: false
+			  }, {
+				key: '32px',
+				content: '小一',
+				hotkey: false
+			  }, {
+				key: '29px',
+				content: '二号',
+				hotkey: false
+			  }, {
+				key: '24px',
+				content: '小二',
+				hotkey: false
+			  }, {
+				key: '21px',
+				content: '三号',
+				hotkey: false
+			  }, {
+				key: '20px',
+				content: '小三',
+				hotkey: false
+			  }, {
+				key: '18px',
+				content: '四号',
+				hotkey: false
+			  }, {
+				key: '16px',
+				content: '小四',
+				hotkey: false
+			  }, {
+				key: '14px',
+				content: '五号',
+				hotkey: false
+			  }, {
+				key: '12px',
+				content: '小五',
+				hotkey: false
+			  }].map((item) =>
 				item.key === fontSizeInContainer
 					? { ...item, isDefault: true }
 					: item,
