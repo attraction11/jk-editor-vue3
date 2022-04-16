@@ -14,7 +14,7 @@
       <div
         v-if="isOpen"
         ref="menuDrop"
-        class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg
+        class="origin-top-right absolute right-0 mt-2 w-64  rounded-md shadow-lg
             bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100
             focus:outline-none
           "

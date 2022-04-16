@@ -51,7 +51,7 @@
       </ul>
       <div
         v-show="showList"
-        class="w-56 bg-neutralLighter"
+        class="w-64 bg-neutralLighter"
       >
         <ul class="h-full mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
           <template
@@ -119,7 +119,7 @@
         </div>
       </div>
       <div
-        class="w-56 bg-neutralLighter relative"
+        class="w-64 bg-neutralLighter relative"
         v-show="showReviseRecord || showCommentRecord"
       >
         <ReviseRecord
@@ -172,6 +172,8 @@ const isRevise = ref<boolean>(false)
 const showReviseRecord = ref<boolean>(false)
 const showCommentRecord = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
+const lastNodeId = ref<string>('')
+const currentNodeId = ref<string>('')
 const selectMenu = ref<string>('doc1')
 const selectTab = ref<string>('title')
 
@@ -206,9 +208,9 @@ const tabList = [
 ]
 
 const editorWidth = computed(() => {
-  const width = (showReviseRecord.value || showCommentRecord.value) ? 224 : 0
+  const width = (showReviseRecord.value || showCommentRecord.value) ? 260 : 0
   return {
-    width: `calc(${100}% - ${44}px - ${showList.value ? 224 : 0}px - ${width}px)`
+    width: `calc(${100}% - ${44}px - ${showList.value ? 260 : 0}px - ${width}px)`
   }
 })
 
@@ -329,17 +331,74 @@ const initEngineRole = () => {
       showCommentRecord.value = true
     })
 
-    selectNode.addEventListener('focus', () => {
+    $(selectNode).on('click', () => {
+      $('img.comment').hide()
+      imgNode.show()
       console.log('段落获取焦点-----focus: ')
-      imgNode.style.display = 'block'
-      selectNode.style.backgroundColor = '#faf1d1'
+
+      lastNodeId.value = JSON.stringify(currentNodeId.value)
+      currentNodeId.value = selectNode.dataset.id
+
+      console.log('lastNodeId.vaule**********: ', lastNodeId.vaule)
+      console.log('currentNodeId.value**********: ', currentNodeId.value)
+
+      if (lastNodeId.value === currentNodeId.value) return
+      if (lastNodeId.vaule !== '') {
+        const oriLastNodeHtml = document.createElement('div')
+        oriLastNodeHtml.innerHTML = defaultContent
+        console.log('oriLastNodeHtml: ', oriLastNodeHtml)
+
+        const lastNode = document.querySelector(`p[data-id=${lastNodeId.vaule}]`)
+        const oriLastNode = oriLastNodeHtml.querySelector(`p[data-id=${lastNodeId.vaule}]`)
+
+        const pattern = /<img title="评论" class="comment".*?(?:>|\/>)/g
+
+        const lastNodeStr = lastNode?.outerHTML.replace(pattern, '')
+        const oriLastNodeStr = oriLastNode?.outerHTML.replace(pattern, '')
+
+        // oriLastNodeHtml = null
+
+        console.log('lastNodeStr: ', lastNodeStr)
+        console.log('oriLastNodeStr: ', oriLastNodeStr)
+
+        if (lastNodeStr && oriLastNodeStr) {
+          // 生成一条修订记录
+          // records.value.push({
+          //   id: lastNodeId.vaule,
+          //   doc_id: 'doc-110',
+          //   doc_version: 'v1',
+          //   row_history: lastNodeStr,
+          //   row_original: oriLastNodeStr,
+          //   editor_name: 'user1',
+          //   editor_time: '2022.02.15'
+          // })
+
+          records.value.push({
+            id: 'p4ca7b43-ljQkatF3',
+            doc_id: 'doc-110',
+            doc_version: 'v1',
+            row_history: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
+            row_original: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项目工作人员不能满足甲方实际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
+            editor_name: 'user1',
+            editor_time: '2022.02.15'
+          })
+        }
+
+        console.log('records.value', records.value)
+      }
     })
 
-    selectNode.addEventListener('blur', () => {
-      console.log('段落失去焦点-----blur: ')
-      imgNode.style.display = 'none'
-      selectNode.style.backgroundColor = 'transparent'
-    })
+    // selectNode.addEventListener('focus', () => {
+    //   console.log('段落获取焦点-----focus: ')
+    //   imgNode.style.display = 'block'
+    //   selectNode.style.backgroundColor = '#faf1d1'
+    // })
+
+    // selectNode.addEventListener('blur', () => {
+    //   console.log('段落失去焦点-----blur: ')
+    //   imgNode.style.display = 'none'
+    //   selectNode.style.backgroundColor = 'transparent'
+    // })
   }
 
   for (const [key, value] of Object.entries(allLists)) {
@@ -348,9 +407,9 @@ const initEngineRole = () => {
     const span = document.createElement('span')
     let iconList = ''
 
-    if (value.row_comment) {
-      iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
-    }
+    // if (value.row_comment) {
+    //   iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
+    // }
 
     if (value.row_history) {
       iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;" />`
@@ -375,10 +434,10 @@ const initEngineRole = () => {
       showReviseRecord.value = true
     })
 
-    $(`img[data-id="${key}"].comment`).on('click', () => {
-      showReviseRecord.value = false
-      showCommentRecord.value = true
-    })
+    // $(`img[data-id="${key}"].comment`).on('click', () => {
+    //   showReviseRecord.value = false
+    //   showCommentRecord.value = true
+    // })
   }
 }
 
@@ -506,7 +565,7 @@ onMounted(() => {
     engineInstance.on('change', () => {
       emit('change', {
         html: engineInstance.getHtml(),
-        json: engineInstance.getJsonValue(),
+        json: engineInstance.getJsonValue()
       })
       emit('update:modelValue', engineInstance.getHtml())
       emit('changeHTML', engineInstance.getHtml())

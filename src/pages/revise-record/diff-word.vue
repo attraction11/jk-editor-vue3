@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="props.id"
+    class="diff-word"
     :data-id="props.id"
     @click="scrollTop(props.id)"
   />
@@ -59,7 +59,7 @@ onMounted(() => {
     fragment.appendChild(span)
   })
 
-  const diffDom = document.querySelector(`.${props.id}`)
+  const diffDom = document.querySelector(`div[data-id="${props.id}"].diff-word`)
   diffDom.innerHTML = ''
   diffDom.appendChild(fragment)
 })
