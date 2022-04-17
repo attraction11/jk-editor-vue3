@@ -316,13 +316,13 @@ const initEngineRole = () => {
   for (let i = 0; i < selectAllNode.length; i++) {
     const selectNode = selectAllNode[i]
     const key = selectAllNode[i].dataset.id
-    const span = document.createElement('span')
+    // const span = document.createElement('span')
 
-    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px; display: none">`
+    // span.innerHTML = `<img title="评论111" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px; display: none">`
 
     selectNode.style.position = 'relative'
     // console.log('span----------------->: ', span)
-    selectNode.appendChild(span)
+    // selectNode.appendChild(span)
 
     const imgNode = $(`img[data-id="${key}"].comment`)
 
@@ -407,29 +407,20 @@ const initEngineRole = () => {
     const span = document.createElement('span')
     let iconList = ''
 
-    // if (value.row_comment) {
-    //   iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px;">`
-    // }
-
     if (value.row_history) {
-      iconList += `<img title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;" />`
-      // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
-      // iconList += `<span title="修订" class="revise" data-id="${key}" style="background: url(${iconRevise}); background-size: contain; position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 16px; height: 16px;"><span style="position: absolute;">3</span></span>`
-      // <span style="position: absolute;right: 6px;bottom: 7px; color: red; font-weight: bold;">3</span>`
-
-      // iconList += `<a title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 18px; height: 18px; border: 1px solid #333;	border-radius: 50%">3</a>`
+      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">3</span>`
     }
     if (value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
       selectNode.style.userSelect = 'none'
-      iconList += `<img title="已被${value.row_purview.join()}锁定" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -20px;bottom: 6px;cursor: pointer; width: 20px; height: 20px;">`
+      iconList += `<img title="已被${value.row_purview.join()}锁定" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -24px;bottom: 6px;cursor: pointer; width: 22px; height: 22px;">`
     }
     span.innerHTML = iconList
 
     selectNode.style.position = 'relative'
     selectNode.appendChild(span)
 
-    $(`img[data-id="${key}"].revise`).on('click', () => {
+    $(`span[data-id="${key}"].revise`).on('click', () => {
       showCommentRecord.value = false
       showReviseRecord.value = true
     })
@@ -489,14 +480,6 @@ const loadComments = async () => {
       comment_time: '2022.02.15'
     }
   ]
-
-  // for (let i = 0; i < comments.value.length; i++) {
-  //   const id = comments.value[i].id
-  //   const selectNode = document.querySelector(`.am-engine p[data-id=${id}]`)
-  //   if (selectNode) {
-  //     selectNode.style.textDecoration = 'dashed underline orange'
-  //   }
-  // }
 }
 
 onMounted(async () => {
