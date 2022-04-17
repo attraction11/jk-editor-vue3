@@ -124,11 +124,11 @@
       >
         <ReviseRecord
           v-show="showReviseRecord"
-          :records="records"
+          :records="showRecords"
         />
         <CommentRecord
           v-show="showCommentRecord"
-          :comments="comments"
+          :comments="showComments"
           @sumbit="addCommentRecord"
         />
         <img
@@ -226,6 +226,8 @@ const addCommentRecord = (value) => {
     comment_name: 'user1',
     comment_time: '2022.02.15'
   })
+
+  showComments.value = comments.value.filter(item => item.id === currentCommentId.value)
 }
 
 const onSaveDoc = () => {
@@ -332,14 +334,19 @@ const initEngineRole = () => {
     const key = selectAllNode[i].dataset.id
 
     const span = document.createElement('span')
-    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; display: none">`
+
+    const filterList = comments.value.filter(item => item.id === key)
+
+    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${!filterList.length ? 'display: none' : ''}">`
     selectNode.appendChild(span)
 
     selectNode.style.position = 'relative'
-    const imgNode = $(`img[data-id="${key}"].comment`)
+    const imgCommentNode = $(`img[data-id="${key}"].comment`)
 
-    imgNode.on('click', () => {
+    imgCommentNode.on('click', () => {
       currentCommentId.value = key
+      showComments.value = filterList
+
       console.log('currentCommentId.value: ', currentCommentId.value)
       showReviseRecord.value = false
       showCommentRecord.value = true
@@ -347,7 +354,7 @@ const initEngineRole = () => {
 
     $(selectNode).on('click', () => {
       $('img.comment').hide()
-      imgNode.show()
+      imgCommentNode.show()
       console.log('段落获取焦点-----focus: ')
 
       if (!isRevise.value) return
@@ -398,42 +405,24 @@ const initEngineRole = () => {
             editor_time: '2022.02.15'
           })
 
-          // records.value.push({
-          //   id: 'p4ca7b43-ljQkatF3',
-          //   doc_id: 'doc-110',
-          //   doc_version: 'v1',
-          //   row_history: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
-          //   row_original: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项目工作人员不能满足甲方实际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
-          //   editor_name: 'user1',
-          //   editor_time: '2022.02.15'
-          // })
-
           console.log('records.value', records.value)
         }
       }
     })
-
-    // selectNode.addEventListener('focus', () => {
-    //   console.log('段落获取焦点-----focus: ')
-    //   imgNode.style.display = 'block'
-    //   selectNode.style.backgroundColor = '#faf1d1'
-    // })
-
-    // selectNode.addEventListener('blur', () => {
-    //   console.log('段落失去焦点-----blur: ')
-    //   imgNode.style.display = 'none'
-    //   selectNode.style.backgroundColor = 'transparent'
-    // })
   }
 
   for (const [key, value] of Object.entries(allLists)) {
+    console.log('allLists: ', allLists);
     const selectNode = document.querySelector(`div.am-engine p[data-id="${key}"]`)
 
     const span = document.createElement('span')
     let iconList = ''
 
     if (value.row_history) {
-      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">2</span>`
+      const list = records.value.filter(item => item.id === key)
+      console.log('records.value*******', records.value);
+      console.log('key*******: ', key);
+      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
     }
     if (value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
@@ -446,6 +435,8 @@ const initEngineRole = () => {
     selectNode.appendChild(span)
 
     $(`span[data-id="${key}"].revise`).on('click', () => {
+      showRecords.value = records.value.filter(item => item.id === key)
+
       showCommentRecord.value = false
       showReviseRecord.value = true
     })
@@ -458,7 +449,9 @@ const initEngineRole = () => {
 }
 
 const records = ref([])
+const showRecords = ref([])
 const comments = ref([])
+const showComments = ref([])
 const allLists = reactive([])
 
 const loadRecords = async () => {
@@ -492,7 +485,7 @@ const loadComments = async () => {
       id: 'p4ca7b43-EVIOoLyS',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题~</p>',
+      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题啊啊啊啊啊啊~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     },
@@ -500,7 +493,7 @@ const loadComments = async () => {
       id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题~</p>',
+      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题呀呀呀呀呀~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     }
