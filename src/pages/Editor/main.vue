@@ -392,9 +392,9 @@ const initEngineRole = () => {
         console.log('oriLastNodeStr: ', oriLastNodeStr)
 
         if (lastNodeStr === oriLastNodeStr) return
-
         if (lastNodeStr && oriLastNodeStr) {
           // 生成一条修订记录
+          console.log('生成一条修订记录: ')
           records.value.push({
             id: lastNodeId.value,
             doc_id: 'doc-110',
@@ -405,7 +405,8 @@ const initEngineRole = () => {
             editor_time: '2022.02.15'
           })
 
-          console.log('records.value', records.value)
+          showRecords.value = records.value.filter(item => item.id === lastNodeId.value)
+          console.log('showRecords.value: ', showRecords.value);
         }
       }
     })
