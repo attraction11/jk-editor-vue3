@@ -1,10 +1,10 @@
 <template>
   <div class="editor-wrap">
     <header class="h-11 w-full shadow-sm bg-themePrimary flex justify-between  items-center ">
-      <div class="ml-4 text-gray-200   ">
-        {{ saveLoading ? '保存中...' : '已经保存' }}
+      <div class="ml-4 text-gray-200 flex">
+        <span class="w-40 h-9 leading-9 text-base truncate mr-6">东方启明投资综合文档管理应用系统项目技术服务合同</span>
+        <span class="h-9 leading-9">{{ saveLoading ? '保存中...' : '已经保存' }}</span>
       </div>
-
       <div class="flex items-center ">
         <div class="form-check form-switch">
           <input
@@ -336,6 +336,7 @@ const initEngineRole = () => {
       imgNode.show()
       console.log('段落获取焦点-----focus: ')
 
+      debugger
       lastNodeId.value = JSON.stringify(currentNodeId.value)
       currentNodeId.value = selectNode.dataset.id
 
@@ -344,9 +345,9 @@ const initEngineRole = () => {
 
       if (lastNodeId.value === currentNodeId.value) return
       if (lastNodeId.vaule !== '') {
-        const oriLastNodeHtml = document.createElement('div')
+        let oriLastNodeHtml = document.createElement('div')
         oriLastNodeHtml.innerHTML = defaultContent
-        console.log('oriLastNodeHtml: ', oriLastNodeHtml)
+        console.log('oriLastNodeHtml: ', oriLastNodeHtml);
 
         const lastNode = document.querySelector(`p[data-id=${lastNodeId.vaule}]`)
         const oriLastNode = oriLastNodeHtml.querySelector(`p[data-id=${lastNodeId.vaule}]`)
@@ -356,12 +357,12 @@ const initEngineRole = () => {
         const lastNodeStr = lastNode?.outerHTML.replace(pattern, '')
         const oriLastNodeStr = oriLastNode?.outerHTML.replace(pattern, '')
 
-        // oriLastNodeHtml = null
+        oriLastNodeHtml = null
 
         console.log('lastNodeStr: ', lastNodeStr)
         console.log('oriLastNodeStr: ', oriLastNodeStr)
 
-        if (lastNodeStr && oriLastNodeStr) {
+        if (lastNodeStr && oriLastNodeStr && isRevise.value) {
           // 生成一条修订记录
           // records.value.push({
           //   id: lastNodeId.vaule,
@@ -382,9 +383,9 @@ const initEngineRole = () => {
             editor_name: 'user1',
             editor_time: '2022.02.15'
           })
-        }
 
-        console.log('records.value', records.value)
+          console.log('records.value', records.value)
+        }
       }
     })
 
@@ -494,7 +495,6 @@ onMounted(async () => {
     }
   })
 
-  console.log('allLists: ', allLists['p4ca7b43-bCqrErwy'])
   initEngineRole()
 })
 
@@ -545,7 +545,7 @@ onMounted(() => {
     })
 
     // 监听编辑器值改变事件
-    engineInstance.on('change', () => {
+    engineInstance.on('change', (value) => {
       emit('change', {
         html: engineInstance.getHtml(),
         json: engineInstance.getJsonValue()
