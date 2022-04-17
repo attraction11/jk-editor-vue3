@@ -408,7 +408,7 @@ const initEngineRole = () => {
     let iconList = ''
 
     if (value.row_history) {
-      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">3</span>`
+      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">2</span>`
     }
     if (value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
