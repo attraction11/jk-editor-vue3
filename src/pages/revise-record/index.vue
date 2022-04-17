@@ -1,6 +1,6 @@
 <template>
   <div class="revise-record-wrap">
-    <h4>修订记录</h4>
+    <h4 class="w-full pt-3 mb-0 bg-white position">修订记录</h4>
     <RecordItem
       v-for="item in props.records"
       :key="item.id"
@@ -22,11 +22,10 @@ const props = defineProps({
 
 <style scoped lang="less">
 .revise-record-wrap {
-  padding: 10px;
-  height: auto;
+  padding: 0 10px 10px;
+  height: calc(100vh - 45px);
   margin: 0 0 0 10px;
   background-color: #fff;
-  height: 100%;
   overflow: auto;
   &::-webkit-scrollbar {
     display: none;

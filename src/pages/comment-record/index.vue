@@ -22,11 +22,48 @@
         </div>
       </div>
     </div>
+    <div class="mt-10 ">
+      <label
+        for="exampleFormControlTextarea1"
+        class="form-label inline-block mb-2 text-gray-700"
+      >请输入评论：</label>
+      <textarea
+        class="
+        form-control
+        block
+        w-full
+        px-3
+        py-1.5
+        text-sm
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        v-model="commentValue"
+        placeholder="评论~"
+      />
+      <button
+        type="button"
+        class="inline-block px-3 py-1.5 mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        @click="sumbitBtn"
+      >
+        提交
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts" name="comment-record">
-import { defineProps } from 'vue'
+import { defineProps, ref } from 'vue'
+
+const commentValue = ref<string>('')
 
 const scrollTop = (id) => {
   // selectNode.scrollIntoView()
@@ -42,6 +79,15 @@ const props = defineProps({
     default: []
   }
 })
+
+const emit = defineEmits<{
+  (event: 'sumbit', message: string): void;
+}>()
+
+const sumbitBtn = () => {
+  emit('sumbit', commentValue.value)
+  commentValue.value = ''
+}
 </script>
 
 <style scoped lang="less">

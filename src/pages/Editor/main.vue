@@ -53,7 +53,7 @@
         v-show="showList"
         class="w-64 bg-neutralLighter"
       >
-        <ul class="h-full mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
+        <ul class="mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
           <template
             v-for="item in tabList"
             :key="item.key"
@@ -129,10 +129,11 @@
         <CommentRecord
           v-show="showCommentRecord"
           :comments="comments"
+          @sumbit="addCommentRecord"
         />
         <img
           :src="iconClose"
-          class="absolute right-1 top-1 cursor-pointer w-5 h-5"
+          class="absolute right-1 top-2 cursor-pointer w-5 h-5"
           alt=""
           @click="onCloseClick(false, false)"
         >
@@ -172,10 +173,12 @@ const isRevise = ref<boolean>(false)
 const showReviseRecord = ref<boolean>(false)
 const showCommentRecord = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
-const lastNodeId = ref<string>('')
-const currentNodeId = ref<string>('')
 const selectMenu = ref<string>('doc1')
 const selectTab = ref<string>('title')
+
+const lastNodeId = ref<string>('')
+const currentNodeId = ref<string>('')
+const currentCommentId = ref<string>('')
 
 const menuList = [
   {
@@ -213,6 +216,17 @@ const editorWidth = computed(() => {
     width: `calc(${100}% - ${44}px - ${showList.value ? 260 : 0}px - ${width}px)`
   }
 })
+
+const addCommentRecord = (value) => {
+  comments.value.push({
+    id: currentCommentId.value,
+    doc_id: 'doc-110',
+    doc_version: 'v1',
+    row_comment: `<p style="line-height: 2.5;" data-id=${currentCommentId.value}>${value}</p>`,
+    comment_name: 'user1',
+    comment_time: '2022.02.15'
+  })
+}
 
 const onSaveDoc = () => {
   // console.log('engine.value: ', engine.value?.getValue());
@@ -316,17 +330,17 @@ const initEngineRole = () => {
   for (let i = 0; i < selectAllNode.length; i++) {
     const selectNode = selectAllNode[i]
     const key = selectAllNode[i].dataset.id
-    // const span = document.createElement('span')
 
-    // span.innerHTML = `<img title="评论111" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 18px; height: 18px; display: none">`
+    const span = document.createElement('span')
+    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; display: none">`
+    selectNode.appendChild(span)
 
     selectNode.style.position = 'relative'
-    // console.log('span----------------->: ', span)
-    // selectNode.appendChild(span)
-
     const imgNode = $(`img[data-id="${key}"].comment`)
 
     imgNode.on('click', () => {
+      currentCommentId.value = key
+      console.log('currentCommentId.value: ', currentCommentId.value)
       showReviseRecord.value = false
       showCommentRecord.value = true
     })
@@ -336,23 +350,31 @@ const initEngineRole = () => {
       imgNode.show()
       console.log('段落获取焦点-----focus: ')
 
-      debugger
-      lastNodeId.value = JSON.stringify(currentNodeId.value)
+      if (!isRevise.value) return
+
+      lastNodeId.value = currentNodeId.value
       currentNodeId.value = selectNode.dataset.id
 
-      console.log('lastNodeId.vaule**********: ', lastNodeId.vaule)
+      const rowInfo = records.value.find(item => (item.id === lastNodeId.value) && item.row_purview)
+      console.log('rowInfo: ', rowInfo)
+      if (rowInfo) {
+        lastNodeId.value = selectNode.dataset.id
+      }
+
+      console.log('lastNodeId.value**********: ', lastNodeId.value)
       console.log('currentNodeId.value**********: ', currentNodeId.value)
 
       if (lastNodeId.value === currentNodeId.value) return
-      if (lastNodeId.vaule !== '') {
+      if (lastNodeId.value) {
+        console.log('111111111')
         let oriLastNodeHtml = document.createElement('div')
         oriLastNodeHtml.innerHTML = defaultContent
-        console.log('oriLastNodeHtml: ', oriLastNodeHtml);
+        console.log('oriLastNodeHtml: ', oriLastNodeHtml)
 
-        const lastNode = document.querySelector(`p[data-id=${lastNodeId.vaule}]`)
-        const oriLastNode = oriLastNodeHtml.querySelector(`p[data-id=${lastNodeId.vaule}]`)
+        const lastNode = document.querySelector(`p[data-id=${lastNodeId.value}]`)
+        const oriLastNode = oriLastNodeHtml.querySelector(`p[data-id=${lastNodeId.value}]`)
 
-        const pattern = /<img title="评论" class="comment".*?(?:>|\/>)/g
+        const pattern = /<span><img title="评论" class="comment".*?(?:>|\/>)<\/span>/g
 
         const lastNodeStr = lastNode?.outerHTML.replace(pattern, '')
         const oriLastNodeStr = oriLastNode?.outerHTML.replace(pattern, '')
@@ -362,27 +384,29 @@ const initEngineRole = () => {
         console.log('lastNodeStr: ', lastNodeStr)
         console.log('oriLastNodeStr: ', oriLastNodeStr)
 
-        if (lastNodeStr && oriLastNodeStr && isRevise.value) {
-          // 生成一条修订记录
-          // records.value.push({
-          //   id: lastNodeId.vaule,
-          //   doc_id: 'doc-110',
-          //   doc_version: 'v1',
-          //   row_history: lastNodeStr,
-          //   row_original: oriLastNodeStr,
-          //   editor_name: 'user1',
-          //   editor_time: '2022.02.15'
-          // })
+        if (lastNodeStr === oriLastNodeStr) return
 
+        if (lastNodeStr && oriLastNodeStr) {
+          // 生成一条修订记录
           records.value.push({
-            id: 'p4ca7b43-ljQkatF3',
+            id: lastNodeId.value,
             doc_id: 'doc-110',
             doc_version: 'v1',
-            row_history: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
-            row_original: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项目工作人员不能满足甲方实际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
+            row_history: lastNodeStr,
+            row_original: oriLastNodeStr,
             editor_name: 'user1',
             editor_time: '2022.02.15'
           })
+
+          // records.value.push({
+          //   id: 'p4ca7b43-ljQkatF3',
+          //   doc_id: 'doc-110',
+          //   doc_version: 'v1',
+          //   row_history: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
+          //   row_original: '<p data-id="p4ca7b43-ljQkatF3" style="text-indent: 2.28571em; position: relative;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">7</span></span><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">．甲方认为乙方选派的项目工作人员不能满足甲方实际需要的，有权书面要求乙方更换人员，乙方在收到甲方书面通知后</span><u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">&nbsp; &nbsp;2&nbsp;&nbsp;&nbsp; </span></u><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">个工作日内，为甲方更换项目工作人员，被更换项目工作人员提供服务期间所产生的费用属于合同总价款的一部分，不因更换项目工作人员而增加合同总价款。若因乙方拖延更换项目工作人员，导致服务进度延迟、期限延长的，乙方按合同约定承担违约责任。</span></p>',
+          //   editor_name: 'user1',
+          //   editor_time: '2022.02.15'
+          // })
 
           console.log('records.value', records.value)
         }
@@ -443,7 +467,7 @@ const loadRecords = async () => {
       id: 'p002deaf-4F18GW8L',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_purview: ['user1', 'user2', 'user3', 'user4'],
+      row_purview: ['user1', 'user2'],
       row_history: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
       row_original: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
       editor_name: 'user1',
@@ -453,7 +477,7 @@ const loadRecords = async () => {
       id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_purview: ['user1', 'user2', 'user3', 'user4'],
+      row_purview: ['user1', 'user2'],
       row_history: '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方按照本合同约定的标准对乙方完成的阶段性工作成果和终极工作成果进行考核、检验的活动。</span></span></p>',
       row_original: '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方暗中本合同约定的标准对乙方完成的城市古工作成果和终极工作成果进行、检验的活动。</span></span></p>',
       editor_name: 'user1',
@@ -468,7 +492,7 @@ const loadComments = async () => {
       id: 'p4ca7b43-EVIOoLyS',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题~</p>',
+      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     },
@@ -476,7 +500,7 @@ const loadComments = async () => {
       id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题~</p>',
+      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     }
