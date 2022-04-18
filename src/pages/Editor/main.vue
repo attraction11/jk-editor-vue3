@@ -151,6 +151,81 @@
         >
       </div>
     </div>
+    <div
+      class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog relative w-auto pointer-events-none">
+        <div
+          class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
+        >
+          <div
+            class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md"
+          >
+            <h4
+              class="text-lg font-medium leading-normal text-gray-800"
+              id="exampleModalLabel"
+            >
+              添加锁定人
+            </h4>
+            <button
+              type="button"
+              class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            />
+          </div>
+          <div class="modal-body relative p-4">
+            <select
+              class="form-select appearance-none
+            block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-normal
+            text-gray-700
+            bg-white bg-clip-padding bg-no-repeat
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              aria-label="Default select example"
+              v-model="lockUser"
+            >
+              <option value="user1">
+                user1
+              </option>
+              <option value="user2">
+                user2
+              </option>
+              <option value="user3">
+                user3
+              </option>
+            </select>
+          </div>
+          <div
+            class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md"
+          >
+            <button
+              type="button"
+              class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
+              data-bs-dismiss="modal"
+              @click="addLockUser"
+            >
+              添加
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -187,6 +262,7 @@ const showCommentRecord = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
 const selectMenu = ref<string>('doc1')
 const selectTab = ref<string>('title')
+const lockUser = ref<string>('')
 
 const lastNodeId = ref<string>('')
 const currentNodeId = ref<string>('')
@@ -230,6 +306,18 @@ const editorWidth = computed(() => {
     }px - ${width}px)`
   }
 })
+
+const addLockUser = () => {
+  console.log('lockUser.value: ', lockUser.value)
+  console.log('currentNodeId.value: ', currentNodeId.value)
+
+  const index = records.value.findIndex(item => item.id === currentNodeId.value)
+  // if (index !== -1) {
+  //   records.value[index]?.row_purview.push(lockUser.value)
+  // } else {
+  //   records.value[index]?.row_purview = [lockUser.value]
+  // }
+}
 
 const addCommentRecord = (value) => {
   comments.value.push({
@@ -355,15 +443,31 @@ const initEngineRole = () => {
 
     const span = document.createElement('span')
 
-    const filterList = comments.value.filter((item) => item.id === key)
+    let iconList = ''
 
-    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${
-      !filterList.length ? 'display: none' : ''
+    const filterLock = records.value.filter((item) => item.row_purview && item.id == key)
+    const title = filterLock.length ? `${filterLock[0].row_purview.join()}允许编辑` : '添加锁定人'
+
+    if (filterLock.length) {
+      console.log('filterLock: ', filterLock[0].row_purview.join())
+      selectNode.setAttribute('contenteditable', false)
+      selectNode.style.userSelect = 'none'
+    }
+    iconList += `<img class="lock" title="${title}"  data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;${
+      !filterLock.length ? 'display: none' : ''
+    }" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`
+
+    const filterComment = comments.value.filter((item) => item.id === key)
+    iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${
+      !filterComment.length ? 'display: none' : ''
     }">`
+
+    span.innerHTML = iconList
     selectNode.appendChild(span)
 
     selectNode.style.position = 'relative'
     const imgCommentNode = $(`img[data-id="${key}"].comment`)
+    const imgLockNode = $(`img[data-id="${key}"].lock`)
 
     imgCommentNode.on('click', () => {
       currentCommentId.value = key
@@ -376,7 +480,22 @@ const initEngineRole = () => {
 
     $(selectNode).on('click', () => {
       $('img.comment').hide()
+      $('img.lock').hide()
+
+      for (let i = 0; i < comments.value.length; i++) {
+        const element = comments.value[i]
+        $(`img.comment[data-id="${element.id}"]`).show()
+      }
+
+      for (let i = 0; i < records.value.length; i++) {
+        const element = records.value[i]
+        if (element.row_purview) {
+          $(`img.lock[data-id="${element.id}"]`).show()
+        }
+      }
+
       imgCommentNode.show()
+      imgLockNode.show()
       // console.log('段落获取焦点-----focus: ')
 
       if (!isRevise.value) return
@@ -449,28 +568,25 @@ const initEngineRole = () => {
 
   for (const [key, value] of Object.entries(allLists)) {
     // console.log('allLists: ', allLists);
-    const selectNode = document.querySelector(
-      `div.am-engine p[data-id="${key}"]`
-    )
-
-    const span = document.createElement('span')
-    let iconList = ''
-
     if (value.row_history) {
+      const selectNode = document.querySelector(
+      `div.am-engine p[data-id="${key}"]`
+      )
+
+      const span = document.createElement('span')
       const list = records.value.filter((item) => item.id === key)
       // console.log('records.value*******', records.value);
       // console.log('key*******: ', key);
-      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -24px;bottom: 7px; cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
+      selectNode.style.position = 'relative'
+      selectNode.appendChild(span)
+      span.innerHTML = `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -24px;bottom: 7px; cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
     }
-    if (value.row_purview) {
-      selectNode.setAttribute('contenteditable', false)
-      selectNode.style.userSelect = 'none'
-      iconList += `<img title="${value.row_purview.join()}允许编辑" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;">`
-    }
-    span.innerHTML = iconList
-
-    selectNode.style.position = 'relative'
-    selectNode.appendChild(span)
+    // if (value.row_purview) {
+    //   selectNode.setAttribute('contenteditable', false)
+    //   selectNode.style.userSelect = 'none'
+    //   iconList += `<img title="${value.row_purview.join()}允许编辑" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;">`
+    // }
+    // span.innerHTML = iconList
 
     $(`span[data-id="${key}"].revise`).on('click', () => {
       showRecords.value = records.value.filter((item) => item.id === key)
