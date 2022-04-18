@@ -529,13 +529,17 @@ const initEngineRole = () => {
         )
 
         const pattern1 =
-          /<span><img title="评论" class="comment".*?(?:>|\/>)<\/span>/g
+          /<img title="评论" class="comment".*?(?:>|\/>)/g
         const pattern2 =
           /<span><span title="修订" class="revise".*?<\/span><\/span>/g
+        const pattern3 = /<img class="lock".*?(?:>|\/>)/g
+        const pattern4 = /<span><\/span>/g
 
         const lastNodeStr = lastNode?.outerHTML
           .replace(pattern1, '')
           .replace(pattern2, '')
+          .replace(pattern3, '')
+          .replace(pattern4, '')
         const oriLastNodeStr = oriLastNode?.outerHTML
 
         oriLastNodeHtml = null
