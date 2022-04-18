@@ -1,13 +1,13 @@
 <template>
   <div
     class="diff-word"
-    :data-id="props.id"
+    ref="diffNode"
     @click="scrollTop(props.id)"
   />
 </template>
 
 <script setup lang="ts" name="diff-html">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps({
   id: {
@@ -28,6 +28,8 @@ const props = defineProps({
 // if (selectNode) {
 //   selectNode.style.textDecoration = 'wavy underline orange'
 // }
+
+const diffNode = ref(null)
 
 const scrollTop = (id) => {
   // selectNode.scrollIntoView()
@@ -59,9 +61,10 @@ onMounted(() => {
     fragment.appendChild(span)
   })
 
-  const diffDom = document.querySelector(`div[data-id="${props.id}"].diff-word`)
-  diffDom.innerHTML = ''
-  diffDom.appendChild(fragment)
+  // const diffDom = document.querySelector(`div[data-id="${props.id}"].diff-word`)
+  // console.log('diffNode.value: ', diffNode.value);
+  diffNode.value.innerHTML = ''
+  diffNode.value.appendChild(fragment)
 })
 </script>
 

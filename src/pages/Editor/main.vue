@@ -1,11 +1,15 @@
 <template>
   <div class="editor-wrap">
-    <header class="h-11 w-full shadow-sm bg-themePrimary flex justify-between  items-center ">
+    <header
+      class="h-11 w-full shadow-sm bg-themePrimary flex justify-between items-center"
+    >
       <div class="ml-4 text-gray-200 flex">
         <span class="w-40 h-9 leading-9 text-base truncate mr-6">东方启明投资综合文档管理应用系统项目技术服务合同</span>
-        <span class="h-9 leading-9">{{ saveLoading ? '保存中...' : '已经保存' }}</span>
+        <span class="h-9 leading-9">{{
+          saveLoading ? "保存中..." : "已经保存"
+        }}</span>
       </div>
-      <div class="flex items-center ">
+      <div class="flex items-center">
         <div class="form-check form-switch">
           <input
             class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
@@ -22,7 +26,7 @@
         </div>
         <span
           @click="onSaveDoc"
-          class="text-white px-8 cursor-pointer  "
+          class="text-white px-8 cursor-pointer"
         >保存文档</span>
         <img
           src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
@@ -32,14 +36,20 @@
       </div>
     </header>
     <div class="flex">
-      <ul class="menu-wrap p-1 mb-0 bg-neutralLight border-r border-neutralQuaternaryAlt">
+      <ul
+        class="menu-wrap p-1 mb-0 bg-neutralLight border-r border-neutralQuaternaryAlt"
+      >
         <template
           v-for="item in menuList"
           :key="item.key"
         >
           <li
             class="mt-2 mb-4 p-1 cursor-pointer hover:bg-gray-300 border-l-2"
-            :class="item.key === selectMenu ? 'border-themePrimary' : 'border-neutralLight'"
+            :class="
+              item.key === selectMenu
+                ? 'border-themePrimary'
+                : 'border-neutralLight'
+            "
             @click="onMenuClick(item.key)"
           >
             <img
@@ -59,13 +69,15 @@
             :key="item.key"
           >
             <li
-              class="cursor-pointer "
+              class="cursor-pointer"
               @click="onTabClick(item.key)"
             >
               <div
                 class="border-b-2 px-2 py-1"
                 :class="
-                  item.key === selectTab ? 'border-themePrimary' : 'border-neutralQuaternaryAlt'
+                  item.key === selectTab
+                    ? 'border-themePrimary'
+                    : 'border-neutralQuaternaryAlt'
                 "
               >
                 {{ item.label }}
@@ -211,9 +223,11 @@ const tabList = [
 ]
 
 const editorWidth = computed(() => {
-  const width = (showReviseRecord.value || showCommentRecord.value) ? 260 : 0
+  const width = showReviseRecord.value || showCommentRecord.value ? 260 : 0
   return {
-    width: `calc(${100}% - ${44}px - ${showList.value ? 260 : 0}px - ${width}px)`
+    width: `calc(${100}% - ${44}px - ${
+      showList.value ? 260 : 0
+    }px - ${width}px)`
   }
 })
 
@@ -227,33 +241,39 @@ const addCommentRecord = (value) => {
     comment_time: '2022.02.15'
   })
 
-  showComments.value = comments.value.filter(item => item.id === currentCommentId.value)
+  showComments.value = comments.value.filter(
+    (item) => item.id === currentCommentId.value
+  )
 }
 
 const onSaveDoc = () => {
-  // console.log('engine.value: ', engine.value?.getValue());
+  console.log('engine.value: ', engine.value?.getValue())
   saveLoading.value = true
   getDocSave({
     id: 'cf2e3104dd904d96bb8ac27c9892ab67',
     content: engine.value?.getValue(),
     modifier: 'hong'
-  }).then((resp) => {
-    saveLoading.value = false
-  }).catch((error) => {
-    console.log('error: ', error)
   })
+    .then((resp) => {
+      saveLoading.value = false
+    })
+    .catch((error) => {
+      console.log('error: ', error)
+    })
 }
 
 const onDocBody = () => {
-  // console.log('container.value: ', String(container.value))
+  console.log('container.value: ', String(container.value))
   saveLoading.value = true
   getDocBody({
     id: '文档ID'
-  }).then((resp) => {
-    saveLoading.value = false
-  }).catch((error) => {
-    console.log('error: ', error)
   })
+    .then((resp) => {
+      saveLoading.value = false
+    })
+    .catch((error) => {
+      console.log('error: ', error)
+    })
 }
 
 interface IProps {
@@ -335,9 +355,11 @@ const initEngineRole = () => {
 
     const span = document.createElement('span')
 
-    const filterList = comments.value.filter(item => item.id === key)
+    const filterList = comments.value.filter((item) => item.id === key)
 
-    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${!filterList.length ? 'display: none' : ''}">`
+    span.innerHTML = `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${
+      !filterList.length ? 'display: none' : ''
+    }">`
     selectNode.appendChild(span)
 
     selectNode.style.position = 'relative'
@@ -347,7 +369,7 @@ const initEngineRole = () => {
       currentCommentId.value = key
       showComments.value = filterList
 
-      console.log('currentCommentId.value: ', currentCommentId.value)
+      // console.log('currentCommentId.value: ', currentCommentId.value)
       showReviseRecord.value = false
       showCommentRecord.value = true
     })
@@ -355,46 +377,57 @@ const initEngineRole = () => {
     $(selectNode).on('click', () => {
       $('img.comment').hide()
       imgCommentNode.show()
-      console.log('段落获取焦点-----focus: ')
+      // console.log('段落获取焦点-----focus: ')
 
       if (!isRevise.value) return
 
       lastNodeId.value = currentNodeId.value
       currentNodeId.value = selectNode.dataset.id
 
-      const rowInfo = records.value.find(item => (item.id === lastNodeId.value) && item.row_purview)
-      console.log('rowInfo: ', rowInfo)
+      const rowInfo = records.value.find(
+        (item) => item.id === lastNodeId.value && item.row_purview
+      )
+      // console.log('rowInfo: ', rowInfo)
       if (rowInfo) {
         lastNodeId.value = selectNode.dataset.id
       }
 
-      console.log('lastNodeId.value**********: ', lastNodeId.value)
-      console.log('currentNodeId.value**********: ', currentNodeId.value)
+      // console.log('lastNodeId.value**********: ', lastNodeId.value)
+      // console.log('currentNodeId.value**********: ', currentNodeId.value)
 
       if (lastNodeId.value === currentNodeId.value) return
       if (lastNodeId.value) {
-        console.log('111111111')
+        // console.log('111111111')
         let oriLastNodeHtml = document.createElement('div')
         oriLastNodeHtml.innerHTML = defaultContent
-        console.log('oriLastNodeHtml: ', oriLastNodeHtml)
+        // console.log('oriLastNodeHtml: ', oriLastNodeHtml)
 
-        const lastNode = document.querySelector(`p[data-id=${lastNodeId.value}]`)
-        const oriLastNode = oriLastNodeHtml.querySelector(`p[data-id=${lastNodeId.value}]`)
+        const lastNode = document.querySelector(
+          `p[data-id=${lastNodeId.value}]`
+        )
+        const oriLastNode = oriLastNodeHtml.querySelector(
+          `p[data-id=${lastNodeId.value}]`
+        )
 
-        const pattern = /<span><img title="评论" class="comment".*?(?:>|\/>)<\/span>/g
+        const pattern1 =
+          /<span><img title="评论" class="comment".*?(?:>|\/>)<\/span>/g
+        const pattern2 =
+          /<span><span title="修订" class="revise".*?<\/span><\/span>/g
 
-        const lastNodeStr = lastNode?.outerHTML.replace(pattern, '')
-        const oriLastNodeStr = oriLastNode?.outerHTML.replace(pattern, '')
+        const lastNodeStr = lastNode?.outerHTML
+          .replace(pattern1, '')
+          .replace(pattern2, '')
+        const oriLastNodeStr = oriLastNode?.outerHTML
 
         oriLastNodeHtml = null
 
-        console.log('lastNodeStr: ', lastNodeStr)
-        console.log('oriLastNodeStr: ', oriLastNodeStr)
+        // console.log('lastNodeStr: ', lastNodeStr)
+        // console.log('oriLastNodeStr: ', oriLastNodeStr)
 
         if (lastNodeStr === oriLastNodeStr) return
         if (lastNodeStr && oriLastNodeStr) {
           // 生成一条修订记录
-          console.log('生成一条修订记录: ')
+          // console.log('生成一条修订记录: ')
           records.value.push({
             id: lastNodeId.value,
             doc_id: 'doc-110',
@@ -405,30 +438,34 @@ const initEngineRole = () => {
             editor_time: '2022.02.15'
           })
 
-          showRecords.value = records.value.filter(item => item.id === lastNodeId.value)
-          console.log('showRecords.value: ', showRecords.value);
+          showRecords.value = records.value.filter(
+            (item) => item.id === lastNodeId.value
+          )
+          // console.log('showRecords.value: ', showRecords.value);
         }
       }
     })
   }
 
   for (const [key, value] of Object.entries(allLists)) {
-    console.log('allLists: ', allLists);
-    const selectNode = document.querySelector(`div.am-engine p[data-id="${key}"]`)
+    // console.log('allLists: ', allLists);
+    const selectNode = document.querySelector(
+      `div.am-engine p[data-id="${key}"]`
+    )
 
     const span = document.createElement('span')
     let iconList = ''
 
     if (value.row_history) {
-      const list = records.value.filter(item => item.id === key)
-      console.log('records.value*******', records.value);
-      console.log('key*******: ', key);
-      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: 10px;bottom: 7px;cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
+      const list = records.value.filter((item) => item.id === key)
+      // console.log('records.value*******', records.value);
+      // console.log('key*******: ', key);
+      iconList += `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -24px;bottom: 7px; cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
     }
     if (value.row_purview) {
       selectNode.setAttribute('contenteditable', false)
       selectNode.style.userSelect = 'none'
-      iconList += `<img title="已被${value.row_purview.join()}锁定" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: -24px;bottom: 6px;cursor: pointer; width: 22px; height: 22px;">`
+      iconList += `<img title="${value.row_purview.join()}允许编辑" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;">`
     }
     span.innerHTML = iconList
 
@@ -436,7 +473,7 @@ const initEngineRole = () => {
     selectNode.appendChild(span)
 
     $(`span[data-id="${key}"].revise`).on('click', () => {
-      showRecords.value = records.value.filter(item => item.id === key)
+      showRecords.value = records.value.filter((item) => item.id === key)
 
       showCommentRecord.value = false
       showReviseRecord.value = true
@@ -461,9 +498,11 @@ const loadRecords = async () => {
       id: 'p002deaf-4F18GW8L',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_purview: ['user1', 'user2'],
-      row_history: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
-      row_original: '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
+      row_purview: ['user2', 'user3'],
+      row_history:
+        '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并支付技术服务报酬。双方经过平等协商，在真实、充分地表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
+      row_original:
+        '<p style="text-indent: 2.28571em; line-height: 2.5;" data-id="p002deaf-4F18GW8L"><span style="font-size: 16px;"><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">甲方委托乙方就<u>&nbsp;&nbsp; 综合文档管理应用系统&nbsp;&nbsp; </u>项目进行专项技术服务，并技术服务报酬。双方经过不平等协商，在表达各自意愿的基础上，根据《中华人民共和国合同法》的规定，达成如下协议，并由双方共同恪守。</span></span></p>',
       editor_name: 'user1',
       editor_time: '2022.02.15'
     },
@@ -471,9 +510,10 @@ const loadRecords = async () => {
       id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_purview: ['user1', 'user2'],
-      row_history: '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方按照本合同约定的标准对乙方完成的阶段性工作成果和终极工作成果进行考核、检验的活动。</span></span></p>',
-      row_original: '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方暗中本合同约定的标准对乙方完成的城市古工作成果和终极工作成果进行、检验的活动。</span></span></p>',
+      row_history:
+        '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方按照本合同约定的标准对乙方完成的阶段性工作成果和终极工作成果进行考核、检验的活动。</span></span></p>',
+      row_original:
+        '<p data-id="p4ca7b43-sg1Kl5bT" style="text-indent: 2.28571em;"><span style="font-size: 16px;"><strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">验收</span></strong><span style="font-family: STSong, 华文宋体, SimSun, &quot;Songti SC&quot;, NSimSun, serif;">：是指甲方暗中本合同约定的标准对乙方完成的城市古工作成果和终极工作成果进行、检验的活动。</span></span></p>',
       editor_name: 'user1',
       editor_time: '2022.02.15'
     }
@@ -486,7 +526,8 @@ const loadComments = async () => {
       id: 'p4ca7b43-EVIOoLyS',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题啊啊啊啊啊啊~</p>',
+      row_comment:
+        '<p style="line-height: 2.5;" data-id="p4ca7b43-EVIOoLyS">这句话有问题啊啊啊啊啊啊~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     },
@@ -494,7 +535,8 @@ const loadComments = async () => {
       id: 'p4ca7b43-sg1Kl5bT',
       doc_id: 'doc-110',
       doc_version: 'v1',
-      row_comment: '<p style="line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题呀呀呀呀呀~</p>',
+      row_comment:
+        '<p style="line-height: 2.5;" data-id="p4ca7b43-sg1Kl5bT">这句话有问题呀呀呀呀呀~</p>',
       comment_name: 'user1',
       comment_time: '2022.02.15'
     }
@@ -505,7 +547,7 @@ onMounted(async () => {
   await loadComments()
   await loadRecords()
   const arrlist = [...records.value, ...comments.value]
-  arrlist.map(item => {
+  arrlist.map((item) => {
     if (allLists[item.id]) {
       allLists[item.id] = Object.assign(allLists[item.id], item)
     } else {
@@ -599,8 +641,8 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.editor-wrap ul.menu-wrap li{
-  width:36px
+.editor-wrap ul.menu-wrap li {
+  width: 36px;
 }
 .editor-ot-users {
   font-size: 12px;
@@ -679,18 +721,18 @@ onUnmounted(() => {
   font-family: 'SimSun, 宋体, "Songti SC", NSimSun, STSong, serif';
 }
 
-.editor-wrap .form-check-input:checked{
+.editor-wrap .form-check-input:checked {
   background-color: #000;
-    border-color: #000;
+  border-color: #000;
 }
 </style>
 <style>
 .editor-content .am-engine p,
-.editor-content .am-engine-view p{
+.editor-content .am-engine-view p {
   padding-right: 70px !important;
 }
 .am-engine tr .table-main-content p,
-.am-engine-view tr .table-main-content p{
+.am-engine-view tr .table-main-content p {
   padding-right: 0px !important;
 }
 </style>
