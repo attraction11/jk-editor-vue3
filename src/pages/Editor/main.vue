@@ -35,9 +35,14 @@
         >
       </div>
     </header>
+    <AmToolbar
+      v-if="engine"
+      :engine="engine"
+      :items="toolbarItems"
+    />
     <div class="flex">
       <ul
-        class="menu-wrap p-1 mb-0 bg-neutralLight border-r border-neutralQuaternaryAlt"
+        class="menu-wrap p-1 mb-0 border-r border-neutralQuaternaryAlt"
       >
         <template
           v-for="item in menuList"
@@ -60,68 +65,62 @@
         </template>
       </ul>
       <div
-        v-show="showList"
-        class="w-64 bg-neutralLighter"
-      >
-        <ul class="mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
-          <template
-            v-for="item in tabList"
-            :key="item.key"
-          >
-            <li
-              class="cursor-pointer"
-              @click="onTabClick(item.key)"
-            >
-              <div
-                class="border-b-2 px-2 py-1"
-                :class="
-                  item.key === selectTab
-                    ? 'border-themePrimary'
-                    : 'border-neutralQuaternaryAlt'
-                "
-              >
-                {{ item.label }}
-              </div>
-            </li>
-          </template>
-        </ul>
-        <div
-          v-show="selectTab === 'title'"
-          class="p-2"
-        >
-          <Directory
-            v-if="engine"
-            :editor="engine"
-          />
-        </div>
-        <div
-          v-show="selectTab === 'image'"
-          class="p-2"
-        >
-          <ImgList
-            v-if="engine"
-            :editor="engine"
-          />
-        </div>
-        <div
-          v-show="selectTab === 'link'"
-          class="p-2"
-        >
-          <linkList
-            v-if="engine"
-            :editor="engine"
-          />
-        </div>
-      </div>
-      <div
         class="editor-content-wrap"
-        :style="editorWidth"
       >
-        <AmToolbar
-          v-if="engine"
-          :engine="engine"
-          :items="toolbarItems"
-        />
+        <div
+          v-show="showList"
+          class="w-80 absolute bg-white"
+        >
+          <ul class="mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
+            <template
+              v-for="item in tabList"
+              :key="item.key"
+            >
+              <li
+                class="cursor-pointer"
+                @click="onTabClick(item.key)"
+              >
+                <div
+                  class="border-b-2 px-2 py-1"
+                  :class="
+                    item.key === selectTab
+                      ? 'border-themePrimary'
+                      : 'border-neutralQuaternaryAlt'
+                  "
+                >
+                  {{ item.label }}
+                </div>
+              </li>
+            </template>
+          </ul>
+          <div
+            v-show="selectTab === 'title'"
+            class="p-2"
+          >
+            <Directory
+              v-if="engine"
+              :editor="engine"
+            />
+          </div>
+          <div
+            v-show="selectTab === 'image'"
+            class="p-2"
+          >
+            <ImgList
+              v-if="engine"
+              :editor="engine"
+            />
+          </div>
+          <div
+            v-show="selectTab === 'link'"
+            class="p-2"
+          >
+            <linkList
+              v-if="engine"
+              :editor="engine"
+            />
+          </div>
+        </div>
         <div :class="['editor-wrapper', { 'editor-mobile': isMobile }]">
           <div class="editor-container text-left">
             <div class="editor-content">
@@ -129,26 +128,26 @@
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="w-64 bg-neutralLighter relative"
-        v-show="showReviseRecord || showCommentRecord"
-      >
-        <ReviseRecord
-          v-show="showReviseRecord"
-          :records="showRecords"
-        />
-        <CommentRecord
-          v-show="showCommentRecord"
-          :comments="showComments"
-          @sumbit="addCommentRecord"
-        />
-        <img
-          :src="iconClose"
-          class="absolute right-1 top-2 cursor-pointer w-5 h-5"
-          alt=""
-          @click="onCloseClick(false, false)"
+        <div
+          class="w-80 bg-neutralLighter absolute top-0 right-11"
+          v-show="showReviseRecord || showCommentRecord"
         >
+          <ReviseRecord
+            v-show="showReviseRecord"
+            :records="showRecords"
+          />
+          <CommentRecord
+            v-show="showCommentRecord"
+            :comments="showComments"
+            @sumbit="addCommentRecord"
+          />
+          <img
+            :src="iconClose"
+            class="absolute right-1 top-2 cursor-pointer w-5 h-5"
+            alt=""
+            @click="onCloseClick(false, false)"
+          >
+        </div>
       </div>
     </div>
     <div
@@ -298,14 +297,14 @@ const tabList = [
   }
 ]
 
-const editorWidth = computed(() => {
-  const width = showReviseRecord.value || showCommentRecord.value ? 260 : 0
-  return {
-    width: `calc(${100}% - ${44}px - ${
-      showList.value ? 260 : 0
-    }px - ${width}px)`
-  }
-})
+// const editorWidth = computed(() => {
+//   const width = showReviseRecord.value || showCommentRecord.value ? 260 : 0
+//   return {
+//     width: `calc(${100}% - ${44}px - ${
+//       showList.value ? 260 : 0
+//     }px - ${width}px)`
+//   }
+// })
 
 const addLockUser = () => {
   console.log('lockUser.value: ', lockUser.value)
@@ -785,9 +784,16 @@ onUnmounted(() => {
   font-size: 14px;
   color: #666;
 }
+.editor-content-wrap{
+  background-color: #f3f4f5;
+  width: 100%;
+  position: relative;
+}
 .editor-wrapper {
   height: calc(var(--vh, 1vh) * 100 - 80px);
   overflow: auto;
+  width: 794px;
+  margin: 0px auto;
 }
 
 .editor-wrapper.editor-mobile {
