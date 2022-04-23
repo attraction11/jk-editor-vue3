@@ -230,6 +230,7 @@ import iconClose from '~/icons/svg/icon_close.svg'
 import iconRevise from '~/icons/svg/icon_revise.svg'
 import iconComment from '~/icons/svg/icon_comment.svg'
 import iconLock from '~/icons/svg/icon_lock.svg'
+import iconChat from '~/icons/svg/icon_chat.svg'
 import Directory from './directory.vue'
 import ImgList from './imgList.vue'
 import linkList from './linkList.vue'
@@ -443,8 +444,8 @@ const initEngineRole = () => {
     const filterComment = comments.value.filter((item) => item.id === key)
     iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}'>`
 
-    span.dataset.id = key
     span.className = 'iconWrap'
+    span.dataset.id = key
     span.style.display = 'none'
     span.innerHTML = iconList
     selectNode.appendChild(span)
@@ -466,7 +467,7 @@ const initEngineRole = () => {
       // console.log('段落获取焦点-----focus: ')
       // $('img.comment').hide()
 
-      $('div.am-engine p').css('backgroundColor', 'transparent')
+      $('div.am-engine p').css('backgroundColor', '')
       selectNode.style.backgroundColor = '#e0eefb'
 
       $('div.am-engine p span.iconWrap').hide()
@@ -523,7 +524,8 @@ const initEngineRole = () => {
           /<span><span title="修订" class="revise".*?<\/span><\/span>/g
         const pattern3 = /<img class="lock".*?(?:>|\/>)/g
         const pattern4 = /<img title="评论" class="chat".*?(?:>|\/>)/g
-        const pattern5 = /<span><\/span>/g
+        const pattern5 = /<span class="iconWrap".*?<\/span>/g
+        const pattern6 = /<span><\/span>/g
 
         const lastNodeStr = lastNode?.outerHTML // 上一个段落当前内容
           .replace(pattern1, '')
@@ -531,6 +533,7 @@ const initEngineRole = () => {
           .replace(pattern3, '')
           .replace(pattern4, '')
           .replace(pattern5, '')
+          .replace(pattern6, '')
         const oriLastNodeStr = oriLastNode?.outerHTML // 上一个段落原始内容
 
         const currentRecord = records.value.filter(
@@ -595,7 +598,7 @@ const initEngineRole = () => {
     )
 
     selectNode.style.position = 'relative'
-    span.innerHTML = `<img title="评论" class="chat" data-id="${comment.id}" src='${iconComment}' style="position: absolute;right: -10px;bottom: 6px; cursor: pointer; width: 20px; height: 20px;" />`
+    span.innerHTML = `<img title="评论" class="chat" data-id="${comment.id}" src='${iconChat}' style="position: absolute;right: -10px;bottom: 4px; cursor: pointer; width: 24px; height: 24px;" />`
     selectNode.appendChild(span)
 
     // 绑定修订图标点击
