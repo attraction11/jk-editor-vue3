@@ -437,16 +437,15 @@ const initEngineRole = () => {
     }
 
     // 锁定图标
-    iconList += `<img class="lock" title="${title}"  data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;${
-      !filterLock.length ? 'display: none' : ''
-    }" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`
+    iconList += `<img class="lock" title="${title}"  data-id="${key}" src='${iconLock}' data-bs-toggle="modal" data-bs-target="#staticBackdrop">`
 
     // 评论图标
     const filterComment = comments.value.filter((item) => item.id === key)
-    iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${
-      !filterComment.length ? 'display: none' : ''
-    }">`
+    iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}'>`
 
+    span.dataset.id = key
+    span.className = 'iconWrap'
+    span.style.display = 'none'
     span.innerHTML = iconList
     selectNode.appendChild(span)
     selectNode.style.position = 'relative'
@@ -465,23 +464,28 @@ const initEngineRole = () => {
 
     $(selectNode).on('click', () => {
       // console.log('段落获取焦点-----focus: ')
-      $('img.comment').hide()
-      $('img.lock').hide()
+      // $('img.comment').hide()
 
-      for (let i = 0; i < comments.value.length; i++) {
-        const element = comments.value[i]
-        $(`img.comment[data-id="${element.id}"]`).show()
-      }
+      $('div.am-engine p').css('backgroundColor', 'transparent')
+      selectNode.style.backgroundColor = '#e0eefb'
 
-      for (let i = 0; i < records.value.length; i++) {
-        const element = records.value[i]
-        if (element.row_purview) {
-          $(`img.lock[data-id="${element.id}"]`).show()
-        }
-      }
+      $('div.am-engine p span.iconWrap').hide()
+      $(`div.am-engine p span.iconWrap[data-id="${key}"`).show()
 
-      imgCommentNode.show()
-      imgLockNode.show()
+      // for (let i = 0; i < comments.value.length; i++) {
+      //   const element = comments.value[i]
+      //   $(`img.comment[data-id="${element.id}"]`).show()
+      // }
+
+      // for (let i = 0; i < records.value.length; i++) {
+      //   const element = records.value[i]
+      //   if (element.row_purview) {
+      //     $(`img.lock[data-id="${element.id}"]`).show()
+      //   }
+      // }
+
+      // imgCommentNode.show()
+      // imgLockNode.show()
 
       // 非修订模式，退出执行
       if (!isReviseMode.value) return
@@ -518,13 +522,15 @@ const initEngineRole = () => {
         const pattern2 =
           /<span><span title="修订" class="revise".*?<\/span><\/span>/g
         const pattern3 = /<img class="lock".*?(?:>|\/>)/g
-        const pattern4 = /<span><\/span>/g
+        const pattern4 = /<img title="评论" class="chat".*?(?:>|\/>)/g
+        const pattern5 = /<span><\/span>/g
 
         const lastNodeStr = lastNode?.outerHTML // 上一个段落当前内容
           .replace(pattern1, '')
           .replace(pattern2, '')
           .replace(pattern3, '')
           .replace(pattern4, '')
+          .replace(pattern5, '')
         const oriLastNodeStr = oriLastNode?.outerHTML // 上一个段落原始内容
 
         const currentRecord = records.value.filter(
@@ -560,25 +566,43 @@ const initEngineRole = () => {
     })
   }
 
-  for (const [key, value] of Object.entries(allLists)) {
+  for (const record of records.value) {
+    const span = document.createElement('span')
     // 初始化修订图标的展示
-    if (value.row_history) {
-      const selectNode = document.querySelector(
-        `div.am-engine p[data-id="${key}"]`
-      )
+    const selectNode = document.querySelector(
+        `div.am-engine p[data-id="${record.id}"]`
+    )
 
-      const span = document.createElement('span')
-      const list = records.value.filter((item) => item.id === key)
-      selectNode.style.position = 'relative'
-      selectNode.appendChild(span)
-      span.innerHTML = `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -24px;bottom: 7px; cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
-    }
+    const list = records.value.filter((item) => item.id === record.id)
+    selectNode.style.position = 'relative'
+    selectNode.appendChild(span)
+    span.innerHTML = `<span title="修订" class="revise" data-id="${record.id}" src='${iconRevise}' style="position: absolute;right: -40px;bottom: 7px; cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
+    // if()
 
     // 绑定修订图标点击
-    $(`span[data-id="${key}"].revise`).on('click', () => {
-      showRecords.value = records.value.filter((item) => item.id === key)
+    $(`span[data-id="${record.id}"].revise`).on('click', () => {
+      showRecords.value = records.value.filter((item) => item.id === record.id)
       showCommentRecord.value = false
       showReviseRecord.value = true
+    })
+  }
+
+  for (const comment of comments.value) {
+    // 初始化评论图标的展示
+    const span = document.createElement('span')
+    const selectNode = document.querySelector(
+        `div.am-engine p[data-id="${comment.id}"]`
+    )
+
+    selectNode.style.position = 'relative'
+    span.innerHTML = `<img title="评论" class="chat" data-id="${comment.id}" src='${iconComment}' style="position: absolute;right: -10px;bottom: 6px; cursor: pointer; width: 20px; height: 20px;" />`
+    selectNode.appendChild(span)
+
+    // 绑定修订图标点击
+    $(`img[data-id="${comment.id}"].chat`).on('click', () => {
+      showRecords.value = comments.value.filter((item) => item.id === comment.id)
+      showCommentRecord.value = true
+      showReviseRecord.value = false
     })
   }
 }
@@ -646,14 +670,14 @@ const autoSave = () => {
 onMounted(async () => {
   await loadComments()
   await loadRecords()
-  const arrlist = [...records.value, ...comments.value]
-  arrlist.map((item) => {
-    if (allLists[item.id]) {
-      allLists[item.id] = Object.assign(allLists[item.id], item)
-    } else {
-      allLists[item.id] = item
-    }
-  })
+  // const arrlist = [...records.value, ...comments.value]
+  // arrlist.map((item) => {
+  //   if (allLists[item.id]) {
+  //     allLists[item.id] = Object.assign(allLists[item.id], item)
+  //   } else {
+  //     allLists[item.id] = item
+  //   }
+  // })
 
   initEngineRole()
 })
@@ -785,6 +809,7 @@ onUnmounted(() => {
 .editor-content {
   height: 100%;
   background: white;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -826,10 +851,26 @@ onUnmounted(() => {
 <style>
 .editor-content .am-engine p,
 .editor-content .am-engine-view p {
-  padding-right: 70px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 .am-engine tr .table-main-content p,
 .am-engine-view tr .table-main-content p {
   padding-right: 0px !important;
+}
+.editor-content .am-engine p span.iconWrap,
+.editor-content .am-engine-view p span.iconWrap{
+  position: absolute;
+  right: 0;
+  top: -32px;
+  cursor: pointer;
+  width: 20px;
+  display: flex;
+  width: 72px;
+  justify-content: space-around;
+  background-color: white;
+  padding: 5px 2px;
+  border-radius: 3px 3px 0 3px;
+  box-shadow: -3px 3px 8px 0px rgb(170 170 170 / 60%);
 }
 </style>
