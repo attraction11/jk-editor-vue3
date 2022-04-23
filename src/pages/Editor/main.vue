@@ -15,8 +15,8 @@
             class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
             type="checkbox"
             role="switch"
-            :disabled="isRevise"
-            v-model="isRevise"
+            :disabled="isReviseMode"
+            v-model="isReviseMode"
             id="flexSwitchCheckDefault"
           >
           <label
@@ -41,9 +41,7 @@
       :items="toolbarItems"
     />
     <div class="flex">
-      <ul
-        class="menu-wrap p-1 mb-0 border-r border-neutralQuaternaryAlt"
-      >
+      <ul class="menu-wrap p-1 mb-0 border-r border-neutralQuaternaryAlt">
         <template
           v-for="item in menuList"
           :key="item.key"
@@ -64,11 +62,9 @@
           </li>
         </template>
       </ul>
-      <div
-        class="editor-content-wrap"
-      >
+      <div class="editor-content-wrap">
         <div
-          v-show="showList"
+          v-show="showMenuList"
           class="w-80 absolute bg-white"
         >
           <ul class="mx-1 mb-2 h-9 p-1 text-black text-opacity-70 text-sm flex">
@@ -181,21 +177,7 @@
           </div>
           <div class="modal-body relative p-4">
             <select
-              class="form-select appearance-none
-            block
-            w-full
-            px-3
-            py-1.5
-            text-base
-            font-normal
-            text-gray-700
-            bg-white bg-clip-padding bg-no-repeat
-            border border-solid border-gray-300
-            rounded
-            transition
-            ease-in-out
-            m-0
-            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               aria-label="Default select example"
               v-model="lockUser"
             >
@@ -254,18 +236,18 @@ import linkList from './linkList.vue'
 
 import { getDocSave, getDocBody } from '~/api/home'
 
-const showList = ref<boolean>(false)
-const isRevise = ref<boolean>(false)
+const isReviseMode = ref<boolean>(false) // 是否修订模式
+const showMenuList = ref<boolean>(false)
 const showReviseRecord = ref<boolean>(false)
 const showCommentRecord = ref<boolean>(false)
 const saveLoading = ref<boolean>(false)
-const selectMenu = ref<string>('doc1')
-const selectTab = ref<string>('title')
-const lockUser = ref<string>('')
+const selectMenu = ref<string>('doc1') // 默认选中菜单
+const selectTab = ref<string>('title') // 默认选中Tab
+const lockUser = ref<string>('') // 添加段落锁定人
 
-const lastNodeId = ref<string>('')
-const currentNodeId = ref<string>('')
-const currentCommentId = ref<string>('')
+const lastNodeId = ref<string>('') // 上个段落id,用于保存(修订模式)
+const currentNodeId = ref<string>('') // 当前段落id，用于记录(修订模式)
+const currentCommentId = ref<string>('') //
 
 const menuList = [
   {
@@ -297,72 +279,6 @@ const tabList = [
   }
 ]
 
-// const editorWidth = computed(() => {
-//   const width = showReviseRecord.value || showCommentRecord.value ? 260 : 0
-//   return {
-//     width: `calc(${100}% - ${44}px - ${
-//       showList.value ? 260 : 0
-//     }px - ${width}px)`
-//   }
-// })
-
-const addLockUser = () => {
-  console.log('lockUser.value: ', lockUser.value)
-  console.log('currentNodeId.value: ', currentNodeId.value)
-
-  const index = records.value.findIndex(item => item.id === currentNodeId.value)
-  // if (index !== -1) {
-  //   records.value[index]?.row_purview.push(lockUser.value)
-  // } else {
-  //   records.value[index]?.row_purview = [lockUser.value]
-  // }
-}
-
-const addCommentRecord = (value) => {
-  comments.value.push({
-    id: currentCommentId.value,
-    doc_id: 'doc-110',
-    doc_version: 'v1',
-    row_comment: `<p style="line-height: 2.5;" data-id=${currentCommentId.value}>${value}</p>`,
-    comment_name: 'user1',
-    comment_time: '2022.02.15'
-  })
-
-  showComments.value = comments.value.filter(
-    (item) => item.id === currentCommentId.value
-  )
-}
-
-const onSaveDoc = () => {
-  console.log('engine.value: ', engine.value?.getValue())
-  saveLoading.value = true
-  getDocSave({
-    id: 'cf2e3104dd904d96bb8ac27c9892ab67',
-    content: engine.value?.getValue(),
-    modifier: 'hong'
-  })
-    .then((resp) => {
-      saveLoading.value = false
-    })
-    .catch((error) => {
-      console.log('error: ', error)
-    })
-}
-
-const onDocBody = () => {
-  console.log('container.value: ', String(container.value))
-  saveLoading.value = true
-  getDocBody({
-    id: '文档ID'
-  })
-    .then((resp) => {
-      saveLoading.value = false
-    })
-    .catch((error) => {
-      console.log('error: ', error)
-    })
-}
-
 interface IProps {
   modelValue?: string;
   styleOption?: Partial<StyleOption>;
@@ -376,8 +292,6 @@ const props = withDefaults(defineProps<IProps>(), {
   customToolbarItems: () => [],
   styleOption: () => ({})
 })
-
-const styles = ref<StyleOption>({ ...getDefaultStyle(), ...props.styleOption })
 
 const toolbarItems = ref<GroupItemProps[]>([
   ...props.items,
@@ -406,56 +320,128 @@ defineExpose({
   container
 })
 
+// 添加锁定人
+const addLockUser = () => {
+  console.log('lockUser.value: ', lockUser.value)
+  console.log('currentNodeId.value: ', currentNodeId.value)
+
+  const index = records.value.findIndex(
+    (item) => item.id === currentNodeId.value
+  )
+  // if (index !== -1) {
+  //   records.value[index]?.row_purview.push(lockUser.value)
+  // } else {
+  //   records.value[index]?.row_purview = [lockUser.value]
+  // }
+}
+
+// 添加评论记录
+const addCommentRecord = (value) => {
+  comments.value.push({
+    id: currentCommentId.value,
+    doc_id: 'doc-110',
+    doc_version: 'v1',
+    row_comment: `<p style="line-height: 2.5;" data-id=${currentCommentId.value}>${value}</p>`,
+    comment_name: 'user1',
+    comment_time: '2022.02.15'
+  })
+
+  showComments.value = comments.value.filter(
+    (item) => item.id === currentCommentId.value
+  )
+}
+
+// 主动保存文档
+const onSaveDoc = () => {
+  console.log('engine.value: ', engine.value?.getValue())
+  saveLoading.value = true
+  getDocSave({
+    id: 'cf2e3104dd904d96bb8ac27c9892ab67',
+    content: engine.value?.getValue(),
+    modifier: 'hong'
+  })
+    .then((resp) => {
+      saveLoading.value = false
+    })
+    .catch((error) => {
+      console.log('error: ', error)
+    })
+}
+
+// 根据文档id获取文档内容
+const onDocBody = () => {
+  console.log('container.value: ', String(container.value))
+  saveLoading.value = true
+  getDocBody({
+    id: '文档ID'
+  })
+    .then((resp) => {
+      saveLoading.value = false
+    })
+    .catch((error) => {
+      console.log('error: ', error)
+    })
+}
+
+// 切换左侧菜单
 const onMenuClick = (value: string) => {
   selectMenu.value = value
   if (value === 'doc1') {
-    showList.value = !showList.value
+    showMenuList.value = !showMenuList.value
   } else {
-    showList.value = false
+    showMenuList.value = false
   }
 }
 
+// 菜单Tab点击切换
 const onTabClick = (value: string) => {
   selectTab.value = value
 }
 
+// 关闭左侧评论、修订列表
 const onCloseClick = (value1: boolean, value2: boolean) => {
   showReviseRecord.value = value1
   showCommentRecord.value = value2
 }
 
-// 处理文章段落的编辑权限
+const records = ref([])
+const showRecords = ref([])
+const comments = ref([])
+const showComments = ref([])
+const allLists = reactive([])
+
+// 处理文章段落的编辑和图标点击
 const initEngineRole = () => {
   const selectRoot = document.querySelector('div.am-engine')
-  // selectRoot.setAttribute('contenteditable', false)
-  // selectRoot.style.userSelect = 'none'
-
-  // selectNode.setAttribute('contenteditable', true)
-  // selectNode.style.userSelect = ''
-
   const list = document.querySelectorAll('div.am-engine p')
   const selectAllNode = Array.from(new Set(list))
 
   for (let i = 0; i < selectAllNode.length; i++) {
     const selectNode = selectAllNode[i]
     const key = selectAllNode[i].dataset.id
-
     const span = document.createElement('span')
 
     let iconList = ''
 
-    const filterLock = records.value.filter((item) => item.row_purview && item.id == key)
-    const title = filterLock.length ? `${filterLock[0].row_purview.join()}允许编辑` : '添加锁定人'
+    // 显示锁定人提示
+    const filterLock = records.value.filter(
+      (item) => item.row_purview && item.id == key
+    )
+    const title = filterLock.length
+      ? `${filterLock[0].row_purview.join()}允许编辑`
+      : '添加锁定人'
 
     if (filterLock.length) {
-      console.log('filterLock: ', filterLock[0].row_purview.join())
       selectNode.setAttribute('contenteditable', false)
       selectNode.style.userSelect = 'none'
     }
+
+    // 锁定图标
     iconList += `<img class="lock" title="${title}"  data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;${
       !filterLock.length ? 'display: none' : ''
     }" data-bs-toggle="modal" data-bs-target="#staticBackdrop">`
 
+    // 评论图标
     const filterComment = comments.value.filter((item) => item.id === key)
     iconList += `<img title="评论" class="comment" data-id="${key}" src='${iconComment}' style="position: absolute;right: 40px;bottom: 6px;cursor: pointer; width: 20px; height: 20px; ${
       !filterComment.length ? 'display: none' : ''
@@ -463,21 +449,22 @@ const initEngineRole = () => {
 
     span.innerHTML = iconList
     selectNode.appendChild(span)
-
     selectNode.style.position = 'relative'
+
     const imgCommentNode = $(`img[data-id="${key}"].comment`)
     const imgLockNode = $(`img[data-id="${key}"].lock`)
 
+    // 绑定评论图标点击
     imgCommentNode.on('click', () => {
       currentCommentId.value = key
-      showComments.value = filterList
+      showComments.value = filterComment
 
-      // console.log('currentCommentId.value: ', currentCommentId.value)
       showReviseRecord.value = false
       showCommentRecord.value = true
     })
 
     $(selectNode).on('click', () => {
+      // console.log('段落获取焦点-----focus: ')
       $('img.comment').hide()
       $('img.lock').hide()
 
@@ -495,17 +482,18 @@ const initEngineRole = () => {
 
       imgCommentNode.show()
       imgLockNode.show()
-      // console.log('段落获取焦点-----focus: ')
 
-      if (!isRevise.value) return
+      // 非修订模式，退出执行
+      if (!isReviseMode.value) return
 
+      // 记录上个段落id 、当前段落id
       lastNodeId.value = currentNodeId.value
       currentNodeId.value = selectNode.dataset.id
 
+      // 从记录中筛选出上个段落id的记录
       const rowInfo = records.value.find(
         (item) => item.id === lastNodeId.value && item.row_purview
       )
-      // console.log('rowInfo: ', rowInfo)
       if (rowInfo) {
         lastNodeId.value = selectNode.dataset.id
       }
@@ -513,9 +501,10 @@ const initEngineRole = () => {
       // console.log('lastNodeId.value**********: ', lastNodeId.value)
       // console.log('currentNodeId.value**********: ', currentNodeId.value)
 
+      // 当前操作段落和上一个段落是同一个段落，退出执行
       if (lastNodeId.value === currentNodeId.value) return
+      // 当前操作段落和上一个段落不是同一个
       if (lastNodeId.value) {
-        // console.log('111111111')
         let oriLastNodeHtml = document.createElement('div')
         oriLastNodeHtml.innerHTML = defaultContent
         // console.log('oriLastNodeHtml: ', oriLastNodeHtml)
@@ -527,28 +516,23 @@ const initEngineRole = () => {
           `p[data-id=${lastNodeId.value}]`
         )
 
-        const pattern1 =
-          /<img title="评论" class="comment".*?(?:>|\/>)/g
+        // 过滤上一个段落当前内容中的无关图标dom元素
+        const pattern1 = /<img title="评论" class="comment".*?(?:>|\/>)/g
         const pattern2 =
           /<span><span title="修订" class="revise".*?<\/span><\/span>/g
         const pattern3 = /<img class="lock".*?(?:>|\/>)/g
         const pattern4 = /<span><\/span>/g
 
-        const lastNodeStr = lastNode?.outerHTML
+        const lastNodeStr = lastNode?.outerHTML // 上一个段落当前内容
           .replace(pattern1, '')
           .replace(pattern2, '')
           .replace(pattern3, '')
           .replace(pattern4, '')
-        const oriLastNodeStr = oriLastNode?.outerHTML
+        const oriLastNodeStr = oriLastNode?.outerHTML // 上一个段落原始内容
 
-        oriLastNodeHtml = null
-
-        // console.log('lastNodeStr: ', lastNodeStr)
-        // console.log('oriLastNodeStr: ', oriLastNodeStr)
-
-        if (lastNodeStr === oriLastNodeStr) return
+        oriLastNodeHtml = null // 清空动态创建dom
+        if (lastNodeStr === oriLastNodeStr) return // 对比无差异，退出执行
         if (lastNodeStr && oriLastNodeStr) {
-          // 生成一条修订记录
           // console.log('生成一条修订记录: ')
           records.value.push({
             id: lastNodeId.value,
@@ -560,56 +544,37 @@ const initEngineRole = () => {
             editor_time: '2022.02.15'
           })
 
+          // 展示当前段落，关联的修订记录
           showRecords.value = records.value.filter(
             (item) => item.id === lastNodeId.value
           )
-          // console.log('showRecords.value: ', showRecords.value);
         }
       }
     })
   }
 
   for (const [key, value] of Object.entries(allLists)) {
-    // console.log('allLists: ', allLists);
+    // 初始化修订图标的展示
     if (value.row_history) {
       const selectNode = document.querySelector(
-      `div.am-engine p[data-id="${key}"]`
+        `div.am-engine p[data-id="${key}"]`
       )
 
       const span = document.createElement('span')
       const list = records.value.filter((item) => item.id === key)
-      // console.log('records.value*******', records.value);
-      // console.log('key*******: ', key);
       selectNode.style.position = 'relative'
       selectNode.appendChild(span)
       span.innerHTML = `<span title="修订" class="revise" data-id="${key}" src='${iconRevise}' style="position: absolute;right: -24px;bottom: 7px; cursor: pointer; width: 20px; height: 20px; line-height: 20px; border: 1px solid #333;	border-radius: 50%; text-align: center; text-indent:0">${list.length}</span>`
     }
-    // if (value.row_purview) {
-    //   selectNode.setAttribute('contenteditable', false)
-    //   selectNode.style.userSelect = 'none'
-    //   iconList += `<img title="${value.row_purview.join()}允许编辑" class="lock" data-id="${key}" src='${iconLock}' style="position: absolute;right: 10px;bottom: 7px; cursor: pointer; width: 22px; height: 22px;">`
-    // }
-    // span.innerHTML = iconList
 
+    // 绑定修订图标点击
     $(`span[data-id="${key}"].revise`).on('click', () => {
       showRecords.value = records.value.filter((item) => item.id === key)
-
       showCommentRecord.value = false
       showReviseRecord.value = true
     })
-
-    // $(`img[data-id="${key}"].comment`).on('click', () => {
-    //   showReviseRecord.value = false
-    //   showCommentRecord.value = true
-    // })
   }
 }
-
-const records = ref([])
-const showRecords = ref([])
-const comments = ref([])
-const showComments = ref([])
-const allLists = reactive([])
 
 const loadRecords = async () => {
   records.value = await [
@@ -660,6 +625,15 @@ const loadComments = async () => {
       comment_time: '2022.02.15'
     }
   ]
+}
+
+// 60秒内无更改自动保存
+const saveTimeout = ref(null)
+const autoSave = () => {
+  if (saveTimeout.value) clearTimeout(saveTimeout.value)
+  saveTimeout.value = setTimeout(() => {
+    onSaveDoc()
+  }, 60000)
 }
 
 onMounted(async () => {
@@ -744,16 +718,6 @@ onMounted(() => {
   }
 })
 
-const saveTimeout = ref(null)
-
-// 60秒内无更改自动保存
-const autoSave = () => {
-  if (saveTimeout.value) clearTimeout(saveTimeout.value)
-  saveTimeout.value = setTimeout(() => {
-    onSaveDoc()
-  }, 60000)
-}
-
 onUnmounted(() => {
   if (engine.value) engine.value.destroy()
 })
@@ -784,7 +748,7 @@ onUnmounted(() => {
   font-size: 14px;
   color: #666;
 }
-.editor-content-wrap{
+.editor-content-wrap {
   background-color: #f3f4f5;
   width: 100%;
   position: relative;
