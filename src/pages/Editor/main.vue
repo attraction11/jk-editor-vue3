@@ -498,9 +498,6 @@ const initEngineRole = () => {
         lastNodeId.value = selectNode.dataset.id
       }
 
-      // console.log('lastNodeId.value**********: ', lastNodeId.value)
-      // console.log('currentNodeId.value**********: ', currentNodeId.value)
-
       // 当前操作段落和上一个段落是同一个段落，退出执行
       if (lastNodeId.value === currentNodeId.value) return
       // 当前操作段落和上一个段落不是同一个
@@ -529,6 +526,16 @@ const initEngineRole = () => {
           .replace(pattern3, '')
           .replace(pattern4, '')
         const oriLastNodeStr = oriLastNode?.outerHTML // 上一个段落原始内容
+
+        const currentRecord = records.value.filter(
+          (item) => item.id === lastNodeId.value
+        )
+
+        // 若当前段落没有做修改，则退出执行
+        if (currentRecord.length) {
+          const lastRecordHistory = currentRecord.reverse()[0].row_history
+          if (lastNodeStr === lastRecordHistory) return
+        }
 
         oriLastNodeHtml = null // 清空动态创建dom
         if (lastNodeStr === oriLastNodeStr) return // 对比无差异，退出执行
